@@ -35,6 +35,21 @@ public class Olivero {
                     speak(taskList.toString());
                     break;
                 }
+                case "mark": {
+                    int taskNumber = Integer.parseInt(arguments[1]);
+                    taskList.markTaskAt(taskNumber);
+                    speak("Cool! I've marked this task as done: \n " +
+                            taskList.getTaskDescription(taskNumber));
+
+                    break;
+                }
+                case "unmark": {
+                    int taskNumber = Integer.parseInt(arguments[1]);
+                    taskList.unmarkTaskAt(taskNumber);
+                    speak("Alright, I've un-marked this task: \n " +
+                            taskList.getTaskDescription(taskNumber));
+                    break;
+                }
                 case END_TOKEN: {
                     speak(EXIT_MESSAGE);
                     finished = true;

@@ -10,7 +10,29 @@ public class TaskList {
   public void addTask(Task task) {
     tasks.add(task);
   }
+  public String getTaskDescription(int taskNumber) {
+    if (taskNumber <= 0 || taskNumber > tasks.size()) {
+      // TODO: handle this edge case
+      return "";
+    }
+    return tasks.get(taskNumber - 1).toString();
+  }
 
+  public void markTaskAt(int taskNumber) {
+    if (taskNumber <= 0 || taskNumber > tasks.size()) {
+      // TODO: handle this edge case
+      return;
+    }
+    tasks.get(taskNumber - 1).setDone(true);
+  }
+
+  public void unmarkTaskAt(int taskNumber) {
+    if (taskNumber <= 0 || taskNumber > tasks.size()) {
+      // TODO: handle this edge case
+      return;
+    }
+    tasks.get(taskNumber - 1).setDone(false);
+  }
   @Override
   public String toString() {
     StringBuilder message = new StringBuilder();
