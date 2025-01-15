@@ -1,10 +1,10 @@
 public class Olivero {
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        String name = "Olivero";
+        System.out.println("---------------------------------------");
+        System.out.println("Howdy-do! I'm " + name);
+        System.out.println("What can I do for you?\n");
+        System.out.println("---------------------------------------");
+        System.out.println("Bye. Hope to see you again soon!\n");
     }
 }
