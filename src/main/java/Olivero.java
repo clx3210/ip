@@ -26,8 +26,9 @@ public class Olivero {
             String[] arguments = line.split("\\s+", 2);
             switch(arguments[0]) {
                 case "read", "return" : {
-                    taskList.addTask(line);
-                    speak("added: " + line);
+                    Task task = new Task(line, false);
+                    taskList.addTask(task);
+                    speak("added: " + task);
                     break;
                 }
                 case "list": {

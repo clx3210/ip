@@ -2,22 +2,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TaskList {
-  private final List<String> texts;
+  private final List<Task> tasks;
   public TaskList() {
-    texts = new ArrayList<>();
+    tasks = new ArrayList<>();
   }
 
-  public void addTask(String task) {
-    texts.add(task);
+  public void addTask(Task task) {
+    tasks.add(task);
   }
 
   @Override
   public String toString() {
     StringBuilder message = new StringBuilder();
-    for (int i = 1; i <= texts.size(); i++) {
+    for (int i = 1; i <= tasks.size(); i++) {
       message.append(i)
              .append(". ")
-             .append(texts.get(i - 1))
+             .append(tasks.get(i - 1))
              .append("\n");
     }
     return message.toString();
