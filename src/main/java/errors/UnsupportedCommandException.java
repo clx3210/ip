@@ -1,4 +1,4 @@
 package errors;
 
-public class UnsupportedCommandException extends Exception {
+public class UnsupportedCommandException extends RuntimeException{
 }

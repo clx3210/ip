@@ -106,47 +106,47 @@ public class Olivero {
             String line = scanner.nextLine();
             try {
                 int idx = line.indexOf(" ");
-                String command = idx > -1 ? line.substring(0, idx) : line;
+                CommandType command = CommandType.asCommandType(idx > -1 ? line.substring(0, idx) : line);
                 String argumentString = idx > -1 ? line.substring(idx) : line;
 
                 switch (command) {
-                case "todo": {
+                case TODO: {
                     Task task = parseToDoTask(argumentString);
                     taskList.addTask(task);
                     speak(generateTaskResponse(task, taskList));
                     break;
                 }
-                case "deadline": {
+                case DEADLINE: {
                     Task task = parseDeadlineTask(argumentString);
                     taskList.addTask(task);
                     speak(generateTaskResponse(task, taskList));
                     break;
                 }
-                case "event": {
+                case EVENT: {
                     Task task = parseEventTask(argumentString);
                     taskList.addTask(task);
                     speak(generateTaskResponse(task, taskList));
                     break;
                 }
-                case "list": {
+                case LIST: {
                     speak("Here are the tasks in your list:\n" + taskList);
                     break;
                 }
-                case "mark": {
+                case MARK: {
                     int taskNumber = Integer.parseInt(argumentString.strip());
                     taskList.markTaskAt(taskNumber);
                     speak("Cool! I've marked this task as done: \n " +
                             taskList.getTaskDescription(taskNumber));
                     break;
                 }
-                case "unmark": {
+                case UNMARK: {
                     int taskNumber = Integer.parseInt(argumentString.strip());
                     taskList.unmarkTaskAt(taskNumber);
                     speak("Alright, I've un-marked this task: \n " +
                             taskList.getTaskDescription(taskNumber));
                     break;
                 }
-                case "delete": {
+                case DELETE: {
                     int taskNumber = Integer.parseInt(argumentString.strip());
                     Task removedTask = taskList.removeTaskAt(taskNumber);
                     // TODO: merge below into generateTaskResponse
@@ -156,13 +156,10 @@ public class Olivero {
                             + taskList.getTaskSize() + " task(s) in the list.");
                     break;
                 }
-                case END_TOKEN: {
+                case BYE: {
                     speak(EXIT_MESSAGE);
                     finished = true;
                     break;
-                }
-                default: {
-                    throw new UnsupportedCommandException();
                 }
                 }
             } catch (TaskParseException e) {
