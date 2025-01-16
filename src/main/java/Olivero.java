@@ -1,7 +1,6 @@
 import errors.TaskParseException;
 import errors.UnsupportedCommandException;
 
-import java.text.ParseException;
 import java.util.Scanner;
 
 public class Olivero {
@@ -28,10 +27,9 @@ public class Olivero {
 
     public static String generateTaskResponse(Task task, TaskList taskList) {
         int numTasks = taskList.getTaskSize();
-        String pluraliseTask = numTasks != 1 ? "tasks" : "task";
         return "Got it. I've added this task:\n  " + task
                 + "\nNow you have " + taskList.getTaskSize()
-                + " " + pluraliseTask + " in the list.";
+                + " " + "task(s) in the list.";
     }
 
     private static Event parseEventTask(String argumentString) throws TaskParseException  {
@@ -135,18 +133,27 @@ public class Olivero {
                     break;
                 }
                 case "mark": {
-                    int taskNumber = Integer.parseInt(argumentString);
+                    int taskNumber = Integer.parseInt(argumentString.strip());
                     taskList.markTaskAt(taskNumber);
                     speak("Cool! I've marked this task as done: \n " +
                             taskList.getTaskDescription(taskNumber));
-
                     break;
                 }
                 case "unmark": {
-                    int taskNumber = Integer.parseInt(argumentString);
+                    int taskNumber = Integer.parseInt(argumentString.strip());
                     taskList.unmarkTaskAt(taskNumber);
                     speak("Alright, I've un-marked this task: \n " +
                             taskList.getTaskDescription(taskNumber));
+                    break;
+                }
+                case "delete": {
+                    int taskNumber = Integer.parseInt(argumentString.strip());
+                    Task removedTask = taskList.removeTaskAt(taskNumber);
+                    // TODO: merge below into generateTaskResponse
+                    speak("OK, I've removed this task: \n "
+                            + removedTask
+                            + "\nNow you have "
+                            + taskList.getTaskSize() + " task(s) in the list.");
                     break;
                 }
                 case END_TOKEN: {

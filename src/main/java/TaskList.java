@@ -20,6 +20,14 @@ public class TaskList {
         return tasks.get(taskNumber - 1).toString();
     }
 
+    public Task removeTaskAt(int taskNumber) {
+        if (taskNumber <= 0 || taskNumber > tasks.size()) {
+            throw new IllegalArgumentException("No task with task number "
+                    + taskNumber + " exists...");
+        }
+        return tasks.remove(taskNumber - 1);
+    }
+
     public void markTaskAt(int taskNumber) {
         if (taskNumber <= 0 || taskNumber > tasks.size()) {
             throw new IllegalArgumentException("No task with task number "
