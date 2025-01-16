@@ -14,24 +14,24 @@ public class TaskList {
 
     public String getTaskDescription(int taskNumber) {
         if (taskNumber <= 0 || taskNumber > tasks.size()) {
-            // TODO: handle this edge case
-            return "";
+            throw new IllegalArgumentException("No task with task number "
+                    + taskNumber + " exists...");
         }
         return tasks.get(taskNumber - 1).toString();
     }
 
     public void markTaskAt(int taskNumber) {
         if (taskNumber <= 0 || taskNumber > tasks.size()) {
-            // TODO: handle this edge case
-            return;
+            throw new IllegalArgumentException("No task with task number "
+                    + taskNumber + " exists...");
         }
         tasks.get(taskNumber - 1).setDone(true);
-    }
+   }
 
     public void unmarkTaskAt(int taskNumber) {
         if (taskNumber <= 0 || taskNumber > tasks.size()) {
-            // TODO: handle this edge case
-            return;
+            throw new IllegalArgumentException("No task with task number "
+                    + taskNumber + " exists...");
         }
         tasks.get(taskNumber - 1).setDone(false);
     }
