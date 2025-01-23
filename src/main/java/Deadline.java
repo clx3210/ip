@@ -1,6 +1,8 @@
+import java.time.LocalDateTime;
+
 public class Deadline extends Task {
-    private String endDate;
-    public Deadline(String description, String endDate, boolean isDone) {
+    private LocalDateTime endDate;
+    public Deadline(String description, LocalDateTime endDate, boolean isDone) {
         super(description, isDone);
         this.endDate = endDate;
     }
@@ -8,11 +10,13 @@ public class Deadline extends Task {
     @Override
     public String toFormattedString() {
        int doneStatus = isDone() ? 1 : 0;
-       return "D" + " | " + doneStatus + " | " + getDescription() + " | " + endDate;
+       String dateString = DateParser.asInputDateString(endDate);
+       return "D" + " | " + doneStatus + " | " + getDescription() + " | " + dateString;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + endDate + ")";
+        String dateString = DateParser.asDisplayDateString(endDate);
+        return "[D]" + super.toString() + " (by: " + dateString + ")";
     }
 }

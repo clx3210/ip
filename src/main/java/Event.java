@@ -1,7 +1,9 @@
+import java.time.LocalDateTime;
+
 public class Event extends Task {
-    private String startDate;
-    private String endDate;
-    public Event(String description, String startDate, String endDate, boolean isDone) {
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
+    public Event(String description, LocalDateTime startDate, LocalDateTime endDate, boolean isDone) {
         super(description, isDone);
         this.startDate = startDate;
         this.endDate = endDate;
@@ -9,13 +11,20 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + startDate
-                + " to: " + endDate + ")";
+        String endDateString = DateParser.asDisplayDateString(endDate);
+        String startDateString = DateParser.asDisplayDateString(startDate);
+
+        return "[E]" + super.toString() + " (from: " + startDateString
+                + " to: " + endDateString + ")";
     }
 
     @Override
     public String toFormattedString() {
         int doneStatus = isDone() ? 1 : 0;
-        return "E" + " | " + doneStatus + " | " + getDescription() + " | " + startDate + " | " + endDate;
+        String startDateString = DateParser.asInputDateString(startDate);
+        String endDateString = DateParser.asInputDateString(endDate);
+
+        return "E" + " | " + doneStatus + " | " + getDescription() + " | "
+                + startDateString + " | " + endDateString;
     }
 }
