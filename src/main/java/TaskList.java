@@ -48,6 +48,14 @@ public class TaskList {
         return tasks.size();
     }
 
+    public String asFormattedString() {
+        StringBuilder serialised = new StringBuilder();
+        for (Task task : tasks) {
+            serialised.append(task.toFormattedString()).append('\n');
+        }
+        return serialised.toString();
+    }
+
     @Override
     public String toString() {
         StringBuilder message = new StringBuilder();
