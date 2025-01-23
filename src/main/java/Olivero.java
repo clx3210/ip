@@ -1,7 +1,10 @@
-import errors.TaskParseException;
+import errors.CommandParseException;
 import errors.UnsupportedCommandException;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class Olivero {
 
@@ -32,13 +35,13 @@ public class Olivero {
                 + " " + "task(s) in the list.";
     }
 
-    private static Event parseEventTask(String argumentString) throws TaskParseException  {
+    private static Event parseEventCommand(String argumentString) throws CommandParseException {
         int fromStartId = argumentString.indexOf(FROM_TOKEN);
         if (fromStartId == -1) {
             String errorMessage = """
                         Oh no!? Did you correctly specify the "/from <start date>" of the event?
                         Example usage: event <description> /from <start date> /to <end date>""";
-            throw new TaskParseException(errorMessage);
+            throw new CommandParseException(errorMessage);
         }
         int fromEndId = fromStartId + FROM_TOKEN.length();
 
@@ -47,14 +50,14 @@ public class Olivero {
             String errorMessage = """
                         Oh no!? Did you correctly specify the "/to <end date>" of the event?
                         Example usage: event <description> /from <start date> /to <end date>""";
-            throw new TaskParseException(errorMessage);
+            throw new CommandParseException(errorMessage);
         }
         // check for invalid ordering of /from and /to
         if (toStartId < fromStartId) {
             String errorMessage = """
                         Oh no!? Did you mix up the order of /from and /to?
                         Example usage: event <description> /from <start date> /to <end date>""";
-            throw new TaskParseException(errorMessage);
+            throw new CommandParseException(errorMessage);
         }
 
         int toEndId = toStartId + TO_TOKEN.length();
@@ -63,34 +66,34 @@ public class Olivero {
         String fromDate = argumentString.substring(fromEndId, toStartId).strip();
         String toDate = argumentString.substring(toEndId).strip();
         if (description.isBlank()) {
-            throw new TaskParseException("HUH? You can't have an empty Event description...");
+            throw new CommandParseException("HUH? You can't have an empty Event description...");
         }
         // TODO: error handling for date format in the future
         return new Event(description, fromDate, toDate, false);
 
     }
 
-    private static Deadline parseDeadlineTask(String argumentString) throws TaskParseException {
+    private static Deadline parseDeadlineCommand(String argumentString) throws CommandParseException {
         int byStartId = argumentString.indexOf(BY_TOKEN);
         if (byStartId == -1) {
             String errorMessage = """
                         Did you correctly specify the "/by <end date>" of your deadline task?
                         Example usage: deadline <description> /by <start date>""";
-            throw new TaskParseException(errorMessage);
+            throw new CommandParseException(errorMessage);
         }
         int byEndId = byStartId + BY_TOKEN.length();
         String description = argumentString.substring(0, byStartId).strip();
         String endDate = argumentString.substring(byEndId).strip();
         // TODO: error handling for date format in the future
         if (description.isBlank()) {
-            throw new TaskParseException("HUH? You can't have an empty deadline task description...");
+            throw new CommandParseException("HUH? You can't have an empty deadline task description...");
         }
         return new Deadline(description, endDate, false);
     }
 
-    private static ToDo parseToDoTask(String argumentString) throws TaskParseException {
+    private static ToDo parseToDoCommand(String argumentString) throws CommandParseException {
         if (argumentString.isBlank()) {
-            throw new TaskParseException("HUH? You can't have an empty Todo...");
+            throw new CommandParseException("HUH? You can't have an empty Todo...");
         }
         return new ToDo(argumentString.strip(), false);
     }
@@ -111,19 +114,19 @@ public class Olivero {
 
                 switch (command) {
                 case TODO: {
-                    Task task = parseToDoTask(argumentString);
+                    Task task = parseToDoCommand(argumentString);
                     taskList.addTask(task);
                     speak(generateTaskResponse(task, taskList));
                     break;
                 }
                 case DEADLINE: {
-                    Task task = parseDeadlineTask(argumentString);
+                    Task task = parseDeadlineCommand(argumentString);
                     taskList.addTask(task);
                     speak(generateTaskResponse(task, taskList));
                     break;
                 }
                 case EVENT: {
-                    Task task = parseEventTask(argumentString);
+                    Task task = parseEventCommand(argumentString);
                     taskList.addTask(task);
                     speak(generateTaskResponse(task, taskList));
                     break;
@@ -162,7 +165,7 @@ public class Olivero {
                     break;
                 }
                 }
-            } catch (TaskParseException e) {
+            } catch (CommandParseException e) {
                 speak(e.getMessage());
             } catch (UnsupportedCommandException e) {
                 speak(ERROR_MESSAGE);
