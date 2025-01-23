@@ -1,10 +1,12 @@
 import errors.CommandParseException;
+import errors.TaskParseException;
 import errors.UnsupportedCommandException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
 public class Olivero {
 
@@ -19,6 +21,7 @@ public class Olivero {
 
     private static final String ERROR_MESSAGE = "W-WHAT?! I do not understand what you just said :(";
 
+    private static final String DATA_PATH = "data/tasks.txt";
 
     public static void speak(String message) {
         System.out.println("\t" + SEPARATOR);
@@ -98,9 +101,43 @@ public class Olivero {
         return new ToDo(argumentString.strip(), false);
     }
 
+    private static TaskList initialiseTaskList() {
+        TaskList taskList = new TaskList();
+        try {
+            taskList = TaskParser.parseFile(DATA_PATH);
+        } catch (FileNotFoundException e) {
+            speak("Can't seem to find a previous save file..");
+        } catch (TaskParseException e) {
+            speak("Oh no.. your previous save file may have been corrupted..");
+        }
+        return taskList;
+    }
+
+    private static void saveTaskList(String content) {
+        try {
+            File f = new File(DATA_PATH);
+            File parent = f.getParentFile();
+
+            // case: parent directories do not exist but cannot be created
+            if (!parent.exists() && !parent.mkdirs()) {
+                throw new IOException();
+            }
+            // case: file exists but is a directory
+            if (f.exists() && f.isDirectory()) {
+                throw new IOException();
+            }
+            // override or create a new file
+            FileWriter fw = new FileWriter(f);
+            fw.write(content);
+            fw.close();
+        } catch (IOException e) {
+            speak("Oh no.. I can't seem to save your file..");
+        }
+    }
+
     public static void main(String[] args) {
         // initialise resources
-        TaskList taskList = new TaskList();
+        TaskList taskList = initialiseTaskList();
         speak(GREETING_MESSAGE);
         // bot is ready: echo user input until 'bye' is read
         Scanner scanner = new Scanner(System.in);
@@ -116,18 +153,21 @@ public class Olivero {
                 case TODO: {
                     Task task = parseToDoCommand(argumentString);
                     taskList.addTask(task);
+                    saveTaskList(taskList.asFormattedString());
                     speak(generateTaskResponse(task, taskList));
                     break;
                 }
                 case DEADLINE: {
                     Task task = parseDeadlineCommand(argumentString);
                     taskList.addTask(task);
+                    saveTaskList(taskList.asFormattedString());
                     speak(generateTaskResponse(task, taskList));
                     break;
                 }
                 case EVENT: {
                     Task task = parseEventCommand(argumentString);
                     taskList.addTask(task);
+                    saveTaskList(taskList.asFormattedString());
                     speak(generateTaskResponse(task, taskList));
                     break;
                 }
@@ -138,6 +178,7 @@ public class Olivero {
                 case MARK: {
                     int taskNumber = Integer.parseInt(argumentString.strip());
                     taskList.markTaskAt(taskNumber);
+                    saveTaskList(taskList.asFormattedString());
                     speak("Cool! I've marked this task as done: \n " +
                             taskList.getTaskDescription(taskNumber));
                     break;
@@ -145,6 +186,7 @@ public class Olivero {
                 case UNMARK: {
                     int taskNumber = Integer.parseInt(argumentString.strip());
                     taskList.unmarkTaskAt(taskNumber);
+                    saveTaskList(taskList.asFormattedString());
                     speak("Alright, I've un-marked this task: \n " +
                             taskList.getTaskDescription(taskNumber));
                     break;
@@ -152,6 +194,7 @@ public class Olivero {
                 case DELETE: {
                     int taskNumber = Integer.parseInt(argumentString.strip());
                     Task removedTask = taskList.removeTaskAt(taskNumber);
+                    saveTaskList(taskList.asFormattedString());
                     // TODO: merge below into generateTaskResponse
                     speak("OK, I've removed this task: \n "
                             + removedTask
