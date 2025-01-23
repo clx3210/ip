@@ -2,12 +2,16 @@ import errors.TaskParseException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class TaskParser {
     public static final String SEPARATOR = " | ";
-    public static TaskList parseFile(String path) throws TaskParseException, FileNotFoundException {
+    public static TaskList parseFile(String path) throws TaskParseException,
+            FileNotFoundException {
+
         TaskList taskList = new TaskList();
 
         File f = new File(path);
@@ -35,7 +39,12 @@ public class TaskParser {
                 }
                 boolean isDone = Integer.parseInt(args[1]) == 1;
                 String description = args[2];
-                String endDate = args[3];
+                LocalDateTime endDate;
+                try {
+                    endDate = DateParser.parseInputDate(args[3]);
+                } catch (DateTimeParseException e) {
+                    throw new TaskParseException("Invalid ending date time format.");
+                }
                 taskList.addTask(new Deadline(description, endDate, isDone));
                 break;
             }
@@ -45,8 +54,16 @@ public class TaskParser {
                 }
                 boolean isDone = Integer.parseInt(args[1]) == 1;
                 String description = args[2];
-                String startDate = args[3];
-                String endDate = args[4];
+                LocalDateTime startDate, endDate;
+                try {
+                    startDate = DateParser.parseInputDate(args[3]);
+                    endDate = DateParser.parseInputDate(args[4]);
+                } catch (DateTimeParseException e) {
+                    throw new TaskParseException("Invalid ending date time format.");
+                }
+                if (startDate.isAfter(endDate)) {
+                    throw new TaskParseException("Start date should not be after the End date.");
+                }
                 taskList.addTask(new Event(description, startDate, endDate, isDone));
                 break;
             }
