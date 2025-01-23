@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     private String description;
     private boolean isDone;
 
@@ -15,8 +15,15 @@ public class Task {
         return isDone;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public abstract String toFormattedString();
+
     @Override
     public String toString() {
         return "[" + (isDone ? "X" : " ") + "] " + description;
     }
+
 }

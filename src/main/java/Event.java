@@ -12,4 +12,10 @@ public class Event extends Task {
         return "[E]" + super.toString() + " (from: " + startDate
                 + " to: " + endDate + ")";
     }
+
+    @Override
+    public String toFormattedString() {
+        int doneStatus = isDone() ? 1 : 0;
+        return "E" + " | " + doneStatus + " | " + getDescription() + " | " + startDate + " | " + endDate;
+    }
 }
