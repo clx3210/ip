@@ -6,6 +6,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Olivero {
@@ -20,7 +23,10 @@ public class Olivero {
     private static final String TO_TOKEN = " /to ";
 
     private static final String ERROR_MESSAGE = "W-WHAT?! I do not understand what you just said :(";
-
+    private static final String ERROR_DATE_FORMAT_MESSAGE = """
+            Oh... Seems like you formatted your date(s) wrongly?
+            Correct date format: yyyy-mm-dd HHmm (e.g. 2019-10-15 1800)
+            """;
     private static final String DATA_PATH = "data/tasks.txt";
 
     public static void speak(String message) {
@@ -38,6 +44,7 @@ public class Olivero {
                 + " " + "task(s) in the list.";
     }
 
+    // TODO: Move each parser into their own class
     private static Event parseEventCommand(String argumentString) throws CommandParseException {
         int fromStartId = argumentString.indexOf(FROM_TOKEN);
         if (fromStartId == -1) {
@@ -63,17 +70,27 @@ public class Olivero {
             throw new CommandParseException(errorMessage);
         }
 
-        int toEndId = toStartId + TO_TOKEN.length();
-
         String description = argumentString.substring(0, fromStartId).strip();
-        String fromDate = argumentString.substring(fromEndId, toStartId).strip();
-        String toDate = argumentString.substring(toEndId).strip();
         if (description.isBlank()) {
             throw new CommandParseException("HUH? You can't have an empty Event description...");
         }
-        // TODO: error handling for date format in the future
-        return new Event(description, fromDate, toDate, false);
 
+        int toEndId = toStartId + TO_TOKEN.length();
+        String fromDateString = argumentString.substring(fromEndId, toStartId).strip();
+        String toDateString = argumentString.substring(toEndId).strip();
+        LocalDateTime fromDate, toDate;
+        try {
+            fromDate = DateParser.parseInputDate(fromDateString);
+            toDate = DateParser.parseInputDate(toDateString);
+        } catch (DateTimeParseException e) {
+            throw new CommandParseException(ERROR_DATE_FORMAT_MESSAGE);
+        }
+
+        if (fromDate.isAfter(toDate)) {
+            throw new CommandParseException("/from date CANNOT be AFTER /to date!!");
+        }
+
+        return new Event(description, fromDate, toDate, false);
     }
 
     private static Deadline parseDeadlineCommand(String argumentString) throws CommandParseException {
@@ -84,13 +101,23 @@ public class Olivero {
                         Example usage: deadline <description> /by <start date>""";
             throw new CommandParseException(errorMessage);
         }
-        int byEndId = byStartId + BY_TOKEN.length();
+
         String description = argumentString.substring(0, byStartId).strip();
-        String endDate = argumentString.substring(byEndId).strip();
-        // TODO: error handling for date format in the future
         if (description.isBlank()) {
-            throw new CommandParseException("HUH? You can't have an empty deadline task description...");
+            throw new CommandParseException(
+                    "HUH? You can't have an empty deadline task description...");
         }
+
+        int byEndId = byStartId + BY_TOKEN.length();
+        String endDateString = argumentString.substring(byEndId).strip();
+        LocalDateTime endDate;
+        try {
+            endDate = DateParser.parseInputDate(endDateString);
+        } catch (DateTimeParseException e) {
+            throw new CommandParseException(ERROR_DATE_FORMAT_MESSAGE);
+        }
+
+
         return new Deadline(description, endDate, false);
     }
 
