@@ -160,70 +160,65 @@ public class Olivero {
                 case TODO: {
                     Task task = parseToDoCommand(argumentString);
                     taskList.addTask(task);
-                    saveTaskList(taskList.asFormattedString());
-                    speak(generateTaskResponse(task, taskList));
+                    storage.saveData(taskList.asFormattedString());
+                    textUi.displayTaskResponse(task, taskList);
                     break;
                 }
                 case DEADLINE: {
                     Task task = parseDeadlineCommand(argumentString);
                     taskList.addTask(task);
-                    saveTaskList(taskList.asFormattedString());
-                    speak(generateTaskResponse(task, taskList));
+                    storage.saveData(taskList.asFormattedString());
+                    textUi.displayTaskResponse(task, taskList);
                     break;
                 }
                 case EVENT: {
                     Task task = parseEventCommand(argumentString);
                     taskList.addTask(task);
-                    saveTaskList(taskList.asFormattedString());
-                    speak(generateTaskResponse(task, taskList));
+                    storage.saveData(taskList.asFormattedString());
+                    textUi.displayTaskResponse(task, taskList);
                     break;
                 }
                 case LIST: {
-                    speak("Here are the tasks in your list:\n" + taskList);
+                    textUi.displayListResponse(taskList);
                     break;
                 }
                 case MARK: {
                     int taskNumber = Integer.parseInt(argumentString.strip());
                     taskList.markTaskAt(taskNumber);
-                    saveTaskList(taskList.asFormattedString());
-                    speak("Cool! I've marked this task as done: \n " +
-                            taskList.getTaskDescription(taskNumber));
+                    storage.saveData(taskList.asFormattedString());
+                    textUi.displayMarkResponse(taskList, taskNumber);
                     break;
                 }
                 case UNMARK: {
                     int taskNumber = Integer.parseInt(argumentString.strip());
                     taskList.unmarkTaskAt(taskNumber);
-                    saveTaskList(taskList.asFormattedString());
-                    speak("Alright, I've un-marked this task: \n " +
-                            taskList.getTaskDescription(taskNumber));
+                    storage.saveData(taskList.asFormattedString());
+                    textUi.displayUnMarkResponse(taskList, taskNumber);
                     break;
                 }
                 case DELETE: {
                     int taskNumber = Integer.parseInt(argumentString.strip());
                     Task removedTask = taskList.removeTaskAt(taskNumber);
-                    saveTaskList(taskList.asFormattedString());
-                    // TODO: merge below into generateTaskResponse
-                    speak("OK, I've removed this task: \n "
-                            + removedTask
-                            + "\nNow you have "
-                            + taskList.getTaskSize() + " task(s) in the list.");
+                    storage.saveData(taskList.asFormattedString());
+                    textUi.displayDeleteTaskResponse(removedTask, taskList);
                     break;
                 }
                 case BYE: {
-                    speak(EXIT_MESSAGE);
+                    textUi.displayExitMessage();
                     finished = true;
                     break;
                 }
                 }
             } catch (CommandParseException e) {
-                speak(e.getMessage());
+                textUi.displayMessage(e.getMessage());
             } catch (UnsupportedCommandException e) {
-                speak(ERROR_MESSAGE);
+                textUi.displayMessage(ERROR_MESSAGE);
             } catch (NumberFormatException e) {
-                speak("Did you pass in a valid integer? Your input: "
-                        + e.getMessage());
+                textUi.displayInvalidIntegerErrorResponse(e);
             } catch (IllegalArgumentException e) {
-                speak("Oh dear-o! " + e.getMessage());
+                textUi.displayMessage("Oh dear-o! " + e.getMessage());
+            } catch (IOException e) {
+                textUi.displayMessage(Responses.RESPONSE_CANNOT_SAVE_TASK);
             }
             if (finished) break;
         }

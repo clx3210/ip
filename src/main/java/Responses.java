@@ -8,4 +8,7 @@ public final class Responses {
 
     public static final String RESPONSE_CANNOT_SAVE_TASK = "Oh no.. " +
             "I can't seem to save your file..";
+
+    public static final String RESPONSE_NUMBER_FORMAT_ERROR = "Did you pass in a valid integer? " +
+            "Your input: ";
 }
