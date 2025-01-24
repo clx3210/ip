@@ -2,21 +2,15 @@ import errors.CommandParseException;
 import errors.TaskParseException;
 import errors.UnsupportedCommandException;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Olivero {
 
-    private static final String GREETING_MESSAGE = "Howdy-do! I'm Olivero, What can I do for you?";
-    private static final String EXIT_MESSAGE = "Bye-bye. See you soon!";
 
-    private static final String SEPARATOR = "____________________________________________________________";
     private static final String END_TOKEN = "bye";
     private static final String BY_TOKEN = " /by ";
     private static final String FROM_TOKEN = " /from ";
@@ -27,21 +21,17 @@ public class Olivero {
             Oh... Seems like you formatted your date(s) wrongly?
             Correct date format: yyyy-mm-dd HHmm (e.g. 2019-10-15 1800)
             """;
-    private static final String DATA_PATH = "data/tasks.txt";
 
-    public static void speak(String message) {
-        System.out.println("\t" + SEPARATOR);
-        // add tabs after new line chars
-        String formattedMessage = message.replace("\n", "\n\t");
-        System.out.println("\t" + formattedMessage + "\n");
-        System.out.println("\t" + SEPARATOR + "\n");
-    }
+    private TaskList taskList;
+    private final Storage storage;
+    private final TaskParser taskParser;
+    private final Ui textUi;
 
-    public static String generateTaskResponse(Task task, TaskList taskList) {
-        int numTasks = taskList.getTaskSize();
-        return "Got it. I've added this task:\n  " + task
-                + "\nNow you have " + taskList.getTaskSize()
-                + " " + "task(s) in the list.";
+
+    public Olivero() {
+        this.storage = new Storage();
+        this.taskParser = new TaskParser();
+        this.textUi = new Ui();
     }
 
     // TODO: Move each parser into their own class
@@ -128,44 +118,34 @@ public class Olivero {
         return new ToDo(argumentString.strip(), false);
     }
 
-    private static TaskList initialiseTaskList() {
-        TaskList taskList = new TaskList();
+    private TaskList setupTasks() {
         try {
-            taskList = TaskParser.parseFile(DATA_PATH);
+            String taskContents = storage.loadFromFile();
+            taskList = taskParser.parse(taskContents);
         } catch (FileNotFoundException e) {
-            speak("Can't seem to find a previous save file..");
+            textUi.displayMessage(Responses.RESPONSE_SAVE_FILE_NOT_FOUND);
         } catch (TaskParseException e) {
-            speak("Oh no.. your previous save file may have been corrupted..");
+            textUi.displayMessage(Responses.RESPONSE_SAVE_FILE_CORRUPT);
         }
         return taskList;
     }
 
-    private static void saveTaskList(String content) {
-        try {
-            File f = new File(DATA_PATH);
-            File parent = f.getParentFile();
-
-            // case: parent directories do not exist but cannot be created
-            if (!parent.exists() && !parent.mkdirs()) {
-                throw new IOException();
-            }
-            // case: file exists but is a directory
-            if (f.exists() && f.isDirectory()) {
-                throw new IOException();
-            }
-            // override or create a new file
-            FileWriter fw = new FileWriter(f);
-            fw.write(content);
-            fw.close();
-        } catch (IOException e) {
-            speak("Oh no.. I can't seem to save your file..");
-        }
-    }
 
     public static void main(String[] args) {
-        // initialise resources
-        TaskList taskList = initialiseTaskList();
-        speak(GREETING_MESSAGE);
+        new Olivero().run();
+    }
+
+    public void setupResources() {
+        textUi.displayGreetingMessage();
+        this.taskList = setupTasks();
+    }
+
+    public void run() {
+        setupResources();
+        loop();
+    }
+
+    public void loop() {
         // bot is ready: echo user input until 'bye' is read
         Scanner scanner = new Scanner(System.in);
         boolean finished = false;
