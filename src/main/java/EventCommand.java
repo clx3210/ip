@@ -1,4 +1,4 @@
-import java.io.IOException;
+import errors.StorageSaveException;
 
 public class EventCommand extends Command {
 
@@ -12,9 +12,9 @@ public class EventCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             tasks.addTask(event);
-            storage.saveData(tasks.asFormattedString());
+            storage.save(tasks);
             ui.displayTaskResponse(event, tasks);
-        } catch (IOException e) {
+        } catch (StorageSaveException e) {
             ui.displayMessage(Responses.RESPONSE_SAVE_FILE_FAILED);
         }
     }

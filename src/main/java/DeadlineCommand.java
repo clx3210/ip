@@ -1,4 +1,4 @@
-import java.io.IOException;
+import errors.StorageSaveException;
 
 public class DeadlineCommand extends Command {
 
@@ -13,9 +13,9 @@ public class DeadlineCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             tasks.addTask(deadline);
-            storage.saveData(tasks.asFormattedString());
+            storage.save(tasks);
             ui.displayTaskResponse(deadline, tasks);
-        } catch (IOException e) {
+        } catch (StorageSaveException e) {
             ui.displayMessage(Responses.RESPONSE_SAVE_FILE_FAILED);
         }
     }

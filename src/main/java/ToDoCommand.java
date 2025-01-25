@@ -1,4 +1,4 @@
-import java.io.IOException;
+import errors.StorageSaveException;
 
 public class ToDoCommand extends Command {
     private static final CommandType TAG = CommandType.TODO;
@@ -14,9 +14,9 @@ public class ToDoCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             tasks.addTask(toDo);
-            storage.saveData(tasks.asFormattedString());
+            storage.save(tasks);
             ui.displayTaskResponse(toDo, tasks);
-        } catch (IOException e) {
+        } catch (StorageSaveException e) {
             ui.displayMessage(Responses.RESPONSE_SAVE_FILE_FAILED);
         }
     }

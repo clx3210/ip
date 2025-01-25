@@ -1,4 +1,4 @@
-import java.io.IOException;
+import errors.StorageSaveException;
 
 public class MarkCommand extends Command{
 
@@ -11,9 +11,9 @@ public class MarkCommand extends Command{
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             tasks.markTaskAt(taskNumber);
-            storage.saveData(tasks.asFormattedString());
             ui.displayMarkResponse(tasks, taskNumber);
-        } catch (IOException e) {
+            storage.save(tasks);
+        } catch (StorageSaveException e) {
            ui.displayMessage(Responses.RESPONSE_SAVE_FILE_FAILED);
         }
     }

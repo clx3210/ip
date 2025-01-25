@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class TaskList {
@@ -6,6 +7,11 @@ public class TaskList {
 
     public TaskList() {
         tasks = new ArrayList<>();
+    }
+
+    /** The copy constructor for task lists */
+    public TaskList(TaskList other) {
+        tasks = new ArrayList<>(other.tasks);
     }
 
     public void addTask(Task task) {

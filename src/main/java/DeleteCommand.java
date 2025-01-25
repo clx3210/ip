@@ -1,4 +1,4 @@
-import java.io.IOException;
+import errors.StorageSaveException;
 
 public class DeleteCommand extends Command {
 
@@ -10,9 +10,9 @@ public class DeleteCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             Task removedTask = tasks.removeTaskAt(taskNumber);
-            storage.saveData(tasks.asFormattedString());
             ui.displayDeleteTaskResponse(removedTask, tasks);
-        } catch (IOException e) {
+            storage.save(tasks);
+        } catch (StorageSaveException e) {
             ui.displayMessage(Responses.RESPONSE_SAVE_FILE_FAILED);
         }
 

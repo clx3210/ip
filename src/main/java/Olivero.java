@@ -1,7 +1,5 @@
 import errors.CommandParseException;
-import errors.TaskParseException;
-
-import java.io.FileNotFoundException;
+import errors.StorageLoadException;
 
 public class Olivero {
     private TaskList taskList;
@@ -9,29 +7,14 @@ public class Olivero {
 
     private final Ui textUi;
 
-    private final TaskParser taskParser;
     private final Parser commandParser;
 
 
     public Olivero(String storagePath) {
         this.storage = new Storage(storagePath);
-        this.taskParser = new TaskParser();
         this.textUi = new Ui();
         this.commandParser = new Parser();
     }
-
-    private TaskList setupTasks() {
-        try {
-            String taskContents = storage.loadFromFile();
-            taskList = taskParser.parse(taskContents);
-        } catch (FileNotFoundException e) {
-            textUi.displayMessage(Responses.RESPONSE_SAVE_FILE_NOT_FOUND);
-        } catch (TaskParseException e) {
-            textUi.displayMessage(Responses.RESPONSE_SAVE_FILE_CORRUPT);
-        }
-        return taskList;
-    }
-
 
     public static void main(String[] args) {
         new Olivero("data/tasks.txt").run();
@@ -39,7 +22,12 @@ public class Olivero {
 
     public void setupResources() {
         textUi.displayGreetingMessage();
-        this.taskList = setupTasks();
+        try {
+            this.taskList = new TaskList(storage.load());
+        } catch (StorageLoadException e) {
+            this.taskList = new TaskList();
+            textUi.displayError(Responses.RESPONSE_SAVE_FILE_CORRUPT);
+        }
     }
 
     public void run() {

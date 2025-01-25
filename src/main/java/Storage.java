@@ -1,3 +1,7 @@
+import errors.StorageLoadException;
+import errors.StorageSaveException;
+import errors.TaskParseException;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -8,12 +12,34 @@ public class Storage {
 
     private final String dataPath;
 
+    private final TaskParser taskParser;
+
     public Storage(String dataPath) {
         this.dataPath = dataPath;
+        taskParser = new TaskParser();
+    }
+
+    public void save(TaskList tasks) throws StorageSaveException {
+        try {
+            saveData(tasks.asFormattedString());
+        } catch (IOException e) {
+            throw new StorageSaveException(e.getMessage());
+        }
+    }
+
+    public TaskList load() throws StorageLoadException {
+        TaskList taskList;
+        try {
+            String contents = loadFromFile();
+            taskList = taskParser.parse(contents);
+        } catch (IOException | TaskParseException e) {
+            throw new StorageLoadException(e.getMessage());
+        }
+        return taskList;
     }
 
     // TODO: throw custom exception instead of IOException
-    public void saveData(String content) throws IOException {
+    private void saveData(String content) throws IOException {
         File f = new File(dataPath);
         File parent = f.getParentFile();
 
@@ -31,12 +57,12 @@ public class Storage {
         fw.close();
     }
 
-    public String loadFromFile() throws FileNotFoundException {
+    private String loadFromFile() throws FileNotFoundException {
         File f = new File(dataPath);
         Scanner scanner = new Scanner(f);
         StringBuilder stringBuilder = new StringBuilder();
         while (scanner.hasNext()) {
-            stringBuilder.append(scanner.next());
+            stringBuilder.append(scanner.nextLine()).append(System.lineSeparator());
         }
         return stringBuilder.toString();
     }
