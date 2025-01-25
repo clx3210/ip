@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class TaskList {
@@ -8,38 +9,39 @@ public class TaskList {
         tasks = new ArrayList<>();
     }
 
+    /** The copy constructor for task lists */
+    public TaskList(TaskList other) {
+        tasks = new ArrayList<>(other.tasks);
+    }
+
     public void addTask(Task task) {
         tasks.add(task);
     }
 
-    public String getTaskDescription(int taskNumber) {
+    public String getTaskDescription(int taskNumber) throws IllegalArgumentException {
         if (taskNumber <= 0 || taskNumber > tasks.size()) {
-            throw new IllegalArgumentException("No task with task number "
-                    + taskNumber + " exists...");
+            throw new IllegalArgumentException();
         }
         return tasks.get(taskNumber - 1).toString();
     }
 
-    public Task removeTaskAt(int taskNumber) {
+    public Task removeTaskAt(int taskNumber) throws IllegalArgumentException {
         if (taskNumber <= 0 || taskNumber > tasks.size()) {
-            throw new IllegalArgumentException("No task with task number "
-                    + taskNumber + " exists...");
+            throw new IllegalArgumentException();
         }
         return tasks.remove(taskNumber - 1);
     }
 
-    public void markTaskAt(int taskNumber) {
+    public void markTaskAt(int taskNumber) throws IllegalArgumentException {
         if (taskNumber <= 0 || taskNumber > tasks.size()) {
-            throw new IllegalArgumentException("No task with task number "
-                    + taskNumber + " exists...");
+            throw new IllegalArgumentException();
         }
         tasks.get(taskNumber - 1).setDone(true);
    }
 
-    public void unmarkTaskAt(int taskNumber) {
+    public void unmarkTaskAt(int taskNumber) throws IllegalArgumentException {
         if (taskNumber <= 0 || taskNumber > tasks.size()) {
-            throw new IllegalArgumentException("No task with task number "
-                    + taskNumber + " exists...");
+            throw new IllegalArgumentException();
         }
         tasks.get(taskNumber - 1).setDone(false);
     }
@@ -51,7 +53,8 @@ public class TaskList {
     public String asFormattedString() {
         StringBuilder serialised = new StringBuilder();
         for (Task task : tasks) {
-            serialised.append(task.toFormattedString()).append('\n');
+            serialised.append(task.toFormattedString())
+                    .append(System.lineSeparator());
         }
         return serialised.toString();
     }
@@ -63,7 +66,7 @@ public class TaskList {
             message.append(i)
                     .append(". ")
                     .append(tasks.get(i - 1))
-                    .append("\n");
+                    .append(System.lineSeparator());
         }
         return message.toString();
     }

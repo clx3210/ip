@@ -1,24 +1,17 @@
 import errors.TaskParseException;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
-import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class TaskParser {
     public static final String SEPARATOR = " | ";
-    public static TaskList parseFile(String path) throws TaskParseException,
-            FileNotFoundException {
 
+    public TaskList parse(String rawTasks) throws TaskParseException {
         TaskList taskList = new TaskList();
+        String[] lines = rawTasks.split(System.lineSeparator());
 
-        File f = new File(path);
-        Scanner scanner = new Scanner(f);
-        // file -> task parsing
-        while (scanner.hasNextLine()) {
-            String line = scanner.nextLine();
+        for (String line : lines) {
             String[] args = line.split(Pattern.quote(SEPARATOR));
             if (args.length == 0) {
                 throw new IllegalArgumentException();
