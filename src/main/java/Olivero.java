@@ -44,9 +44,7 @@ public class Olivero {
                 command.execute(taskList, textUi, storage);
                 isExit = command.isExit();
             } catch (CommandParseException e) {
-                textUi.displayMessage(e.getMessage());
-            } catch (IllegalArgumentException e) {
-                textUi.displayMessage("Oh dear-o! " + e.getMessage());
+                textUi.displayError(e.getMessage());
             }
         }
     }

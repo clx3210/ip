@@ -58,6 +58,10 @@ public class Ui {
                 + " " + "task(s) in the list.";
     }
 
+    public void displayError(String message) {
+        displayMessage("Oh dear-o! " + message);
+    }
+
     // TODO: remove tabbing output
     public void displayMessage(String message) {
         System.out.println("\t" + DIVIDER);
@@ -66,6 +70,8 @@ public class Ui {
         System.out.println("\t" + formattedMessage + "\n");
         System.out.println("\t" + DIVIDER + "\n");
     }
+
+
 
     public boolean hasNextCommand() {
         return reader.hasNextLine();

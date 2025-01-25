@@ -1,7 +1,8 @@
 import errors.StorageSaveException;
 
 public class ToDoCommand extends Command {
-    private static final CommandType TAG = CommandType.TODO;
+    public static final String MESSAGE_USAGE = "Usage: todo <description>";
+    public static final String MESSAGE_EMPTY_DESCRIPTION = "You can't have an empty Todo...";
 
     private final ToDo toDo;
 
