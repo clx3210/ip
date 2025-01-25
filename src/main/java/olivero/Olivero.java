@@ -34,7 +34,15 @@ public class Olivero {
             this.taskList = new TaskList(storage.load());
         } catch (StorageLoadException e) {
             this.taskList = new TaskList();
-            textUi.displayError(Responses.RESPONSE_SAVE_FILE_CORRUPT);
+
+            switch (e.getReason()) {
+            case STORAGE_CORRUPT:
+                textUi.displayError(Responses.RESPONSE_SAVE_FILE_CORRUPT);
+                break;
+            case STORAGE_MISSING:
+                textUi.displayError(Responses.RESPONSE_SAVE_FILE_NOT_FOUND);
+                break;
+            }
         }
     }
 

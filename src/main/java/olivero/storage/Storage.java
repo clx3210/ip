@@ -36,8 +36,14 @@ public class Storage {
         try {
             String contents = loadFromFile();
             taskList = taskParser.parse(contents);
-        } catch (IOException | TaskParseException e) {
-            throw new StorageLoadException(e.getMessage());
+        } catch (FileNotFoundException e) {
+            throw new StorageLoadException(
+                    e.getMessage(),
+                    StorageLoadException.Reason.STORAGE_MISSING);
+        } catch (TaskParseException e) {
+            throw new StorageLoadException(
+                    e.getMessage(),
+                    StorageLoadException.Reason.STORAGE_CORRUPT);
         }
         return taskList;
     }
