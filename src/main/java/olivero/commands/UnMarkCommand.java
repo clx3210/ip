@@ -1,10 +1,17 @@
-import errors.StorageSaveException;
+package olivero.commands;
 
-public class DeleteCommand extends Command {
+import olivero.common.Responses;
+import olivero.storage.Storage;
+import olivero.tasks.TaskList;
+import olivero.ui.Ui;
+import olivero.exceptions.StorageSaveException;
+
+public class UnMarkCommand extends Command {
 
     private final int taskNumber;
-    public DeleteCommand(int taskNumber) {
-        this.taskNumber = taskNumber;
+
+    public UnMarkCommand(int taskNumber) {
+       this.taskNumber = taskNumber;
     }
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
@@ -16,14 +23,13 @@ public class DeleteCommand extends Command {
                             taskNumber));
             return;
         }
-        Task removedTask = tasks.removeTaskAt(taskNumber);
-        ui.displayDeleteTaskResponse(removedTask, tasks);
+        tasks.unmarkTaskAt(taskNumber);
+        ui.displayUnMarkResponse(tasks, taskNumber);
 
         try {
             storage.save(tasks);
         } catch (StorageSaveException e) {
             ui.displayMessage(Responses.RESPONSE_SAVE_FILE_FAILED);
         }
-
     }
 }

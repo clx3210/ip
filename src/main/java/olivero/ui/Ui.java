@@ -1,3 +1,9 @@
+package olivero.ui;
+
+import olivero.tasks.TaskList;
+import olivero.common.Responses;
+import olivero.tasks.Task;
+
 import java.util.Scanner;
 
 public class Ui {

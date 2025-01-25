@@ -1,3 +1,8 @@
+package olivero.tasks;
+
+import olivero.tasks.Task;
+import olivero.parsers.DateParser;
+
 import java.time.LocalDateTime;
 
 public class Event extends Task {

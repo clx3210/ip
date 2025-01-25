@@ -1,4 +1,6 @@
-import errors.UnsupportedCommandException;
+package olivero.commands;
+
+import olivero.exceptions.UnsupportedCommandException;
 
 public enum CommandType {
     TODO("todo"), DEADLINE("deadline"), EVENT("event"),
