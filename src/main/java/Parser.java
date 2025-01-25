@@ -82,7 +82,9 @@ public class Parser {
 
     private ToDoCommand setupToDo(String arguments) throws CommandParseException {
         if (arguments.isBlank()) {
-            throw new CommandParseException(ToDoCommand.MESSAGE_EMPTY_DESCRIPTION);
+            throw new CommandParseException(
+                    ToDoCommand.MESSAGE_EMPTY_DESCRIPTION,
+                    ToDoCommand.MESSAGE_USAGE);
         }
         return new ToDoCommand(new ToDo(arguments.strip(), false));
     }
