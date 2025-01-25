@@ -9,9 +9,18 @@ public class MarkCommand extends Command{
     }
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
+        int taskSize = tasks.getTaskSize();
+        if (taskNumber > taskSize || taskNumber <= 0) {
+            ui.displayMessage(
+                    String.format(
+                            Responses.RESPONSE_INVALID_TASK_NUMBER,
+                            taskNumber));
+            return;
+        }
+        tasks.markTaskAt(taskNumber);
+        ui.displayMarkResponse(tasks, taskNumber);
+
         try {
-            tasks.markTaskAt(taskNumber);
-            ui.displayMarkResponse(tasks, taskNumber);
             storage.save(tasks);
         } catch (StorageSaveException e) {
            ui.displayMessage(Responses.RESPONSE_SAVE_FILE_FAILED);

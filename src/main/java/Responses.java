@@ -23,5 +23,7 @@ public final class Responses {
 
     public static final String RESPONSE_INVALID_DATE_ORDER = "/from date " +
             "CANNOT be AFTER /to date!!";
+    public static final String RESPONSE_INVALID_TASK_NUMBER = "No task with " +
+            "task number %d exists..";
 
 }
