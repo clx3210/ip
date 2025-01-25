@@ -1,5 +1,3 @@
-import errors.TaskParseException;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -8,15 +6,15 @@ import java.util.Scanner;
 
 public class Storage {
 
-    private static final String DATA_PATH = "data/tasks.txt";
+    private final String dataPath;
 
-    public Storage() {
-
+    public Storage(String dataPath) {
+        this.dataPath = dataPath;
     }
 
     // TODO: throw custom exception instead of IOException
     public void saveData(String content) throws IOException {
-        File f = new File(DATA_PATH);
+        File f = new File(dataPath);
         File parent = f.getParentFile();
 
         // case: parent directories do not exist but cannot be created
@@ -34,7 +32,7 @@ public class Storage {
     }
 
     public String loadFromFile() throws FileNotFoundException {
-        File f = new File(DATA_PATH);
+        File f = new File(dataPath);
         Scanner scanner = new Scanner(f);
         StringBuilder stringBuilder = new StringBuilder();
         while (scanner.hasNext()) {

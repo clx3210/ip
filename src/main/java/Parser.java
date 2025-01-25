@@ -77,7 +77,7 @@ public class Parser {
         try {
             endDate = DateParser.parseInputDate(endDateString);
         } catch (DateTimeParseException e) {
-            throw new CommandParseException(ERROR_DATE_FORMAT_MESSAGE);
+            throw new CommandParseException(Responses.RESPONSE_INVALID_DATE_FORMAT);
         }
 
 
@@ -100,7 +100,9 @@ public class Parser {
             int taskNumber = Integer.parseInt(arguments.strip());
             return new MarkCommand(taskNumber);
         } catch (NumberFormatException e) {
-            throw new CommandParseException(e.getMessage());
+            throw new CommandParseException(
+                    Responses.RESPONSE_INVALID_NUMBER_FORMAT
+                            + e.getMessage());
         }
     }
 
@@ -109,7 +111,9 @@ public class Parser {
             int taskNumber = Integer.parseInt(arguments.strip());
             return new UnMarkCommand(taskNumber);
         } catch (NumberFormatException e) {
-            throw new CommandParseException(e.getMessage());
+            throw new CommandParseException(
+                    Responses.RESPONSE_INVALID_NUMBER_FORMAT
+                            + e.getMessage());
         }
     }
 
@@ -118,7 +122,9 @@ public class Parser {
             int taskNumber = Integer.parseInt(arguments.strip());
             return new DeleteCommand(taskNumber);
         } catch (NumberFormatException e) {
-            throw new CommandParseException(e.getMessage());
+            throw new CommandParseException(
+                    Responses.RESPONSE_INVALID_NUMBER_FORMAT
+                            + e.getMessage());
         }
     }
 
@@ -132,7 +138,7 @@ public class Parser {
         try {
             commandType = CommandType.asCommandType(idx > -1 ? rawInput.substring(0, idx) : rawInput);
         } catch (UnsupportedCommandException e) {
-            throw new CommandParseException();
+            throw new CommandParseException(Responses.RESPONSE_UNKNOWN_COMMAND);
         }
         String argumentString = idx > -1 ? rawInput.substring(idx) : rawInput;
 
