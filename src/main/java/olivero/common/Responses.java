@@ -1,3 +1,5 @@
+package olivero.common;
+
 public final class Responses {
 
     public static final String GREETING_MESSAGE = "Howdy-do! I'm Olivero, " +

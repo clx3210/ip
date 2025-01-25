@@ -1,6 +1,10 @@
-import errors.StorageLoadException;
-import errors.StorageSaveException;
-import errors.TaskParseException;
+package olivero.storage;
+
+import olivero.tasks.TaskList;
+import olivero.exceptions.StorageLoadException;
+import olivero.exceptions.StorageSaveException;
+import olivero.exceptions.TaskParseException;
+import olivero.parsers.TaskParser;
 
 import java.io.File;
 import java.io.FileNotFoundException;

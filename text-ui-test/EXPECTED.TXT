@@ -4,6 +4,11 @@
 	____________________________________________________________
 
 	____________________________________________________________
+	Oh dear-o! Oh no.. your previous save file may have been corrupted..
+
+	____________________________________________________________
+
+	____________________________________________________________
 	Got it. I've added this task:
 	  [T][ ] borrow book
 	Now you have 1 task(s) in the list.
@@ -11,32 +16,184 @@
 	____________________________________________________________
 
 	____________________________________________________________
+	Oh dear-o! Oh... Seems like you formatted your date(s) wrongly?
+	Correct date format: yyyy-mm-dd HHmm (e.g. 2019-10-15 1800)
+	
+
+	____________________________________________________________
+
+	____________________________________________________________
 	Got it. I've added this task:
-	  [D][ ] return book (by: Sunday)
+	  [D][ ] return book (by: Jan 01 2025 1400)
 	Now you have 2 task(s) in the list.
 
 	____________________________________________________________
 
 	____________________________________________________________
 	Got it. I've added this task:
-	  [E][ ] project meeting (from: Mon 2pm to: 4pm)
+	  [D][ ] borrow book (by: Jan 02 2025 0100)
 	Now you have 3 task(s) in the list.
 
 	____________________________________________________________
 
 	____________________________________________________________
 	Got it. I've added this task:
-	  [D][ ] do homework (by: no idea :-p)
+	  [D][ ] borrow another book (by: Jan 02 2025 0000)
 	Now you have 4 task(s) in the list.
 
 	____________________________________________________________
 
 	____________________________________________________________
+	Got it. I've added this task:
+	  [D][ ] read book (by: Jan 10 2025 2359)
+	Now you have 5 task(s) in the list.
+
+	____________________________________________________________
+
+	____________________________________________________________
+	Cool! I've marked this task as done: 
+	 [T][X] borrow book
+
+	____________________________________________________________
+
+	____________________________________________________________
+	Cool! I've marked this task as done: 
+	 [D][X] return book (by: Jan 01 2025 1400)
+
+	____________________________________________________________
+
+	____________________________________________________________
 	Here are the tasks in your list:
-	1. [T][ ] borrow book
-	2. [D][ ] return book (by: Sunday)
-	3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
-	4. [D][ ] do homework (by: no idea :-p)
+	1. [T][X] borrow book
+	2. [D][X] return book (by: Jan 01 2025 1400)
+	3. [D][ ] borrow book (by: Jan 02 2025 0100)
+	4. [D][ ] borrow another book (by: Jan 02 2025 0000)
+	5. [D][ ] read book (by: Jan 10 2025 2359)
+	
+
+	____________________________________________________________
+
+	____________________________________________________________
+	No task with task number 10 exists..
+
+	____________________________________________________________
+
+	____________________________________________________________
+	No task with task number -2 exists..
+
+	____________________________________________________________
+
+	____________________________________________________________
+	Cool! I've marked this task as done: 
+	 [D][X] read book (by: Jan 10 2025 2359)
+
+	____________________________________________________________
+
+	____________________________________________________________
+	Oh dear-o! Oh... Seems like you formatted your date(s) wrongly?
+	Correct date format: yyyy-mm-dd HHmm (e.g. 2019-10-15 1800)
+	
+
+	____________________________________________________________
+
+	____________________________________________________________
+	Got it. I've added this task:
+	  [E][ ] project meeting (from: Jan 01 2025 1000 to: Jan 02 2025 1100)
+	Now you have 6 task(s) in the list.
+
+	____________________________________________________________
+
+	____________________________________________________________
+	Here are the tasks in your list:
+	1. [T][X] borrow book
+	2. [D][X] return book (by: Jan 01 2025 1400)
+	3. [D][ ] borrow book (by: Jan 02 2025 0100)
+	4. [D][ ] borrow another book (by: Jan 02 2025 0000)
+	5. [D][X] read book (by: Jan 10 2025 2359)
+	6. [E][ ] project meeting (from: Jan 01 2025 1000 to: Jan 02 2025 1100)
+	
+
+	____________________________________________________________
+
+	____________________________________________________________
+	Cool! I've marked this task as done: 
+	 [D][X] borrow another book (by: Jan 02 2025 0000)
+
+	____________________________________________________________
+
+	____________________________________________________________
+	Alright, I've un-marked this task: 
+	 [D][ ] borrow another book (by: Jan 02 2025 0000)
+
+	____________________________________________________________
+
+	____________________________________________________________
+	Here are the tasks in your list:
+	1. [T][X] borrow book
+	2. [D][X] return book (by: Jan 01 2025 1400)
+	3. [D][ ] borrow book (by: Jan 02 2025 0100)
+	4. [D][ ] borrow another book (by: Jan 02 2025 0000)
+	5. [D][X] read book (by: Jan 10 2025 2359)
+	6. [E][ ] project meeting (from: Jan 01 2025 1000 to: Jan 02 2025 1100)
+	
+
+	____________________________________________________________
+
+	____________________________________________________________
+	OK, I've removed this task: 
+	 [D][X] return book (by: Jan 01 2025 1400)
+	Now you have 5 task(s) in the list.
+
+	____________________________________________________________
+
+	____________________________________________________________
+	Here are the tasks in your list:
+	1. [T][X] borrow book
+	2. [D][ ] borrow book (by: Jan 02 2025 0100)
+	3. [D][ ] borrow another book (by: Jan 02 2025 0000)
+	4. [D][X] read book (by: Jan 10 2025 2359)
+	5. [E][ ] project meeting (from: Jan 01 2025 1000 to: Jan 02 2025 1100)
+	
+
+	____________________________________________________________
+
+	____________________________________________________________
+	Oh dear-o! Oh... Seems like you formatted your date(s) wrongly?
+	Correct date format: yyyy-mm-dd HHmm (e.g. 2019-10-15 1800)
+	
+
+	____________________________________________________________
+
+	____________________________________________________________
+	Oh dear-o! W-WHAT?! I do not understand what you just said :(
+
+	____________________________________________________________
+
+	____________________________________________________________
+	Oh dear-o! You can't have an empty Todo...
+	Usage: todo <description>
+
+	____________________________________________________________
+
+	____________________________________________________________
+	Oh dear-o! Did you correctly specify the '/by <end date>' of your deadline task?
+	Example usage: deadline <description> /by <start date>
+
+	____________________________________________________________
+
+	____________________________________________________________
+	Oh dear-o! Oh no!? Did you correctly specify the '/from <start date>' of the event?
+	Example usage: event <description> /from <start date> /to <end date>
+
+	____________________________________________________________
+
+	____________________________________________________________
+	Here are the tasks in your list:
+	1. [T][X] borrow book
+	2. [D][ ] borrow book (by: Jan 02 2025 0100)
+	3. [D][ ] borrow another book (by: Jan 02 2025 0000)
+	4. [D][X] read book (by: Jan 10 2025 2359)
+	5. [E][ ] project meeting (from: Jan 01 2025 1000 to: Jan 02 2025 1100)
 	
 
 	____________________________________________________________
