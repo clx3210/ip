@@ -13,11 +13,11 @@ Prerequisites: JDK 17, update Intellij to the most recent version.
    1. If there are any further prompts, accept the defaults.
 1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
    In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Olivero.java` file, right-click it, and choose `Run Olivero.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
+1. After that, locate the `src/main/java/olivero.Olivero.java` file, right-click it, and choose `Run olivero.Olivero.main()` (if the code editor is showing compile olivero.exceptions, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
    ```
-   _________________________________________________________
+   ____________________________________________________________
    Howdy-do! I'm Olivero, What can I do for you?
-   
+
    ____________________________________________________________
    ```
 
