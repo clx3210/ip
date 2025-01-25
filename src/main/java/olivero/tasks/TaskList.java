@@ -1,6 +1,7 @@
 package olivero.tasks;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class TaskList {
@@ -52,12 +53,13 @@ public class TaskList {
     }
 
     public String asFormattedString() {
-        StringBuilder serialised = new StringBuilder();
+        StringBuilder stringBuilder = new StringBuilder();
         for (Task task : tasks) {
-            serialised.append(task.toFormattedString())
+            stringBuilder
+                    .append(task.toFormattedString())
                     .append(System.lineSeparator());
         }
-        return serialised.toString();
+        return stringBuilder.toString().strip();
     }
 
     @Override
@@ -69,6 +71,6 @@ public class TaskList {
                     .append(tasks.get(i - 1))
                     .append(System.lineSeparator());
         }
-        return message.toString();
+        return message.toString().strip();
     }
 }

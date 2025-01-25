@@ -66,7 +66,7 @@ public class Parser {
         int byStartId = arguments.indexOf(BY_TOKEN);
         if (byStartId == -1) {
             throw new CommandParseException(
-                    DeadlineCommand.MESSAGE_INVALID_DATE,
+                    DeadlineCommand.MESSAGE_INVALID_BY_TOKEN,
                     DeadlineCommand.MESSAGE_USAGE);
         }
 
@@ -83,7 +83,6 @@ public class Parser {
         } catch (DateTimeParseException e) {
             throw new CommandParseException(Responses.RESPONSE_INVALID_DATE_FORMAT);
         }
-
 
         return new DeadlineCommand(new Deadline(description, endDate, false));
     }
@@ -107,8 +106,9 @@ public class Parser {
             return new MarkCommand(taskNumber);
         } catch (NumberFormatException e) {
             throw new CommandParseException(
-                    Responses.RESPONSE_INVALID_NUMBER_FORMAT
-                            + e.getMessage());
+                    String.format(
+                            Responses.RESPONSE_INVALID_NUMBER_FORMAT,
+                            arguments));
         }
     }
 
@@ -118,8 +118,9 @@ public class Parser {
             return new UnMarkCommand(taskNumber);
         } catch (NumberFormatException e) {
             throw new CommandParseException(
-                    Responses.RESPONSE_INVALID_NUMBER_FORMAT
-                            + e.getMessage());
+                    String.format(
+                            Responses.RESPONSE_INVALID_NUMBER_FORMAT,
+                            arguments));
         }
     }
 
@@ -129,8 +130,9 @@ public class Parser {
             return new DeleteCommand(taskNumber);
         } catch (NumberFormatException e) {
             throw new CommandParseException(
-                    Responses.RESPONSE_INVALID_NUMBER_FORMAT
-                            + e.getMessage());
+                    String.format(
+                            Responses.RESPONSE_INVALID_NUMBER_FORMAT,
+                            arguments));
         }
     }
 
