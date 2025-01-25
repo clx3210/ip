@@ -15,8 +15,10 @@ public class TaskParser {
 
     public TaskList parse(String rawTasks) throws TaskParseException {
         TaskList taskList = new TaskList();
+        if (rawTasks.isEmpty()) {
+            return taskList;
+        }
         String[] lines = rawTasks.split(System.lineSeparator());
-
         for (String line : lines) {
             String[] args = line.split(Pattern.quote(SEPARATOR));
             if (args.length == 0) {

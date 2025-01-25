@@ -13,12 +13,12 @@ public final class Responses {
             "I can't seem to save your file..";
 
     public static final String RESPONSE_INVALID_NUMBER_FORMAT = "Did you pass " +
-            "in a valid integer? Your input: ";
+            "in a valid integer? Your input: %s";
 
-    public static final String RESPONSE_INVALID_DATE_FORMAT = """
-            Oh... Seems like you formatted your date(s) wrongly?
-            Correct date format: yyyy-mm-dd HHmm (e.g. 2019-10-15 1800)
-            """;
+    public static final String RESPONSE_INVALID_DATE_FORMAT = "Oh... "
+            + "Seems like you formatted your date(s) wrongly?"
+            + System.lineSeparator()
+            + "Correct date format: yyyy-mm-dd HHmm (e.g. 2019-10-15 1800)";
 
     public static final String RESPONSE_UNKNOWN_COMMAND = "W-WHAT?! " +
             "I do not understand what you just said :(";
