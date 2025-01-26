@@ -1,7 +1,6 @@
 package olivero.tasks;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -76,7 +75,7 @@ public class TaskList {
             throw new IllegalArgumentException();
         }
         tasks.get(taskNumber - 1).setDone(true);
-   }
+    }
 
     /**
      * Marks the task with the given task number from the task list as incomplete.

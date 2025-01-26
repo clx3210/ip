@@ -1,10 +1,10 @@
 package olivero.commands;
 
 import olivero.common.Responses;
+import olivero.exceptions.StorageSaveException;
 import olivero.storage.Storage;
 import olivero.tasks.TaskList;
 import olivero.ui.Ui;
-import olivero.exceptions.StorageSaveException;
 
 /**
  * Un marks a given task.
@@ -20,7 +20,7 @@ public class UnMarkCommand extends Command {
      * @param taskNumber the task number for a task in the task list.
      */
     public UnMarkCommand(int taskNumber) {
-       this.taskNumber = taskNumber;
+        this.taskNumber = taskNumber;
     }
 
     /**

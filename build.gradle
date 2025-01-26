@@ -45,3 +45,7 @@ run {
 tasks.javadoc {
     outputs.upToDateWhen { false }
 }
+
+checkstyle {
+    toolVersion = '10.2'
+}

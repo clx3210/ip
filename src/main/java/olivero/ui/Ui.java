@@ -1,10 +1,10 @@
 package olivero.ui;
 
-import olivero.tasks.TaskList;
+import java.util.Scanner;
+
 import olivero.common.Responses;
 import olivero.tasks.Task;
-
-import java.util.Scanner;
+import olivero.tasks.TaskList;
 
 /**
  * Represents the User Interface for displaying and receiving
@@ -78,8 +78,8 @@ public class Ui {
      * @param taskNumber The task number associated the marked task.
      */
     public void displayMarkResponse(TaskList taskList, int taskNumber) {
-        displayMessage("Cool! I've marked this task as done: \n " +
-                taskList.getTaskDescription(taskNumber));
+        displayMessage("Cool! I've marked this task as done: \n "
+                + taskList.getTaskDescription(taskNumber));
     }
 
     /**
@@ -89,8 +89,8 @@ public class Ui {
      * @param taskNumber The task number associated the unmarked task.
      */
     public void displayUnMarkResponse(TaskList taskList, int taskNumber) {
-        displayMessage("Alright, I've un-marked this task: \n " +
-                taskList.getTaskDescription(taskNumber));
+        displayMessage("Alright, I've un-marked this task: \n "
+                + taskList.getTaskDescription(taskNumber));
     }
 
     private String getTaskResponse(Task task, TaskList taskList) {

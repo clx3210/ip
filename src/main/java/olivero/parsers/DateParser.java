@@ -12,8 +12,7 @@ import java.time.format.DateTimeParseException;
  */
 public final class DateParser {
 
-    private DateParser() {
-    }
+
 
     /** Fixed format for all datetime data processing. */
     public static final DateTimeFormatter INPUT_DATE_FORMATTER = DateTimeFormatter
@@ -22,6 +21,9 @@ public final class DateParser {
     /** Fixed format for displaying datetime objects onto the ui. */
     public static final DateTimeFormatter DISPLAY_DATE_FORMATTER = DateTimeFormatter
             .ofPattern("MMM dd yyyy HHmm");
+
+    private DateParser() {
+    }
 
     /**
      * Parses the given input date string into a {@code LocalDateTime} object

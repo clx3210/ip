@@ -58,6 +58,8 @@ public class Olivero {
             case DATA_MISSING:
                 textUi.displayError(Responses.RESPONSE_SAVE_FILE_NOT_FOUND);
                 break;
+            default:
+                break;
             }
         }
     }

@@ -1,11 +1,11 @@
 package olivero.tasks;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for the TaskList member SUTs.
@@ -16,8 +16,7 @@ public class TaskListTest {
     public void removeTaskAt_negativeTaskNumber_exceptionThrown() {
         for (int i = -12; i < 0; i++) {
             assertThrows(
-                    IllegalArgumentException.class,
-                    () -> new TaskList().removeTaskAt(-1));
+                    IllegalArgumentException.class, () -> new TaskList().removeTaskAt(-1));
         }
     }
 
@@ -29,19 +28,15 @@ public class TaskListTest {
             taskList.addTask(new ToDo("Test todo item " + i, false));
         }
 
-        assertThrows(IllegalArgumentException.class,
-                () -> taskList.removeTaskAt(21));
+        assertThrows(IllegalArgumentException.class, () -> taskList.removeTaskAt(21));
 
-        assertThrows(IllegalArgumentException.class,
-                () -> taskList.removeTaskAt(100));
+        assertThrows(IllegalArgumentException.class, () -> taskList.removeTaskAt(100));
     }
 
     @Test
     public void removeTaskAt_validTaskNumberRemoved_success() {
-        Task[] tasks = new Task[] {
-                new ToDo("Todo 1", false),
-                new ToDo("Todo 2", false),
-                new Deadline("Todo 3", LocalDateTime.of(2025, 12, 1, 1, 1), false)
+        Task[] tasks = new Task[] { new ToDo("Todo 1", false), new ToDo("Todo 2", false), new Deadline("Todo 3",
+                LocalDateTime.of(2025, 12, 1, 1, 1), false)
         };
         TaskList taskList = new TaskList();
 
@@ -90,7 +85,7 @@ public class TaskListTest {
         LocalDateTime end = LocalDateTime.of(2028, 2, 25, 23, 23);
 
         for (int i = 1; i <= numTodos; i++) {
-            taskList.addTask(new ToDo("Todo " + i, i % 2  == 0));
+            taskList.addTask(new ToDo("Todo " + i, i % 2 == 0));
         }
 
         for (int i = 1; i <= numEvents; i++) {
@@ -155,7 +150,7 @@ public class TaskListTest {
         LocalDateTime end = LocalDateTime.of(2028, 2, 25, 23, 23);
 
         for (int i = 1; i <= numTodos; i++) {
-            taskList.addTask(new ToDo("Todo " + i, i % 2  == 1));
+            taskList.addTask(new ToDo("Todo " + i, i % 2 == 1));
         }
 
         for (int i = 1; i <= numEvents; i++) {

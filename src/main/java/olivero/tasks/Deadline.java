@@ -1,8 +1,9 @@
 package olivero.tasks;
 
+import java.time.LocalDateTime;
+
 import olivero.parsers.DateParser;
 
-import java.time.LocalDateTime;
 
 /**
  * Represents a Deadline task.
@@ -28,9 +29,9 @@ public class Deadline extends Task {
      */
     @Override
     public String toFormattedString() {
-       int doneStatus = isDone() ? 1 : 0;
-       String dateString = DateParser.asInputDateString(endDate);
-       return "D" + " | " + doneStatus + " | " + getDescription() + " | " + dateString;
+        int doneStatus = isDone() ? 1 : 0;
+        String dateString = DateParser.asInputDateString(endDate);
+        return "D" + " | " + doneStatus + " | " + getDescription() + " | " + dateString;
     }
 
     /**

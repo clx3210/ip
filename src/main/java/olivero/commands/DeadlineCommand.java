@@ -13,16 +13,17 @@ import olivero.ui.Ui;
 public class DeadlineCommand extends Command {
 
     /** Usage information for the deadline command. */
-    public static final String MESSAGE_USAGE = "Example usage: " +
-            "deadline <description> /by <start date>";
+    public static final String MESSAGE_USAGE = "Example usage: "
+            + "deadline <description> /by <start date>";
 
     /** Display message when the "/by" field of the command syntax is invalid. */
-    public static final String MESSAGE_INVALID_BY_TOKEN = "Did you correctly " +
-            "specify the '/by <end date>' of your deadline task?";
+    public static final String MESSAGE_INVALID_BY_TOKEN = "Did you correctly "
+            + "specify the '/by <end date>' of your deadline task?";
 
     /** Display message for an empty deadline task description. */
-    public static final String MESSAGE_EMPTY_DESCRIPTION = "HUH? " +
-            "You can't have an empty deadline task description...";
+    public static final String MESSAGE_EMPTY_DESCRIPTION = "HUH? "
+            + "You can't have an empty deadline task description...";
+
     private final Deadline deadline;
 
     /**
