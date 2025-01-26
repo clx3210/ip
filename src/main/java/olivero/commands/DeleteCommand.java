@@ -7,12 +7,33 @@ import olivero.storage.Storage;
 import olivero.tasks.TaskList;
 import olivero.ui.Ui;
 
+/**
+ * Deletes a specified task.
+ */
 public class DeleteCommand extends Command {
 
     private final int taskNumber;
+
+    /**
+     * Constructs an executable command to delete the task
+     * from a provided task list at the provided task number.
+     *
+     * @param taskNumber The task number of the task to be deleted from the task list.
+     */
     public DeleteCommand(int taskNumber) {
         this.taskNumber = taskNumber;
     }
+
+    /**
+     * Deletes a task with the given task number and saves the resulting task list
+     * into the provided storage medium.
+     * <p> If the taskNumber provided from the constructor is out of the range of the provided
+     * task list, an invalid task number is displayed.
+     *
+     * @param tasks List of tasks.
+     * @param ui The User interface for the command to output messages to during execution.
+     * @param storage Storage medium for saving or loading tasks from disk.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         int taskSize = tasks.getTaskSize();

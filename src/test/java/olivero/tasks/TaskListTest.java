@@ -7,6 +7,9 @@ import java.time.LocalDateTime;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+/**
+ * Tests for the TaskList member SUTs.
+ */
 public class TaskListTest {
 
     @Test

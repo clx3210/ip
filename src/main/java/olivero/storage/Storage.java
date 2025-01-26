@@ -12,17 +12,33 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Handles the saving and loading of {@code TaskList} into and from disk respectively.
+ */
 public class Storage {
 
     private final String dataPath;
 
     private final TaskParser taskParser;
 
+    /**
+     * Constructs a storage instance to handle saving and loading of tasks.
+     *
+     * @param dataPath the path to the file to be used for storing tasks.
+     */
     public Storage(String dataPath) {
         this.dataPath = dataPath;
         taskParser = new TaskParser();
     }
 
+    /**
+     * Saves a {@code TaskList} into disk at the location
+     * specified by the file path.
+     *
+     * @param tasks TaskList object to be saved to disk.
+     * @throws StorageSaveException When the file present is a directory,
+     * or cannot be created.
+     */
     public void save(TaskList tasks) throws StorageSaveException {
         try {
             saveData(tasks.asFormattedString());
@@ -31,6 +47,14 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads a {@code TaskList} from disk at the location specified
+     * by the file path.
+     *
+     * @return TaskList object stored in the disk.
+     * @throws StorageLoadException When the data file at the specified
+     * location does not exist or is corrupted.
+     */
     public TaskList load() throws StorageLoadException {
         TaskList taskList;
         try {
@@ -39,11 +63,11 @@ public class Storage {
         } catch (FileNotFoundException e) {
             throw new StorageLoadException(
                     e.getMessage(),
-                    StorageLoadException.Reason.STORAGE_MISSING);
+                    StorageLoadException.Reason.DATA_MISSING);
         } catch (TaskParseException e) {
             throw new StorageLoadException(
                     e.getMessage(),
-                    StorageLoadException.Reason.STORAGE_CORRUPT);
+                    StorageLoadException.Reason.DATA_CORRUPT);
         }
         return taskList;
     }
