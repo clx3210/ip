@@ -169,7 +169,7 @@ public class Parser {
      * @param rawInput The user input containing the raw command string.
      * @return An executable {@code Command} object.
      * @throws CommandParseException If the provided user input cannot be formatted
-     * into any of the existing supported {@code Command} types or subtypes.
+     *                               into any of the existing supported {@code Command} types or subtypes.
      */
     public Command parse(String rawInput) throws CommandParseException {
         int idx = rawInput.indexOf(" ");

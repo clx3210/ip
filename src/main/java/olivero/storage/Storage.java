@@ -36,8 +36,7 @@ public class Storage {
      * specified by the file path.
      *
      * @param tasks TaskList object to be saved to disk.
-     * @throws StorageSaveException When the file present is a directory,
-     * or cannot be created.
+     * @throws StorageSaveException When the file present is a directory, or cannot be created.
      */
     public void save(TaskList tasks) throws StorageSaveException {
         try {
@@ -53,7 +52,7 @@ public class Storage {
      *
      * @return TaskList object stored in the disk.
      * @throws StorageLoadException When the data file at the specified
-     * location does not exist or is corrupted.
+     *                              location does not exist or is corrupted.
      */
     public TaskList load() throws StorageLoadException {
         TaskList taskList;

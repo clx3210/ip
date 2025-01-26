@@ -121,14 +121,15 @@ public class Ui {
         System.out.println("\t" + DIVIDER + "\n");
     }
 
+    /**
+     * Displays each given message in the order they are specified,
+     * delimited by {@link System#lineSeparator()} to the user.
+     *
+     * @param messages The messages to be displayed.
+     */
     public void displayMessage(String... messages) {
         String combinedMessage = String.join(System.lineSeparator(), messages);
         displayMessage(combinedMessage);
-    }
-
-
-    public boolean hasNextCommand() {
-        return reader.hasNextLine();
     }
 
     /**

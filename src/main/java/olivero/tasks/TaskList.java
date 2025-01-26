@@ -139,6 +139,12 @@ public class TaskList {
         return message.toString().strip();
     }
 
+    /**
+     * Returns a task list of elements filtered to satisfy the given predicate.
+     *
+     * @param predicate The filter predicate.
+     * @return A {@code TaskList} object.
+     */
     public TaskList filter(Predicate<? super Task> predicate) {
         List<Task> filtered = tasks
                 .stream()

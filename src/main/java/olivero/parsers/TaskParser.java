@@ -23,8 +23,7 @@ public class TaskParser {
      *
      * @param rawTasks The raw string input containing the list of tasks.
      * @return Parsed {@code TaskList} object.
-     * @throws TaskParseException If the provided format of the raw tasks is invalid
-     * during parsing.
+     * @throws TaskParseException If the provided format of the raw tasks is invalid during parsing.
      */
     public TaskList parse(String rawTasks) throws TaskParseException {
         TaskList taskList = new TaskList();

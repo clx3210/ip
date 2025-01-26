@@ -47,7 +47,7 @@ public enum CommandType {
      * @param value The string value to match against that of existing enum values.
      * @return The unique Enum value associated with that string's value, if any.
      * @throws UnsupportedCommandException When {@code value} does not match any of the
-     * defined enum values.
+     *                                     defined enum values.
      */
     public static CommandType asCommandType(String value) {
         try {

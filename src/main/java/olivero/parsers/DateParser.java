@@ -1,10 +1,11 @@
 package olivero.parsers;
 
+
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
-
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
 
 /**
  * Provides utility members for datetime parsing, along with fixed formats
@@ -32,7 +33,7 @@ public final class DateParser {
      * @param dateString The datetime string to be parsed.
      * @return The parsed {@code LocalDateTime} object.
      * @throws DateTimeParseException If the format of the provided {@code dateString}
-     * is invalid or does not match {@link #INPUT_DATE_FORMATTER}.
+     *                                is invalid or does not match {@link #INPUT_DATE_FORMATTER}.
      */
     public static LocalDateTime parseInputDate(String dateString) throws DateTimeParseException {
         return LocalDateTime.parse(dateString, INPUT_DATE_FORMATTER);
