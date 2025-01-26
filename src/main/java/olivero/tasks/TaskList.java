@@ -1,7 +1,6 @@
 package olivero.tasks;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class TaskList {
@@ -39,7 +38,7 @@ public class TaskList {
             throw new IllegalArgumentException();
         }
         tasks.get(taskNumber - 1).setDone(true);
-   }
+    }
 
     public void unmarkTaskAt(int taskNumber) throws IllegalArgumentException {
         if (taskNumber <= 0 || taskNumber > tasks.size()) {

@@ -1,7 +1,5 @@
 package olivero.tasks;
 
-import olivero.tasks.Task;
-
 public class ToDo extends Task {
     public ToDo(String description, boolean isDone) {
         super(description, isDone);

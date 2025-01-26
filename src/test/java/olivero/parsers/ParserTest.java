@@ -1,15 +1,27 @@
 package olivero.parsers;
 
-import olivero.commands.*;
-import olivero.exceptions.CommandParseException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import olivero.commands.ByeCommand;
+import olivero.commands.DeadlineCommand;
+import olivero.commands.DeleteCommand;
+import olivero.commands.EventCommand;
+import olivero.commands.ListCommand;
+import olivero.commands.MarkCommand;
+import olivero.commands.ToDoCommand;
+import olivero.commands.UnMarkCommand;
+import olivero.exceptions.CommandParseException;
+
 
 public class ParserTest {
 
-    private static final String MESSAGE_EXPECTED_INVALID_INTEGER = "Did you pass " +
-            "in a valid integer? Your input: %s";
+    private static final String MESSAGE_EXPECTED_INVALID_INTEGER = "Did you pass "
+            + "in a valid integer? Your input: %s";
 
     @Test
     public void parse_blankArguments_exceptionThrown() {
@@ -17,8 +29,7 @@ public class ParserTest {
                 + "I do not understand what you just said :(";
 
         CommandParseException exception = assertThrows(
-                CommandParseException.class,
-                () -> {
+                CommandParseException.class, () -> {
                     Parser parser = new Parser();
                     parser.parse("");
                 });
@@ -31,8 +42,7 @@ public class ParserTest {
                 + "I do not understand what you just said :(";
 
         CommandParseException exception = assertThrows(
-                CommandParseException.class,
-                () -> {
+                CommandParseException.class, () -> {
                     Parser parser = new Parser();
                     parser.parse("todo12u4c14|||??::'''");
                 });
@@ -46,8 +56,7 @@ public class ParserTest {
                 + System.lineSeparator()
                 + "Example usage: deadline <description> /by <start date>";
         CommandParseException exception = assertThrows(
-                CommandParseException.class,
-                () -> {
+                CommandParseException.class, () -> {
                     Parser parser = new Parser();
                     parser.parse("deadline xx/by 202-123-3" + System.lineSeparator());
                 });
@@ -61,8 +70,7 @@ public class ParserTest {
                 + System.lineSeparator()
                 + "Example usage: deadline <description> /by <start date>";
         CommandParseException exception = assertThrows(
-                CommandParseException.class,
-                () -> {
+                CommandParseException.class, () -> {
                     Parser parser = new Parser();
                     parser.parse("deadline xx /by202-123-3" + System.lineSeparator());
                 });
@@ -76,8 +84,7 @@ public class ParserTest {
                 + System.lineSeparator()
                 + "Example usage: deadline <description> /by <start date>";
         CommandParseException exception = assertThrows(
-                CommandParseException.class,
-                () -> {
+                CommandParseException.class, () -> {
                     Parser parser = new Parser();
                     parser.parse("deadline xx/by1" + System.lineSeparator());
                 });
@@ -91,8 +98,7 @@ public class ParserTest {
                 + "Correct date format: yyyy-mm-dd HHmm (e.g. 2019-10-15 1800)";
 
         CommandParseException exception = assertThrows(
-                CommandParseException.class,
-                () -> {
+                CommandParseException.class, () -> {
                     Parser parser = new Parser();
                     parser.parse("deadline xx /by 202-123-3" + System.lineSeparator());
                 });
@@ -157,13 +163,11 @@ public class ParserTest {
 
     @Test
     public void parse_invalidMarkTaskNumber_exceptionThrown() {
-        String[] invalidArgs = {" ", "   ", " a", " ^b",
-                " -", " 1rhi1c", " @|||@!", "", " abb |"};
+        String[] invalidArgs = {" ", "   ", " a", " ^b", " -", " 1rhi1c", " @|||@!", "", " abb |"};
         for (String arg : invalidArgs) {
             String expected = String.format(MESSAGE_EXPECTED_INVALID_INTEGER, arg);
             CommandParseException exception = assertThrows(
-                    CommandParseException.class,
-                    () -> new Parser().parse(String.format("mark%s", arg)));
+                    CommandParseException.class, () -> new Parser().parse(String.format("mark%s", arg)));
             assertEquals(expected, exception.getMessage());
         }
     }
@@ -181,13 +185,11 @@ public class ParserTest {
 
     @Test
     public void parse_invalidUnMarkTaskNumber_exceptionThrown() {
-        String[] invalidArgs = {" ", "   ", " asdsasd", " ^b", " -",
-                " 1rhi1c", " @|||@!", "", " a"};
+        String[] invalidArgs = {" ", "   ", " asdsasd", " ^b", " -", " 1rhi1c", " @|||@!", "", " a"};
         for (String arg : invalidArgs) {
             String expected = String.format(MESSAGE_EXPECTED_INVALID_INTEGER, arg);
             CommandParseException exception = assertThrows(
-                    CommandParseException.class,
-                    () -> new Parser().parse(String.format("unmark%s", arg)));
+                    CommandParseException.class, () -> new Parser().parse(String.format("unmark%s", arg)));
             assertEquals(expected, exception.getMessage());
         }
     }
@@ -209,8 +211,7 @@ public class ParserTest {
         for (String arg : invalidArgs) {
             String expected = String.format(MESSAGE_EXPECTED_INVALID_INTEGER, arg);
             CommandParseException exception = assertThrows(
-                    CommandParseException.class,
-                    () -> new Parser().parse(String.format("delete%s", arg)));
+                    CommandParseException.class, () -> new Parser().parse(String.format("delete%s", arg)));
             assertEquals(expected, exception.getMessage());
         }
     }

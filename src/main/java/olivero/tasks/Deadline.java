@@ -1,9 +1,9 @@
 package olivero.tasks;
 
-import olivero.tasks.Task;
+import java.time.LocalDateTime;
+
 import olivero.parsers.DateParser;
 
-import java.time.LocalDateTime;
 
 public class Deadline extends Task {
     private LocalDateTime endDate;
@@ -14,9 +14,9 @@ public class Deadline extends Task {
 
     @Override
     public String toFormattedString() {
-       int doneStatus = isDone() ? 1 : 0;
-       String dateString = DateParser.asInputDateString(endDate);
-       return "D" + " | " + doneStatus + " | " + getDescription() + " | " + dateString;
+        int doneStatus = isDone() ? 1 : 0;
+        String dateString = DateParser.asInputDateString(endDate);
+        return "D" + " | " + doneStatus + " | " + getDescription() + " | " + dateString;
     }
 
     @Override

@@ -1,16 +1,26 @@
 package olivero.parsers;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+
+import olivero.commands.ByeCommand;
+import olivero.commands.Command;
 import olivero.commands.CommandType;
-import olivero.tasks.Deadline;
-import olivero.tasks.Event;
-import olivero.tasks.ToDo;
-import olivero.commands.*;
+import olivero.commands.DeadlineCommand;
+import olivero.commands.DeleteCommand;
+import olivero.commands.EventCommand;
+import olivero.commands.ListCommand;
+import olivero.commands.MarkCommand;
+import olivero.commands.ToDoCommand;
+import olivero.commands.UnMarkCommand;
 import olivero.common.Responses;
 import olivero.exceptions.CommandParseException;
 import olivero.exceptions.UnsupportedCommandException;
+import olivero.tasks.Deadline;
+import olivero.tasks.Event;
+import olivero.tasks.ToDo;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
+
 
 public class Parser {
     private static final String BY_TOKEN = " /by ";
@@ -47,7 +57,8 @@ public class Parser {
         int toEndId = toStartId + TO_TOKEN.length();
         String fromDateString = arguments.substring(fromEndId, toStartId).strip();
         String toDateString = arguments.substring(toEndId).strip();
-        LocalDateTime fromDate, toDate;
+        LocalDateTime fromDate;
+        LocalDateTime toDate;
         try {
             fromDate = DateParser.parseInputDate(fromDateString);
             toDate = DateParser.parseInputDate(toDateString);
@@ -151,14 +162,14 @@ public class Parser {
         }
         String argumentString = idx > -1 ? rawInput.substring(idx) : "";
         return switch (commandType) {
-            case TODO -> setupToDo(argumentString);
-            case DEADLINE -> setupDeadline(argumentString);
-            case EVENT -> setupEvent(argumentString);
-            case LIST -> setupList();
-            case MARK -> setupMark(argumentString);
-            case UNMARK -> setupUnMark(argumentString);
-            case DELETE -> setupDelete(argumentString);
-            case BYE -> setupExit();
+        case TODO -> setupToDo(argumentString);
+        case DEADLINE -> setupDeadline(argumentString);
+        case EVENT -> setupEvent(argumentString);
+        case LIST -> setupList();
+        case MARK -> setupMark(argumentString);
+        case UNMARK -> setupUnMark(argumentString);
+        case DELETE -> setupDelete(argumentString);
+        case BYE -> setupExit();
         };
     }
 }

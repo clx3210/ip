@@ -42,6 +42,8 @@ public class Olivero {
             case STORAGE_MISSING:
                 textUi.displayError(Responses.RESPONSE_SAVE_FILE_NOT_FOUND);
                 break;
+            default:
+                break;
             }
         }
     }

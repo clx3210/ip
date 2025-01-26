@@ -1,14 +1,16 @@
 package olivero.parsers;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+import java.util.regex.Pattern;
+
+import olivero.exceptions.TaskParseException;
 import olivero.tasks.Deadline;
 import olivero.tasks.Event;
 import olivero.tasks.TaskList;
 import olivero.tasks.ToDo;
-import olivero.exceptions.TaskParseException;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
-import java.util.regex.Pattern;
+
 
 public class TaskParser {
     public static final String SEPARATOR = " | ";
@@ -55,7 +57,8 @@ public class TaskParser {
                 }
                 boolean isDone = Integer.parseInt(args[1]) == 1;
                 String description = args[2];
-                LocalDateTime startDate, endDate;
+                LocalDateTime startDate;
+                LocalDateTime endDate;
                 try {
                     startDate = DateParser.parseInputDate(args[3]);
                     endDate = DateParser.parseInputDate(args[4]);

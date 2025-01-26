@@ -14,8 +14,7 @@ public enum CommandType {
     /**
      * @param value
      * @return the unique Enum value associated with that string's value, if any.
-     * @throws UnsupportedCommandException when s does not match any of the
-     * defined enum values.
+     * @throws UnsupportedCommandException when s does not match any of the defined enum values.
      */
     public static CommandType asCommandType(String value) {
         try {

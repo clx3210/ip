@@ -1,12 +1,12 @@
 package olivero.commands;
 
 import olivero.common.Responses;
+import olivero.exceptions.StorageSaveException;
 import olivero.storage.Storage;
 import olivero.tasks.TaskList;
 import olivero.ui.Ui;
-import olivero.exceptions.StorageSaveException;
 
-public class MarkCommand extends Command{
+public class MarkCommand extends Command {
 
     private final int taskNumber;
 
@@ -29,7 +29,7 @@ public class MarkCommand extends Command{
         try {
             storage.save(tasks);
         } catch (StorageSaveException e) {
-           ui.displayMessage(Responses.RESPONSE_SAVE_FILE_FAILED);
+            ui.displayMessage(Responses.RESPONSE_SAVE_FILE_FAILED);
         }
     }
 }
