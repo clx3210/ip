@@ -29,7 +29,10 @@ public enum CommandType {
     DELETE("delete"),
 
     /** Exit command type. */
-    BYE("bye");
+    BYE("bye"),
+
+    /** Find command type. */
+    FIND("find");
 
     private final String tag;
     CommandType(String tag) {

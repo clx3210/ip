@@ -2,6 +2,8 @@ package olivero.tasks;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * Represents a list of tasks.
@@ -24,6 +26,10 @@ public class TaskList {
      */
     public TaskList(TaskList other) {
         tasks = new ArrayList<>(other.tasks);
+    }
+
+    private TaskList(List<? extends Task> tasks) {
+        this.tasks = new ArrayList<>(tasks);
     }
 
     /**
@@ -132,4 +138,13 @@ public class TaskList {
         }
         return message.toString().strip();
     }
+
+    public TaskList filter(Predicate<? super Task> predicate) {
+        List<Task> filtered = tasks
+                .stream()
+                .filter(predicate)
+                .collect(Collectors.toCollection(ArrayList::new));
+        return new TaskList(filtered);
+    }
+
 }

@@ -121,6 +121,16 @@ public class Ui {
         System.out.println("\t" + DIVIDER + "\n");
     }
 
+    public void displayMessage(String... messages) {
+        String combinedMessage = String.join(System.lineSeparator(), messages);
+        displayMessage(combinedMessage);
+    }
+
+
+    public boolean hasNextCommand() {
+        return reader.hasNextLine();
+    }
+
     /**
      * Returns the entered user input.
      *
