@@ -136,6 +136,15 @@ public class Parser {
         }
     }
 
+    private FindCommand setupFind(String arguments) throws CommandParseException {
+        if (arguments.strip().isBlank()) {
+            throw new CommandParseException(
+                    FindCommand.MESSAGE_EMPTY_DESCRIPTION,
+                    FindCommand.MESSAGE_USAGE);
+        }
+        return new FindCommand(arguments.strip());
+    }
+
     private ByeCommand setupExit() {
         return new ByeCommand();
     }
@@ -158,6 +167,7 @@ public class Parser {
             case MARK -> setupMark(argumentString);
             case UNMARK -> setupUnMark(argumentString);
             case DELETE -> setupDelete(argumentString);
+            case FIND -> setupFind(argumentString);
             case BYE -> setupExit();
         };
     }

@@ -5,7 +5,7 @@ import olivero.exceptions.UnsupportedCommandException;
 public enum CommandType {
     TODO("todo"), DEADLINE("deadline"), EVENT("event"),
     LIST("list"), MARK("mark"), UNMARK("unmark"), DELETE("delete"),
-    BYE("bye");
+    BYE("bye"), FIND("find");
     private final String tag;
     CommandType(String tag) {
         this.tag = tag;
