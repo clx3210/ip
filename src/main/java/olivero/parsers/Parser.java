@@ -12,6 +12,9 @@ import olivero.exceptions.UnsupportedCommandException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Parses commands from the user input and returns a {@code Command} object.
+ */
 public class Parser {
     private static final String BY_TOKEN = " /by ";
     private static final String FROM_TOKEN = " /from ";
@@ -140,6 +143,15 @@ public class Parser {
         return new ByeCommand();
     }
 
+    /**
+     * Parses the raw user input into an executable {@code Command} object,
+     * and returns it.
+     *
+     * @param rawInput The user input containing the raw command string.
+     * @return An executable {@code Command} object.
+     * @throws CommandParseException If the provided user input cannot be formatted
+     * into any of the existing supported {@code Command} types or subtypes.
+     */
     public Command parse(String rawInput) throws CommandParseException {
         int idx = rawInput.indexOf(" ");
         CommandType commandType;

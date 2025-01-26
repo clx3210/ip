@@ -10,9 +10,22 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.regex.Pattern;
 
+/**
+ * Parses raw tasks into a {@code TaskList} object.
+ */
 public class TaskParser {
+
+    /** Argument separator used in the raw data formatting to demarcate arguments of each task. */
     public static final String SEPARATOR = " | ";
 
+    /**
+     * Returns a {@code TaskList} object that has been parsed from the raw string input.
+     *
+     * @param rawTasks The raw string input containing the list of tasks.
+     * @return Parsed {@code TaskList} object.
+     * @throws TaskParseException If the provided format of the raw tasks is invalid
+     * during parsing.
+     */
     public TaskList parse(String rawTasks) throws TaskParseException {
         TaskList taskList = new TaskList();
         if (rawTasks.isEmpty()) {

@@ -6,6 +6,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Tests for the Parser member SUTs.
+ */
 public class ParserTest {
 
     private static final String MESSAGE_EXPECTED_INVALID_INTEGER = "Did you pass " +
