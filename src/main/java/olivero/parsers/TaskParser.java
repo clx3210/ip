@@ -34,7 +34,7 @@ public class TaskParser {
         for (String line : lines) {
             String[] args = line.split(Pattern.quote(SEPARATOR));
             if (args.length == 0) {
-                throw new IllegalArgumentException();
+                throw new TaskParseException("Arguments length cannot be empty.");
             }
             switch (args[0]) {
             case "T": {
