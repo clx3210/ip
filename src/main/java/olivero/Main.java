@@ -9,6 +9,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import olivero.ui.MainWindow;
 
+/**
+ * Sets up the controller and Graphical views of the application.
+ */
 public class Main extends Application {
 
     private Olivero olivero = new Olivero("data/tasks.txt");

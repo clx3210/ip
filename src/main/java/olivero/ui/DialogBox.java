@@ -13,12 +13,21 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
+/**
+ * Represents a custom controller class for a dialog box with an image.
+ */
 public class DialogBox extends HBox {
 
     @FXML
     private Label dialog;
     @FXML
     private ImageView displayPicture;
+
+    /**
+     * Constructs a dialog box with the specified text and image.
+     * @param text The text to show in the dialog box.
+     * @param image The {@code Image} to show in the dialog box.
+     */
     public DialogBox(String text, Image image) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));

@@ -1,5 +1,8 @@
 package olivero.exceptions;
 
+/**
+ * Signals an error when executing a command.
+ */
 public class CommandExecutionException extends Exception {
 
     /**

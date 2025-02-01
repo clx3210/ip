@@ -11,9 +11,9 @@ import olivero.tasks.TaskList;
  */
 public class MarkCommand extends Command {
 
-    private final int taskNumber;
-
     public static final String RESPONSE_SUCCESS = "Cool! I've marked this task as done: %s";
+
+    private final int taskNumber;
 
     /**
      * Constructs an executable command to mark a task at the
