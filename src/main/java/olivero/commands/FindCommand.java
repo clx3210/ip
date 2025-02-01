@@ -1,8 +1,8 @@
 package olivero.commands;
 
+import olivero.exceptions.CommandExecutionException;
 import olivero.storage.Storage;
 import olivero.tasks.TaskList;
-import olivero.ui.Ui;
 
 /**
  * Finds all tasks with description containing the specified keyword.
@@ -16,7 +16,7 @@ public class FindCommand extends Command {
     /** Usage information for the find command. */
     public static final String MESSAGE_USAGE = "Usage: find <non-empty description>";
 
-    private static final String RESPONSE_PREFIX = "Here are the matching tasks in your list:";
+    public static final String RESPONSE_SUCCESS = "Here are the matching tasks in your list: %s";
 
     private final String keyword;
 
@@ -31,10 +31,10 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public CommandResult execute(TaskList tasks, Storage storage) throws CommandExecutionException {
         String filteredList = tasks
                 .filter(task -> task.getDescription().contains(keyword))
                 .toString();
-        ui.displayMessage(RESPONSE_PREFIX, filteredList);
+        return new CommandResult(String.format(RESPONSE_SUCCESS, filteredList));
     }
 }

@@ -1,11 +1,11 @@
 package olivero.commands;
 
 import olivero.common.Responses;
+import olivero.exceptions.CommandExecutionException;
 import olivero.exceptions.StorageSaveException;
 import olivero.storage.Storage;
 import olivero.tasks.Deadline;
 import olivero.tasks.TaskList;
-import olivero.ui.Ui;
 
 /**
  * Creates and stores a deadline task.
@@ -24,6 +24,12 @@ public class DeadlineCommand extends Command {
     public static final String MESSAGE_EMPTY_DESCRIPTION = "HUH? "
             + "You can't have an empty deadline task description...";
 
+    public static final String RESPONSE_SUCCESS = "Got it. I've added this task:"
+            + System.lineSeparator()
+            + "  %s"
+            + System.lineSeparator()
+            + "Now you have %d task(s) in the list.";
+
     private final Deadline deadline;
 
     /**
@@ -41,18 +47,21 @@ public class DeadlineCommand extends Command {
      * Displays a success message if saving is successful, otherwise a failed message is
      * displayed on the ui.
      *
-     * @param tasks List of tasks.
-     * @param ui The User interface for the command to output messages to during execution.
+     * @param tasks   List of tasks.
      * @param storage Storage medium for saving or loading tasks from disk.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public CommandResult execute(TaskList tasks, Storage storage) throws CommandExecutionException {
         try {
             tasks.addTask(deadline);
             storage.save(tasks);
-            ui.displayTaskResponse(deadline, tasks);
+            return new CommandResult(
+                    String.format(
+                            RESPONSE_SUCCESS,
+                            deadline,
+                            tasks.getTaskSize()));
         } catch (StorageSaveException e) {
-            ui.displayMessage(Responses.RESPONSE_SAVE_FILE_FAILED);
+            throw new CommandExecutionException(Responses.RESPONSE_SAVE_FILE_FAILED);
         }
     }
 }
