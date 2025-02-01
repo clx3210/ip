@@ -1,10 +1,10 @@
 package olivero.commands;
 
 import olivero.common.Responses;
+import olivero.exceptions.CommandExecutionException;
 import olivero.exceptions.StorageSaveException;
 import olivero.storage.Storage;
 import olivero.tasks.TaskList;
-import olivero.ui.Ui;
 
 /**
  * Marks a task as done.
@@ -12,6 +12,8 @@ import olivero.ui.Ui;
 public class MarkCommand extends Command {
 
     private final int taskNumber;
+
+    public static final String RESPONSE_SUCCESS = "Cool! I've marked this task as done: %s";
 
     /**
      * Constructs an executable command to mark a task at the
@@ -30,27 +32,27 @@ public class MarkCommand extends Command {
      * the task fails to save into storage, a context-specific invalid message is
      * displayed on the provided {@code ui}.
      *
-     * @param tasks List of tasks.
-     * @param ui The User interface for the command to output messages to during execution.
+     * @param tasks   List of tasks.
      * @param storage Storage medium for saving or loading tasks from disk.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public CommandResult execute(TaskList tasks, Storage storage) throws CommandExecutionException {
         int taskSize = tasks.getTaskSize();
         if (taskNumber > taskSize || taskNumber <= 0) {
-            ui.displayMessage(
+            throw new CommandExecutionException(
                     String.format(
                             Responses.RESPONSE_INVALID_TASK_NUMBER,
                             taskNumber));
-            return;
         }
-        tasks.markTaskAt(taskNumber);
-        ui.displayMarkResponse(tasks, taskNumber);
-
         try {
+            tasks.markTaskAt(taskNumber);
             storage.save(tasks);
+            return new CommandResult(
+                    String.format(
+                            RESPONSE_SUCCESS,
+                            tasks.getTaskDescription(taskNumber)));
         } catch (StorageSaveException e) {
-            ui.displayMessage(Responses.RESPONSE_SAVE_FILE_FAILED);
+            throw new CommandExecutionException(Responses.RESPONSE_SAVE_FILE_FAILED);
         }
     }
 }

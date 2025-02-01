@@ -13,6 +13,7 @@ public final class Responses {
     public static final String RESPONSE_SAVE_FILE_NOT_FOUND = "Can't seem to "
             + "find a previous save file..";
 
+    public static final String RESPONSE_SAVE_FILE_LOADED = "Found your last saved!";
     /** Display message when a save file is corrupted. */
     public static final String RESPONSE_SAVE_FILE_CORRUPT = "Oh no.. your "
             + "previous save file may have been corrupted..";

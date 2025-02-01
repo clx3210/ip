@@ -1,17 +1,21 @@
 package olivero.commands;
 
 import olivero.common.Responses;
+import olivero.exceptions.CommandExecutionException;
 import olivero.exceptions.StorageSaveException;
 import olivero.storage.Storage;
 import olivero.tasks.TaskList;
-import olivero.ui.Ui;
 
 /**
  * Un marks a given task.
  */
 public class UnMarkCommand extends Command {
 
+    public static final String RESPONSE_SUCCESS = "Alright, I've un-marked this task: "
+            + System.lineSeparator()
+            + " %s";
     private final int taskNumber;
+
 
     /**
      * Creates an UnMarkCommand instance with the specified 1-indexed task number
@@ -30,27 +34,28 @@ public class UnMarkCommand extends Command {
      * <p> If the task number given is out of the range of the tasks, then an error message is displayed.
      * Otherwise, if storage saving fails, then an error message is also displayed.
      *
-     * @param tasks List of tasks.
-     * @param ui The User interface for the command to output messages to during execution.
+     * @param tasks   List of tasks.
      * @param storage Storage medium for saving or loading tasks from disk.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public CommandResult execute(TaskList tasks, Storage storage) throws CommandExecutionException {
         int taskSize = tasks.getTaskSize();
         if (taskNumber > taskSize || taskNumber <= 0) {
-            ui.displayMessage(
+            throw new CommandExecutionException(
                     String.format(
                             Responses.RESPONSE_INVALID_TASK_NUMBER,
                             taskNumber));
-            return;
         }
-        tasks.unmarkTaskAt(taskNumber);
-        ui.displayUnMarkResponse(tasks, taskNumber);
-
         try {
+            tasks.unmarkTaskAt(taskNumber);
             storage.save(tasks);
+            return new CommandResult(
+                    String.format(
+                            RESPONSE_SUCCESS,
+                            tasks.getTaskDescription(taskNumber)));
         } catch (StorageSaveException e) {
-            ui.displayMessage(Responses.RESPONSE_SAVE_FILE_FAILED);
+            throw new CommandExecutionException(Responses.RESPONSE_SAVE_FILE_FAILED);
         }
+
     }
 }

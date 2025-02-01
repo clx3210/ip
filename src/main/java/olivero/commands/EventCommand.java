@@ -1,11 +1,11 @@
 package olivero.commands;
 
 import olivero.common.Responses;
+import olivero.exceptions.CommandExecutionException;
 import olivero.exceptions.StorageSaveException;
 import olivero.storage.Storage;
 import olivero.tasks.Event;
 import olivero.tasks.TaskList;
-import olivero.ui.Ui;
 
 /**
  * Creates and saves an event task.
@@ -32,6 +32,12 @@ public class EventCommand extends Command {
     /** Display message for an empty event description. */
     public static final String MESSAGE_EMPTY_DESCRIPTION = "HUH? "
             + "You can't have an empty Event description...";
+
+    public static final String RESPONSE_SUCCESS = "Got it. I've added this task:"
+            + System.lineSeparator()
+            + "  %s"
+            + System.lineSeparator()
+            + "Now you have %d task(s) in the list.";
     private final Event event;
 
     /**
@@ -47,18 +53,17 @@ public class EventCommand extends Command {
      * Adds an event task specified from the constructor into the provided list of tasks
      * and saves it into the provided storage medium.
      *
-     * @param tasks List of tasks.
-     * @param ui The User interface for the command to output messages to during execution.
+     * @param tasks   List of tasks.
      * @param storage Storage medium for saving or loading tasks from disk.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public CommandResult execute(TaskList tasks, Storage storage) throws CommandExecutionException {
         try {
             tasks.addTask(event);
             storage.save(tasks);
-            ui.displayTaskResponse(event, tasks);
+            return new CommandResult(String.format(RESPONSE_SUCCESS, event));
         } catch (StorageSaveException e) {
-            ui.displayMessage(Responses.RESPONSE_SAVE_FILE_FAILED);
+            throw new CommandExecutionException(Responses.RESPONSE_SAVE_FILE_FAILED);
         }
     }
 }
