@@ -1,7 +1,6 @@
 package olivero.ui;
 
 import java.util.Objects;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -14,12 +13,17 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import olivero.Olivero;
 import olivero.commands.CommandResult;
 import olivero.exceptions.CommandExecutionException;
 
+/**
+ * Represents the main Gui for displaying chat messages.
+ */
 public class MainWindow extends AnchorPane {
+
+    private static final int EXIT_DELAY_SECONDS = 1;
+
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -30,12 +34,15 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Olivero olivero;
-    private boolean isExiting = false;
-    private static final int EXIT_DELAY_SECONDS = 1;
     private final Image userImage = new Image(
             Objects.requireNonNull(this.getClass().getResourceAsStream("/images/pingu.png")));
     private final Image oliveroImage = new Image(
             Objects.requireNonNull(this.getClass().getResourceAsStream("/images/pingu_angry.png")));
+
+    /** true if the current window is exiting, false otherwise */
+    private boolean isExiting = false;
+
+
 
     @FXML
     public void initialize() {

@@ -12,13 +12,13 @@ import olivero.tasks.TaskList;
  */
 public class DeleteCommand extends Command {
 
-    private final int taskNumber;
-
     public static final String RESPONSE_SUCCESS = "OK, I've removed this task:"
             + System.lineSeparator()
             + " %s"
             + System.lineSeparator()
             + "Now you have %d task(s) in the list.";
+
+    private final int taskNumber;
 
     /**
      * Constructs an executable command to delete the task

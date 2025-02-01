@@ -52,6 +52,12 @@ public class Olivero {
         return Responses.GREETING_MESSAGE;
     }
 
+    /**
+     * Returns the execution result of running a raw user command.
+     * @param rawCommand The raw command string input by the user.
+     * @return The result of running the command.
+     * @throws CommandExecutionException If an error occurs during command execution.
+     */
     public CommandResult runCommand(String rawCommand) throws CommandExecutionException {
         try {
             Command command = commandParser.parse(rawCommand);
