@@ -7,6 +7,9 @@ import olivero.commands.DeleteCommand;
 import olivero.common.Responses;
 import olivero.exceptions.CommandParseException;
 
+/**
+ * Represents the parser for parsing command arguments into a {@link DeleteCommand} object.
+ */
 public class DeleteCommandParser extends CommandParser<DeleteCommand> {
 
     private static final Pattern DELETE_COMMAND_FORMAT = Pattern.compile(" (?<taskNumber>.*)");

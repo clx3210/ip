@@ -7,6 +7,9 @@ import olivero.commands.UnMarkCommand;
 import olivero.common.Responses;
 import olivero.exceptions.CommandParseException;
 
+/**
+ * Represents the parser for parsing arguments into a {@link UnMarkCommand} object.
+ */
 public class UnMarkCommandParser extends CommandParser<UnMarkCommand> {
 
     public static final Pattern UNMARK_COMMAND_FORMAT = Pattern.compile(" (?<taskNumber>.*)");

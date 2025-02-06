@@ -7,6 +7,9 @@ import olivero.commands.MarkCommand;
 import olivero.common.Responses;
 import olivero.exceptions.CommandParseException;
 
+/**
+ * Represents the parser for parsing arguments into a {@link MarkCommand} object.
+ */
 public class MarkCommandParser extends CommandParser<MarkCommand> {
 
     public static final Pattern MARK_COMMAND_FORMAT = Pattern.compile(" (?<taskNumber>.*)");

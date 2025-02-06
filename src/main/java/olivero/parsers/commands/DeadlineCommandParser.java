@@ -11,6 +11,9 @@ import olivero.exceptions.CommandParseException;
 import olivero.parsers.DateParser;
 import olivero.tasks.Deadline;
 
+/**
+ * Represents a parser responsible for parsing command arguments into a {@link DeadlineCommand} object.
+ */
 public class DeadlineCommandParser extends CommandParser<DeadlineCommand> {
     public static final Pattern DEADLINE_ARGUMENT_FORMAT = Pattern.compile(
             " (?<description>.*) /by (?<endDate>.*)");
@@ -29,17 +32,17 @@ public class DeadlineCommandParser extends CommandParser<DeadlineCommand> {
         return new DeadlineCommand(new Deadline(description, endDate, false));
     }
 
-        @Override
-        public DeadlineCommand parse(String arguments) throws CommandParseException {
-            final Matcher matcher = DEADLINE_ARGUMENT_FORMAT.matcher(arguments);
-            if (!matcher.matches()) {
-                throw new CommandParseException(
-                        DeadlineCommand.MESSAGE_INVALID_FORMAT,
-                        DeadlineCommand.MESSAGE_USAGE);
-            }
-            final String description = matcher.group("description");
-            final String endDate = matcher.group("endDate");
-
-            return setupDeadline(description, endDate);
+    @Override
+    public DeadlineCommand parse(String arguments) throws CommandParseException {
+        final Matcher matcher = DEADLINE_ARGUMENT_FORMAT.matcher(arguments);
+        if (!matcher.matches()) {
+            throw new CommandParseException(
+                    DeadlineCommand.MESSAGE_INVALID_FORMAT,
+                    DeadlineCommand.MESSAGE_USAGE);
         }
+        final String description = matcher.group("description");
+        final String endDate = matcher.group("endDate");
+
+        return setupDeadline(description, endDate);
+    }
 }

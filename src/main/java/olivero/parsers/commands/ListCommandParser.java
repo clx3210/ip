@@ -3,6 +3,9 @@ package olivero.parsers.commands;
 import olivero.commands.ListCommand;
 import olivero.exceptions.CommandParseException;
 
+/**
+ * Represents the parser for parsing command arguments into a {@link ListCommand} object.
+ */
 public class ListCommandParser extends CommandParser<ListCommand> {
 
     @Override

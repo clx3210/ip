@@ -3,6 +3,9 @@ package olivero.parsers.commands;
 import olivero.commands.ByeCommand;
 import olivero.exceptions.CommandParseException;
 
+/**
+ * Represents the parser for parsing command arguments into a {@link ByeCommand} object.
+ */
 public class ByeCommandParser extends CommandParser<ByeCommand> {
 
     @Override

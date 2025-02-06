@@ -7,6 +7,9 @@ import olivero.commands.ToDoCommand;
 import olivero.exceptions.CommandParseException;
 import olivero.tasks.ToDo;
 
+/**
+ * Represents a parser responsible for parsing command arguments into a {@link ToDoCommand} object.
+ */
 public class ToDoCommandParser extends CommandParser<ToDoCommand> {
 
     public static final Pattern TODO_COMMAND_FORMAT = Pattern.compile(" (?<description>.+)");

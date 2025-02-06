@@ -20,12 +20,18 @@ import olivero.parsers.commands.MarkCommandParser;
 import olivero.parsers.commands.ToDoCommandParser;
 import olivero.parsers.commands.UnMarkCommandParser;
 
+/**
+ * Represents the main parser for parsing user input into {@link Command} objects.
+ */
 public class Parser {
 
+    private static final Pattern COMMAND_FORMAT = Pattern.compile("(?<command>\\S+)(?<arguments>.*)");
     private final HashMap<CommandType, CommandParser<? extends Command>> commandParsers;
 
-    private static final Pattern COMMAND_FORMAT = Pattern.compile("(?<command>\\S+)(?<arguments>.*)");
 
+    /**
+     * Constructs a new {@link Parser} object.
+     */
     public Parser() {
         commandParsers = new HashMap<>();
 
@@ -41,6 +47,13 @@ public class Parser {
     }
 
 
+    /**
+     * Parses the raw input into a {@link Command} object.
+     *
+     * @param rawInput The raw user input to be parsed.
+     * @return Command object representing the parsed input.
+     * @throws CommandParseException If the user input is invalid and cannot be parsed.
+     */
     public Command parseCommand(String rawInput) throws CommandParseException {
         final Matcher matcher = COMMAND_FORMAT.matcher(rawInput.trim());
         if (!matcher.matches()) {

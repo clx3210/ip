@@ -11,10 +11,16 @@ import olivero.exceptions.CommandParseException;
 import olivero.parsers.DateParser;
 import olivero.tasks.Event;
 
+/**
+ * Represents the parser for parsing arguments into a {@link EventCommand} object.
+ */
 public class EventCommandParser extends CommandParser<EventCommand> {
     public static final Pattern EVENT_COMMAND_FORMAT = Pattern.compile(
             " (?<description>.*) /from (?<fromDate>.+) /to (?<toDate>.+)");
-    private EventCommand setupEvent(String description, String fromDateString, String toDateString) throws CommandParseException {
+    private EventCommand setupEvent(
+            String description,
+            String fromDateString,
+            String toDateString) throws CommandParseException {
         if (description.isBlank()) {
             throw new CommandParseException(
                     EventCommand.MESSAGE_EMPTY_DESCRIPTION);

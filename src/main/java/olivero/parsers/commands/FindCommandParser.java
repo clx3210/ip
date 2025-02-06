@@ -6,9 +6,12 @@ import java.util.regex.Pattern;
 import olivero.commands.FindCommand;
 import olivero.exceptions.CommandParseException;
 
+/**
+ * Represents the parser for parsing command arguments into a {@link FindCommand} object.
+ */
 public class FindCommandParser extends CommandParser<FindCommand> {
 
-    public static final Pattern FIND_COMMAND_FORMAT = Pattern.compile(" (?<keyword>.+)");
+    private static final Pattern FIND_COMMAND_FORMAT = Pattern.compile(" (?<keyword>.+)");
 
     @Override
     public FindCommand parse(String arguments) throws CommandParseException {
