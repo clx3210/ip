@@ -12,6 +12,9 @@ public class ByeCommand extends Command {
 
     public static final String EXIT_MESSAGE = "Bye-bye. See you soon!";
 
+    public static final String MESSAGE_INVALID_FORMAT = "Your bye command format is invalid...";
+    public static final String MESSAGE_USAGE = "Usage: bye";
+
     /**
      * Displays an exit message to the provided ui when called.
      *

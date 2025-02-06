@@ -1,5 +1,7 @@
 package olivero.commands;
 
+import java.util.regex.Pattern;
+
 import olivero.common.Responses;
 import olivero.exceptions.CommandExecutionException;
 import olivero.exceptions.StorageSaveException;
@@ -11,12 +13,14 @@ import olivero.tasks.TaskList;
  * Deletes a specified task.
  */
 public class DeleteCommand extends Command {
-
     public static final String RESPONSE_SUCCESS = "OK, I've removed this task:"
             + System.lineSeparator()
             + " %s"
             + System.lineSeparator()
             + "Now you have %d task(s) in the list.";
+
+    public static final String MESSAGE_INVALID_FORMAT = "Your delete command format is invalid...";
+    public static final String MESSAGE_USAGE = "Usage: delete <taskNumber>";
 
     private final int taskNumber;
 

@@ -1,5 +1,7 @@
 package olivero.commands;
 
+import java.util.regex.Pattern;
+
 import olivero.common.Responses;
 import olivero.exceptions.CommandExecutionException;
 import olivero.exceptions.StorageSaveException;
@@ -14,6 +16,9 @@ public class UnMarkCommand extends Command {
     public static final String RESPONSE_SUCCESS = "Alright, I've un-marked this task: "
             + System.lineSeparator()
             + " %s";
+
+    public static final String MESSAGE_INVALID_FORMAT = "Your unmark command format is invalid...";
+    public static final String MESSAGE_USAGE = "Usage: unmark <taskNumber>";
     private final int taskNumber;
 
 

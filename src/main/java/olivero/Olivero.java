@@ -7,6 +7,7 @@ import olivero.exceptions.CommandExecutionException;
 import olivero.exceptions.CommandParseException;
 import olivero.exceptions.StorageLoadException;
 import olivero.parsers.Parser;
+import olivero.parsers.commands.CommandParser;
 import olivero.storage.Storage;
 import olivero.tasks.TaskList;
 
@@ -60,7 +61,7 @@ public class Olivero {
      */
     public CommandResult runCommand(String rawCommand) throws CommandExecutionException {
         try {
-            Command command = commandParser.parse(rawCommand);
+            Command command = commandParser.parseCommand(rawCommand);
             return command.execute(taskList, storage);
         } catch (CommandParseException e) {
             return new CommandResult(e.getMessage());

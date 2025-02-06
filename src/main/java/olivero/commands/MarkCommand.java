@@ -1,5 +1,7 @@
 package olivero.commands;
 
+import java.util.regex.Pattern;
+
 import olivero.common.Responses;
 import olivero.exceptions.CommandExecutionException;
 import olivero.exceptions.StorageSaveException;
@@ -12,6 +14,11 @@ import olivero.tasks.TaskList;
 public class MarkCommand extends Command {
 
     public static final String RESPONSE_SUCCESS = "Cool! I've marked this task as done: %s";
+
+    public static final String MESSAGE_INVALID_FORMAT = "Your mark command format is invalid...";
+
+    public static final String MESSAGE_USAGE = "Usage: mark <task number>";
+
 
     private final int taskNumber;
 
