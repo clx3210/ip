@@ -44,6 +44,9 @@ public class Parser {
         commandParsers.put(CommandType.MARK, new MarkCommandParser());
         commandParsers.put(CommandType.TODO, new ToDoCommandParser());
         commandParsers.put(CommandType.UNMARK, new UnMarkCommandParser());
+
+        // super important to ensure each command has a corresponding parser.
+        assert commandParsers.size() == CommandType.values().length;
     }
 
 
@@ -59,7 +62,11 @@ public class Parser {
         if (!matcher.matches()) {
             throw new CommandParseException(Responses.RESPONSE_UNKNOWN_COMMAND);
         }
+
+        assert matcher.groupCount() == 2;
+
         try {
+
             String command = matcher.group("command");
             String arguments = matcher.group("arguments");
             CommandType type = CommandType.asCommandType(command);

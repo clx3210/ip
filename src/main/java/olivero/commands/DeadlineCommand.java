@@ -56,6 +56,10 @@ public class DeadlineCommand extends Command {
      */
     @Override
     public CommandResult execute(TaskList tasks, Storage storage) throws CommandExecutionException {
+        assert tasks != null;
+        assert storage != null;
+        assert deadline != null;
+
         try {
             tasks.addTask(deadline);
             storage.save(tasks);

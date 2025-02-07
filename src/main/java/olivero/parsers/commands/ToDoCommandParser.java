@@ -30,6 +30,8 @@ public class ToDoCommandParser extends CommandParser<ToDoCommand> {
                     ToDoCommand.MESSAGE_INVALID_FORMAT,
                     ToDoCommand.MESSAGE_USAGE);
         }
+        assert matcher.groupCount() == 1;
+
         final String description = matcher.group("description");
         return setupToDo(description);
     }

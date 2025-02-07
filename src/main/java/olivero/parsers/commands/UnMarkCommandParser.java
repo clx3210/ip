@@ -33,6 +33,8 @@ public class UnMarkCommandParser extends CommandParser<UnMarkCommand> {
                     UnMarkCommand.MESSAGE_INVALID_FORMAT,
                     UnMarkCommand.MESSAGE_USAGE);
         }
+        assert matcher.groupCount() == 1;
+
         final String taskNumber = matcher.group("taskNumber");
         return setupUnMark(taskNumber);
     }

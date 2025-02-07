@@ -49,6 +49,10 @@ public class ToDoCommand extends Command {
      */
     @Override
     public CommandResult execute(TaskList tasks, Storage storage) throws CommandExecutionException {
+        assert tasks != null;
+        assert storage != null;
+        assert toDo != null;
+
         try {
             tasks.addTask(toDo);
             storage.save(tasks);
