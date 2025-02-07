@@ -12,8 +12,11 @@ import olivero.tasks.ToDo;
  */
 public class ToDoCommand extends Command {
 
+
     /** Usage information for the todo command. */
     public static final String MESSAGE_USAGE = "Usage: todo <description>";
+
+    public static final String MESSAGE_INVALID_FORMAT = "Your todo command format is invalid...";
 
     /** Display message for an empty todo task description. */
     public static final String MESSAGE_EMPTY_DESCRIPTION = "You can't have an empty Todo...";

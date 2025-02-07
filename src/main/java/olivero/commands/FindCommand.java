@@ -10,13 +10,14 @@ import olivero.tasks.TaskList;
 public class FindCommand extends Command {
 
 
-    /** Display message for an empty find command description. */
-    public static final String MESSAGE_EMPTY_DESCRIPTION = "Search description can't be empty...";
+    public static final String MESSAGE_INVALID_FORMAT = "Your find command format is invalid...";
 
     /** Usage information for the find command. */
     public static final String MESSAGE_USAGE = "Usage: find <non-empty description>";
 
-    public static final String RESPONSE_SUCCESS = "Here are the matching tasks in your list: %s";
+    public static final String RESPONSE_SUCCESS = "Here are the matching tasks in your list:"
+            + System.lineSeparator()
+            + "%s";
 
     private final String keyword;
 

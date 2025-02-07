@@ -13,6 +13,11 @@ public class MarkCommand extends Command {
 
     public static final String RESPONSE_SUCCESS = "Cool! I've marked this task as done: %s";
 
+    public static final String MESSAGE_INVALID_FORMAT = "Your mark command format is invalid...";
+
+    public static final String MESSAGE_USAGE = "Usage: mark <task number>";
+
+
     private final int taskNumber;
 
     /**

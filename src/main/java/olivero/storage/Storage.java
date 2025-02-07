@@ -71,7 +71,6 @@ public class Storage {
         return taskList;
     }
 
-    // TODO: throw custom exception instead of IOException
     private void saveData(String content) throws IOException {
         File f = new File(dataPath);
         File parent = f.getParentFile();

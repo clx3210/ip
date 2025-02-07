@@ -10,7 +10,10 @@ import olivero.tasks.TaskList;
 public class ListCommand extends Command {
 
     public static final String RESPONSE_SUCCESS = "Here are the tasks in your list:"
-            + System.lineSeparator() + " %s";
+            + System.lineSeparator() + "%s";
+
+    public static final String MESSAGE_INVALID_FORMAT = "Your list command format is invalid...";
+    public static final String MESSAGE_USAGE = "Usage: list";
     /**
      * Lists out the information of all tasks provided by the list of tasks
      * into the provided ui.
