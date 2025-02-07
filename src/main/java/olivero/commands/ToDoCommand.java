@@ -1,7 +1,5 @@
 package olivero.commands;
 
-import java.util.regex.Pattern;
-
 import olivero.common.Responses;
 import olivero.exceptions.CommandExecutionException;
 import olivero.exceptions.StorageSaveException;

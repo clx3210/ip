@@ -16,7 +16,7 @@ import olivero.tasks.Event;
  */
 public class EventCommandParser extends CommandParser<EventCommand> {
     public static final Pattern EVENT_COMMAND_FORMAT = Pattern.compile(
-            " (?<description>.*) /from (?<fromDate>.+) /to (?<toDate>.+)");
+            " (?<description>.*) /from (?<fromDate>.*) /to (?<toDate>.*)");
     private EventCommand setupEvent(
             String description,
             String fromDateString,

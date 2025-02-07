@@ -21,10 +21,10 @@ public abstract class Task {
     /**
      * Sets the completion status of the task to the provided boolean value.
      *
-     * @param done The provided boolean value representing task completion status.
+     * @param isDone The provided boolean value representing task completion status.
      */
-    public void setDone(boolean done) {
-        isDone = done;
+    public void setDone(boolean isDone) {
+        this.isDone = isDone;
     }
 
     /**

@@ -1,4 +1,4 @@
-package olivero.parsers.commands;
+package olivero.parsers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
@@ -16,13 +16,12 @@ import olivero.commands.MarkCommand;
 import olivero.commands.ToDoCommand;
 import olivero.commands.UnMarkCommand;
 import olivero.exceptions.CommandParseException;
-import olivero.parsers.Parser;
 
 
 /**
  * Tests for the Parser member SUTs.
  */
-public class CommandParserTest {
+public class ParserTest {
 
     private static final String MESSAGE_EXPECTED_INVALID_INTEGER = "Did you pass "
             + "in a valid integer? Your input: %s";
@@ -164,8 +163,8 @@ public class CommandParserTest {
         for (String arg : invalidArgs) {
             String expected = String.format(unmarkInvalid, arg);
             CommandParseException exception = assertThrows(
-                    CommandParseException.class,
-                    () -> new Parser().parseCommand(String.format("unmark%s", arg)));
+                    CommandParseException.class, () ->
+                            new Parser().parseCommand(String.format("unmark%s", arg)));
             assertEquals(expected, exception.getMessage());
         }
     }
@@ -177,8 +176,8 @@ public class CommandParserTest {
         for (String arg : invalidArgs) {
             String expected = String.format(MESSAGE_EXPECTED_INVALID_INTEGER, arg);
             CommandParseException exception = assertThrows(
-                    CommandParseException.class,
-                    () -> new Parser().parseCommand(String.format("unmark %s", arg)));
+                    CommandParseException.class, () ->
+                            new Parser().parseCommand(String.format("unmark %s", arg)));
             assertEquals(expected, exception.getMessage());
         }
     }
@@ -202,8 +201,8 @@ public class CommandParserTest {
         for (String arg : invalidArgs) {
             String expected = String.format(deleteInvalid, arg);
             CommandParseException exception = assertThrows(
-                    CommandParseException.class,
-                    () -> new Parser().parseCommand(String.format("delete%s", arg)));
+                    CommandParseException.class, () ->
+                            new Parser().parseCommand(String.format("delete%s", arg)));
             assertEquals(expected, exception.getMessage());
         }
     }
@@ -214,8 +213,8 @@ public class CommandParserTest {
         for (String arg : invalidArgs) {
             String expected = String.format(MESSAGE_EXPECTED_INVALID_INTEGER, arg);
             CommandParseException exception = assertThrows(
-                    CommandParseException.class,
-                    () -> new Parser().parseCommand(String.format("delete %s", arg)));
+                    CommandParseException.class, () ->
+                            new Parser().parseCommand(String.format("delete %s", arg)));
             assertEquals(expected, exception.getMessage());
         }
     }

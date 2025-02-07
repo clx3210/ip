@@ -1,7 +1,5 @@
 package olivero.commands;
 
-import java.util.regex.Pattern;
-
 import olivero.exceptions.CommandExecutionException;
 import olivero.storage.Storage;
 import olivero.tasks.TaskList;
