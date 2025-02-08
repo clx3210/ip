@@ -6,8 +6,12 @@ import java.util.regex.Pattern;
 import olivero.exceptions.TaskParseException;
 import olivero.tasks.ToDo;
 
+/**
+ * Represents a parser for parsing ToDo tasks.
+ */
 public class TodoParser extends TaskParser<ToDo> {
 
+    private static final String MESSAGE_INVALID_ARGUMENT_FORMAT = "Invalid argument format for ToDo task.";
     private static final Pattern TODO_TASK_FORMAT = Pattern.compile(
             "T" + TaskParser.SEPARATOR_REGEX
                     + "(?<isDone>[01])"
@@ -17,13 +21,15 @@ public class TodoParser extends TaskParser<ToDo> {
     public ToDo parse(String taskString) throws TaskParseException {
         final Matcher matcher = TODO_TASK_FORMAT.matcher(taskString);
         if (!matcher.matches()) {
-            throw new TaskParseException("Invalid argument format for ToDo task.");
+            throw new TaskParseException(MESSAGE_INVALID_ARGUMENT_FORMAT);
         }
         String isDoneString = matcher.group("isDone");
-        String description = matcher.group("description").replaceAll(TaskParser.ESCAPE_REGEX + "\\|", "|");
+        String description = TaskParseUtils.unescapeDescription(matcher.group("description"));
 
-        assert isDoneString.equals("0") || isDoneString.equals("1") : "isDoneString should be 0 or 1";
-        boolean isDone = isDoneString.equals("1");
+        assert isDoneString.equals(TASK_NOT_DONE)
+                || isDoneString.equals(TASK_DONE)
+                : "isDoneString should be 0 or 1";
+        boolean isDone = isDoneString.equals(TASK_DONE);
 
         return new ToDo(description, isDone);
     }

@@ -3,6 +3,7 @@ package olivero.storage;
 import java.util.HashMap;
 
 import olivero.exceptions.TaskParseException;
+import olivero.exceptions.UnsupportedTaskException;
 import olivero.parsers.tasks.DeadlineParser;
 import olivero.parsers.tasks.EventParser;
 import olivero.parsers.tasks.TaskParser;
@@ -16,8 +17,12 @@ import olivero.tasks.TaskType;
  */
 public class DataDecoder {
 
+    private static final String MESSAGE_INVALID_TASK_FORMAT = "Invalid task format.";
     private final HashMap<TaskType, TaskParser<? extends Task>> decoders;
 
+    /**
+     * Constructs a decoder object for parsing data into a task list.
+     */
     public DataDecoder() {
         decoders = new HashMap<>();
         decoders.put(TaskType.TODO, new TodoParser());
@@ -44,11 +49,15 @@ public class DataDecoder {
 
         for (String line : lines) {
             if (line.isBlank()) {
-                throw new TaskParseException("Invalid task format.");
+                throw new TaskParseException(MESSAGE_INVALID_TASK_FORMAT);
             }
-            TaskType taskType = TaskType.fromString(line.substring(0, 1));
-            Task task = decoders.get(taskType).parse(line);
-            taskList.addTask(task);
+            try {
+                TaskType taskType = TaskType.parseString(line.substring(0, 1));
+                Task task = decoders.get(taskType).parse(line);
+                taskList.addTask(task);
+            } catch (UnsupportedTaskException e) {
+                throw new TaskParseException(MESSAGE_INVALID_TASK_FORMAT);
+            }
         }
         return taskList;
 

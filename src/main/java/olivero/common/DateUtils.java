@@ -1,4 +1,4 @@
-package olivero.parsers;
+package olivero.common;
 
 
 import java.time.DateTimeException;
@@ -11,7 +11,7 @@ import java.time.format.DateTimeParseException;
  * Provides utility members for datetime parsing, along with fixed formats
  * for datetime processing and displaying.
  */
-public final class DateParser {
+public final class DateUtils {
 
 
 
@@ -23,7 +23,7 @@ public final class DateParser {
     public static final DateTimeFormatter DISPLAY_DATE_FORMATTER = DateTimeFormatter
             .ofPattern("MMM dd yyyy HHmm");
 
-    private DateParser() {
+    private DateUtils() {
     }
 
     /**

@@ -5,11 +5,22 @@ import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import olivero.common.DateUtils;
 import olivero.exceptions.TaskParseException;
-import olivero.parsers.DateParser;
 import olivero.tasks.Event;
 
+/**
+ * Represents a parser for parsing Event tasks.
+ */
 public class EventParser extends TaskParser<Event> {
+
+    private static final String ERROR_INVALID_ARGUMENT_FORMAT = "Invalid argument format "
+            + "for Event task.";
+    private static final String ERROR_INVALID_DATE_FORMAT = "Invalid ending date time format.";
+    private static final String ERROR_INVALID_DATE_ORDER = "Start date should not be "
+            + "after the End date.";
+
+
     private static final Pattern EVENT_TASK_FORMAT = Pattern.compile(
             "E" + TaskParser.SEPARATOR_REGEX
                     + "(?<isDone>[01])"
@@ -19,32 +30,37 @@ public class EventParser extends TaskParser<Event> {
                     + "(?<startDate>.*)"
                     + TaskParser.SEPARATOR_REGEX
                     + "(?<endDate>.*)");
+
     @Override
     public Event parse(String taskString) throws TaskParseException {
         try {
             final Matcher matcher = EVENT_TASK_FORMAT.matcher(taskString.trim());
             if (!matcher.matches()) {
-                throw new TaskParseException("Invalid argument format for Event task.");
+                throw new TaskParseException(ERROR_INVALID_ARGUMENT_FORMAT);
             }
 
             String isDoneString = matcher.group("isDone");
-            String description = matcher.group("description").replaceAll(ESCAPE_REGEX + "\\|", "|");
             String startDateString = matcher.group("startDate");
             String endDateString = matcher.group("endDate");
+            String description = TaskParseUtils
+                    .unescapeDescription(matcher.group("description"));
 
-            assert isDoneString.equals("0") || isDoneString.equals("1") : "isDoneString should be 0 or 1";
+            assert isDoneString.equals(TASK_DONE)
+                    || isDoneString.equals(TASK_NOT_DONE)
+                    : "isDoneString should be 0 or 1";
 
-            boolean isDone = isDoneString.equals("1");
-            LocalDateTime startDate = DateParser.parseInputDate(startDateString);
-            LocalDateTime endDate = DateParser.parseInputDate(endDateString);
+            boolean isDone = isDoneString.equals(TASK_DONE);
+            LocalDateTime startDate = DateUtils.parseInputDate(startDateString);
+            LocalDateTime endDate = DateUtils.parseInputDate(endDateString);
+
 
             if (startDate.isAfter(endDate)) {
-                throw new TaskParseException("Start date should not be after the End date.");
+                throw new TaskParseException(ERROR_INVALID_DATE_ORDER);
             }
 
             return new Event(description, startDate, endDate, isDone);
         } catch (DateTimeParseException e) {
-            throw new TaskParseException("Invalid ending date time format.");
+            throw new TaskParseException(ERROR_INVALID_DATE_FORMAT);
         }
     }
 }

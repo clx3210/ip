@@ -2,8 +2,8 @@ package olivero.tasks;
 
 import java.time.LocalDateTime;
 
-import olivero.parsers.DateParser;
-import olivero.parsers.tasks.TaskParser;
+import olivero.common.DateUtils;
+import olivero.parsers.tasks.TaskParseUtils;
 
 /**
  * Represents an Event task.
@@ -32,10 +32,10 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        String endDateString = DateParser.formatForDisplay(endDate);
-        String startDateString = DateParser.formatForDisplay(startDate);
+        String endDateString = DateUtils.formatForDisplay(endDate);
+        String startDateString = DateUtils.formatForDisplay(startDate);
 
-        return "[E]" + super.toString() + " (from: " + startDateString
+        return "[" + TaskType.EVENT.getValue() + "]" + super.toString() + " (from: " + startDateString
                 + " to: " + endDateString + ")";
     }
 
@@ -44,13 +44,13 @@ public class Event extends Task {
      */
     @Override
     public String toFormattedString() {
-        int doneStatus = isDone() ? 1 : 0;
-        String startDateString = DateParser.formatForInput(startDate);
-        String endDateString = DateParser.formatForInput(endDate);
-        String formattedDescription = getDescription()
-                .replaceAll("\\|", TaskParser.ESCAPED_SEPARATOR_TOKEN);
+        String startDateString = DateUtils.formatForInput(startDate);
+        String endDateString = DateUtils.formatForInput(endDate);
 
-        return "E" + " | " + doneStatus + " | " + formattedDescription + " | "
-                + startDateString + " | " + endDateString;
+        return TaskParseUtils.formatTask(
+                TaskType.EVENT.getValue(),
+                super.toFormattedString(),
+                startDateString,
+                endDateString);
     }
 }
