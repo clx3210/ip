@@ -146,6 +146,7 @@ public class TaskList {
      * @return A {@code TaskList} object.
      */
     public TaskList filter(Predicate<? super Task> predicate) {
+        // Use streams to simplify the filtering process for any predicate
         List<Task> filtered = tasks
                 .stream()
                 .filter(predicate)
