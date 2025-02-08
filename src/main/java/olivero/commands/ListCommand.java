@@ -23,6 +23,9 @@ public class ListCommand extends Command {
      */
     @Override
     public CommandResult execute(TaskList tasks, Storage storage) throws CommandExecutionException {
+        assert tasks != null;
+        assert storage != null;
+
         return new CommandResult(String.format(RESPONSE_SUCCESS, tasks));
     }
 }

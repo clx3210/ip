@@ -21,6 +21,8 @@ public class DeleteCommandParser extends CommandParser<DeleteCommand> {
                     DeleteCommand.MESSAGE_USAGE
             );
         }
+        assert matcher.groupCount() == 1;
+
         String taskNumberString = matcher.group("taskNumber").trim();
         int taskNumber = CommandParseUtils.parseInteger(taskNumberString);
         return new DeleteCommand(taskNumber);

@@ -21,7 +21,7 @@ public final class Responses {
     public static final String RESPONSE_INVALID_DATE_FORMAT = "Oh... "
             + "Seems like you formatted your date(s) wrongly?"
             + System.lineSeparator()
-            + "Correct date format: yyyy-mm-dd HHmm (e.g. 2019-10-15 1800)";
+            + "Correct date format: yyyy-m-d Hmm (e.g. 2019-10-15 1800)";
 
     /** Display message when a user input does not match any supported commands. */
     public static final String RESPONSE_UNKNOWN_COMMAND = "W-WHAT?! "

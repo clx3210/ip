@@ -53,7 +53,7 @@ public class ParserTest {
     public void parseCommand_invalidDeadlineDateFormat_exceptionThrown() {
         String expected = "Oh... Seems like you formatted your date(s) wrongly?"
                 + System.lineSeparator()
-                + "Correct date format: yyyy-mm-dd HHmm (e.g. 2019-10-15 1800)";
+                + "Correct date format: yyyy-m-d Hmm (e.g. 2019-10-15 1800)";
 
         CommandParseException exception = assertThrows(
                 CommandParseException.class, () -> {

@@ -32,6 +32,9 @@ public class FindCommand extends Command {
 
     @Override
     public CommandResult execute(TaskList tasks, Storage storage) {
+        assert tasks != null;
+        assert storage != null;
+        assert keyword != null;
         String filteredList = tasks
                 .filter(task -> task.getDescription().contains(keyword))
                 .toString();

@@ -21,6 +21,8 @@ public class UnMarkCommandParser extends CommandParser<UnMarkCommand> {
                     UnMarkCommand.MESSAGE_INVALID_FORMAT,
                     UnMarkCommand.MESSAGE_USAGE);
         }
+        assert matcher.groupCount() == 1;
+
         final String taskNumberString = matcher.group("taskNumber");
         int taskNumber = CommandParseUtils.parseInteger(taskNumberString);
         return new UnMarkCommand(taskNumber);

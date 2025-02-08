@@ -12,17 +12,12 @@ import olivero.tasks.TaskList;
  */
 public class DeadlineCommand extends Command {
 
-
     /** Usage information for the deadline command. */
     public static final String MESSAGE_USAGE = "Example usage: "
             + "deadline <description> /by <start date>";
 
     public static final String MESSAGE_INVALID_FORMAT = "Your "
             + "deadline command format is invalid...";
-
-    /** Display message when the "/by" field of the command syntax is invalid. */
-    public static final String MESSAGE_INVALID_BY_TOKEN = "Did you correctly "
-            + "specify the '/by <end date>' of your deadline task?";
 
     /** Display message for an empty deadline task description. */
     public static final String MESSAGE_EMPTY_DESCRIPTION = "HUH? "
@@ -56,6 +51,10 @@ public class DeadlineCommand extends Command {
      */
     @Override
     public CommandResult execute(TaskList tasks, Storage storage) throws CommandExecutionException {
+        assert tasks != null;
+        assert storage != null;
+        assert deadline != null;
+
         try {
             tasks.addTask(deadline);
             storage.save(tasks);

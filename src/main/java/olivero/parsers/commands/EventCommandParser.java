@@ -49,6 +49,8 @@ public class EventCommandParser extends CommandParser<EventCommand> {
                     EventCommand.MESSAGE_INVALID_FORMAT,
                     EventCommand.MESSAGE_USAGE);
         }
+        assert matcher.groupCount() == 3;
+
         final String description = matcher.group("description");
         final String fromDate = matcher.group("fromDate");
         final String toDate = matcher.group("toDate");
