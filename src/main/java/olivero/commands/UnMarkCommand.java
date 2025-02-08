@@ -42,20 +42,14 @@ public class UnMarkCommand extends Command {
      */
     @Override
     public CommandResult execute(TaskList tasks, Storage storage) throws CommandExecutionException {
-        int taskSize = tasks.getTaskSize();
-        if (taskNumber > taskSize || taskNumber <= 0) {
-            throw new CommandExecutionException(
-                    String.format(
-                            Responses.RESPONSE_INVALID_TASK_NUMBER,
-                            taskNumber));
-        }
         try {
+            int taskSize = tasks.getTaskSize();
+            CommandUtils.validateTaskNumberRange(taskNumber, taskSize);
+
             tasks.unmarkTaskAt(taskNumber);
             storage.save(tasks);
             return new CommandResult(
-                    String.format(
-                            RESPONSE_SUCCESS,
-                            tasks.getTaskDescription(taskNumber)));
+                    String.format(RESPONSE_SUCCESS, tasks.getTaskDescription(taskNumber)));
         } catch (StorageSaveException e) {
             throw new CommandExecutionException(Responses.RESPONSE_SAVE_FILE_FAILED);
         }

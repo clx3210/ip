@@ -16,13 +16,4 @@ public abstract class Command {
      * @param storage Storage medium for saving or loading tasks from disk.
      */
     public abstract CommandResult execute(TaskList tasks, Storage storage) throws CommandExecutionException;
-
-    /**
-     * Returns a boolean flag specifying if the executing program should exit.
-     *
-     * @return True if this command terminates program execution; False otherwise.
-     */
-    public boolean isExit() {
-        return false;
-    }
 }

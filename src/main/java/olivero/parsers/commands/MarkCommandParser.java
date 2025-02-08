@@ -4,7 +4,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import olivero.commands.MarkCommand;
-import olivero.common.Responses;
 import olivero.exceptions.CommandParseException;
 
 /**
@@ -13,17 +12,6 @@ import olivero.exceptions.CommandParseException;
 public class MarkCommandParser extends CommandParser<MarkCommand> {
 
     public static final Pattern MARK_COMMAND_FORMAT = Pattern.compile(" (?<taskNumber>.*)");
-    private MarkCommand setupMark(String arguments) throws CommandParseException {
-        try {
-            int taskNumber = Integer.parseInt(arguments.strip());
-            return new MarkCommand(taskNumber);
-        } catch (NumberFormatException e) {
-            throw new CommandParseException(
-                    String.format(
-                            Responses.RESPONSE_INVALID_NUMBER_FORMAT,
-                            arguments.strip()));
-        }
-    }
 
     @Override
     public MarkCommand parse(String arguments) throws CommandParseException {
@@ -33,7 +21,8 @@ public class MarkCommandParser extends CommandParser<MarkCommand> {
                     MarkCommand.MESSAGE_INVALID_FORMAT,
                     MarkCommand.MESSAGE_USAGE);
         }
-        final String taskNumber = matcher.group("taskNumber");
-        return setupMark(taskNumber);
+        final String taskNumberString = matcher.group("taskNumber").strip();
+        int taskNumber = CommandParseUtils.parseInteger(taskNumberString);
+        return new MarkCommand(taskNumber);
     }
 }
