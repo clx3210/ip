@@ -1,5 +1,7 @@
 package olivero.tasks;
 
+import olivero.parsers.tasks.TaskParser;
+
 /**
  * Represents a Todo task.
  */
@@ -20,7 +22,9 @@ public class ToDo extends Task {
     @Override
     public String toFormattedString() {
         int doneStatus = isDone() ? 1 : 0;
-        return "T" + " | " + doneStatus + " | " + getDescription();
+        String formattedDescription = getDescription()
+                .replaceAll("\\|", TaskParser.ESCAPED_SEPARATOR_TOKEN);
+        return "T" + " | " + doneStatus + " | " + formattedDescription;
     }
 
     /**

@@ -47,7 +47,7 @@ public final class DateParser {
      * @return The formatted string of the given date.
      * @throws DateTimeException If an error occurs during formatting
      */
-    public static String asDisplayDateString(LocalDateTime date) {
+    public static String formatForDisplay(LocalDateTime date) {
         return date.format(DISPLAY_DATE_FORMATTER);
     }
 
@@ -59,7 +59,7 @@ public final class DateParser {
      * @return The formatted string of the given date.
      * @throws DateTimeException If an error occurs during formatting
      */
-    public static String asInputDateString(LocalDateTime date) {
+    public static String formatForInput(LocalDateTime date) {
         return date.format(INPUT_DATE_FORMATTER);
     }
 }
