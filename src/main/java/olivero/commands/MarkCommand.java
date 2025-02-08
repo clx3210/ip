@@ -42,6 +42,8 @@ public class MarkCommand extends Command {
      */
     @Override
     public CommandResult execute(TaskList tasks, Storage storage) throws CommandExecutionException {
+        assert tasks != null;
+        assert storage != null;
         try {
             int taskSize = tasks.getTaskSize();
             CommandUtils.validateTaskNumberRange(taskNumber, taskSize);

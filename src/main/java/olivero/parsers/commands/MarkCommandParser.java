@@ -21,6 +21,8 @@ public class MarkCommandParser extends CommandParser<MarkCommand> {
                     MarkCommand.MESSAGE_INVALID_FORMAT,
                     MarkCommand.MESSAGE_USAGE);
         }
+        assert matcher.groupCount() == 1;
+
         final String taskNumberString = matcher.group("taskNumber").strip();
         int taskNumber = CommandParseUtils.parseInteger(taskNumberString);
         return new MarkCommand(taskNumber);

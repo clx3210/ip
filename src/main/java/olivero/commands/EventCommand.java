@@ -49,6 +49,10 @@ public class EventCommand extends Command {
      */
     @Override
     public CommandResult execute(TaskList tasks, Storage storage) throws CommandExecutionException {
+        assert tasks != null;
+        assert storage != null;
+        assert event != null;
+
         try {
             tasks.addTask(event);
             storage.save(tasks);

@@ -74,7 +74,7 @@ public class Storage {
         File f = new File(dataPath);
         File parent = f.getParentFile();
 
-        // case: parent directories do not exist but cannot be created
+        // case: parent directories do not exist and cannot be created
         if (!parent.exists() && !parent.mkdirs()) {
             throw new IOException();
         }
@@ -82,6 +82,7 @@ public class Storage {
         if (f.exists() && f.isDirectory()) {
             throw new IOException();
         }
+        assert parent.exists();
         // override or create a new file
         FileWriter fw = new FileWriter(f);
         fw.write(content);
