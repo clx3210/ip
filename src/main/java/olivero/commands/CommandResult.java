@@ -21,7 +21,7 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} object representing
      *
-     * @param message
+     * @param message The message to be shown to the user.
      */
     public CommandResult(String message) {
         this(message, false);
@@ -36,8 +36,7 @@ public class CommandResult {
     }
 
     /**
-     * Checks if the command execution is to exit the program.
-     * @return
+     * Returns true if the command execution is to exit the program.
      */
     public boolean isExit() {
         return isExit;
