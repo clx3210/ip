@@ -37,6 +37,7 @@ public class CommandResult {
 
     /**
      * Checks if the command execution is to exit the program.
+     *
      * @return True if the command is to exit the program, false otherwise.
      */
     public boolean isExit() {

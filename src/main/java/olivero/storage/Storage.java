@@ -9,7 +9,6 @@ import java.util.Scanner;
 import olivero.exceptions.StorageLoadException;
 import olivero.exceptions.StorageSaveException;
 import olivero.exceptions.TaskParseException;
-import olivero.parsers.TaskParser;
 import olivero.tasks.TaskList;
 
 /**
@@ -18,8 +17,8 @@ import olivero.tasks.TaskList;
 public class Storage {
 
     private final String dataPath;
-
-    private final TaskParser taskParser;
+    private final DataDecoder decoder;
+    private final DataEncoder encoder;
 
     /**
      * Constructs a storage instance to handle saving and loading of tasks.
@@ -28,7 +27,8 @@ public class Storage {
      */
     public Storage(String dataPath) {
         this.dataPath = dataPath;
-        taskParser = new TaskParser();
+        this.decoder = new DataDecoder();
+        this.encoder = new DataEncoder();
     }
 
     /**
@@ -40,7 +40,8 @@ public class Storage {
      */
     public void save(TaskList tasks) throws StorageSaveException {
         try {
-            saveData(tasks.asFormattedString());
+            String encodedTasks = encoder.encode(tasks);
+            saveData(encodedTasks);
         } catch (IOException e) {
             throw new StorageSaveException(e.getMessage());
         }
@@ -55,10 +56,9 @@ public class Storage {
      *                              location does not exist or is corrupted.
      */
     public TaskList load() throws StorageLoadException {
-        TaskList taskList;
         try {
-            String contents = loadFromFile();
-            taskList = taskParser.parse(contents);
+            String encodedTasks = loadFromFile();
+            return decoder.decode(encodedTasks);
         } catch (FileNotFoundException e) {
             throw new StorageLoadException(
                     e.getMessage(),
@@ -68,7 +68,6 @@ public class Storage {
                     e.getMessage(),
                     StorageLoadException.Reason.DATA_CORRUPT);
         }
-        return taskList;
     }
 
     private void saveData(String content) throws IOException {

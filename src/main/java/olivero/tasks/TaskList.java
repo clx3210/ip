@@ -111,7 +111,7 @@ public class TaskList {
      *
      * @return Delimited formatted task strings.
      */
-    public String asFormattedString() {
+    public String serialiseTasks() {
         StringBuilder stringBuilder = new StringBuilder();
         for (Task task : tasks) {
             stringBuilder

@@ -14,7 +14,7 @@ import olivero.ui.MainWindow;
  */
 public class Main extends Application {
 
-    private Olivero olivero = new Olivero("data/tasks.txt");
+    private final Olivero olivero = new Olivero("data/tasks.txt");
     @Override
     public void start(Stage stage) {
         try {

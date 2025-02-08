@@ -25,12 +25,4 @@ public class ByeCommand extends Command {
     public CommandResult execute(TaskList tasks, Storage storage) throws CommandExecutionException {
         return new CommandResult(EXIT_MESSAGE, true);
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isExit() {
-        return true;
-    }
 }

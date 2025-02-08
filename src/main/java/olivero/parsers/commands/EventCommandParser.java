@@ -6,9 +6,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import olivero.commands.EventCommand;
+import olivero.common.DateUtils;
 import olivero.common.Responses;
 import olivero.exceptions.CommandParseException;
-import olivero.parsers.DateParser;
 import olivero.tasks.Event;
 
 /**
@@ -28,8 +28,8 @@ public class EventCommandParser extends CommandParser<EventCommand> {
         LocalDateTime fromDate;
         LocalDateTime toDate;
         try {
-            fromDate = DateParser.parseInputDate(fromDateString);
-            toDate = DateParser.parseInputDate(toDateString);
+            fromDate = DateUtils.parseInputDate(fromDateString);
+            toDate = DateUtils.parseInputDate(toDateString);
         } catch (DateTimeParseException e) {
             throw new CommandParseException(Responses.RESPONSE_INVALID_DATE_FORMAT);
         }

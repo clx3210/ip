@@ -45,22 +45,14 @@ public class DeleteCommand extends Command {
     public CommandResult execute(TaskList tasks, Storage storage) throws CommandExecutionException {
         assert tasks != null;
         assert storage != null;
-
-        int taskSize = tasks.getTaskSize();
-        if (taskNumber > taskSize || taskNumber <= 0) {
-            throw new CommandExecutionException(
-                    String.format(
-                            Responses.RESPONSE_INVALID_TASK_NUMBER,
-                            taskNumber));
-        }
         try {
+            int taskSize = tasks.getTaskSize();
+            CommandUtils.validateTaskNumberRange(taskNumber, taskSize);
+
             Task removedTask = tasks.removeTaskAt(taskNumber);
             storage.save(tasks);
             return new CommandResult(
-                    String.format(
-                            RESPONSE_SUCCESS,
-                            removedTask,
-                            tasks.getTaskSize()));
+                    String.format(RESPONSE_SUCCESS, removedTask, tasks.getTaskSize()));
         } catch (StorageSaveException e) {
             throw new CommandExecutionException(Responses.RESPONSE_SAVE_FILE_FAILED);
         }

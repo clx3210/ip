@@ -1,5 +1,7 @@
 package olivero.tasks;
 
+import olivero.parsers.tasks.TaskParseUtils;
+
 /**
  * Represents a Todo task.
  */
@@ -19,8 +21,9 @@ public class ToDo extends Task {
      */
     @Override
     public String toFormattedString() {
-        int doneStatus = isDone() ? 1 : 0;
-        return "T" + " | " + doneStatus + " | " + getDescription();
+        return TaskParseUtils.formatTask(
+                TaskType.TODO.getValue(),
+                super.toFormattedString());
     }
 
     /**
@@ -28,6 +31,6 @@ public class ToDo extends Task {
      */
     @Override
     public String toString() {
-        return "[T]" + super.toString();
+        return "[" + TaskType.TODO.getValue() + "]" + super.toString();
     }
 }

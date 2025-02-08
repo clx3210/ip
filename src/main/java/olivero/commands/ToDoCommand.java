@@ -57,10 +57,7 @@ public class ToDoCommand extends Command {
             tasks.addTask(toDo);
             storage.save(tasks);
             return new CommandResult(
-                    String.format(
-                            RESPONSE_SUCCESS,
-                            toDo,
-                            tasks.getTaskSize()));
+                    String.format(RESPONSE_SUCCESS, toDo, tasks.getTaskSize()));
         } catch (StorageSaveException e) {
             throw new CommandExecutionException(Responses.RESPONSE_SAVE_FILE_FAILED);
         }

@@ -2,7 +2,8 @@ package olivero.tasks;
 
 import java.time.LocalDateTime;
 
-import olivero.parsers.DateParser;
+import olivero.common.DateUtils;
+import olivero.parsers.tasks.TaskParseUtils;
 
 
 /**
@@ -29,9 +30,12 @@ public class Deadline extends Task {
      */
     @Override
     public String toFormattedString() {
-        int doneStatus = isDone() ? 1 : 0;
-        String dateString = DateParser.asInputDateString(endDate);
-        return "D" + " | " + doneStatus + " | " + getDescription() + " | " + dateString;
+        String dateString = DateUtils.formatForInput(endDate);
+
+        return TaskParseUtils.formatTask(
+                TaskType.DEADLINE.getValue(),
+                super.toFormattedString(),
+                dateString);
     }
 
     /**
@@ -39,7 +43,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        String dateString = DateParser.asDisplayDateString(endDate);
-        return "[D]" + super.toString() + " (by: " + dateString + ")";
+        String dateString = DateUtils.formatForDisplay(endDate);
+        return "[" + TaskType.DEADLINE.getValue() + "]" + super.toString() + " (by: " + dateString + ")";
     }
 }
