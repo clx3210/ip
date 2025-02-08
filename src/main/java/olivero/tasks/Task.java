@@ -1,5 +1,7 @@
 package olivero.tasks;
 
+import olivero.parsers.tasks.TaskParseUtils;
+
 /**
  * Represents an abstract task to be extended from.
  */
@@ -51,7 +53,11 @@ public abstract class Task {
      *
      * @return Formatted task string.
      */
-    public abstract String toFormattedString();
+    public String toFormattedString() {
+        String doneStatus = TaskParseUtils.prepareDoneStatus(isDone);
+        String formattedDescription = TaskParseUtils.escapeDescription(description);
+        return TaskParseUtils.formatTask(doneStatus, formattedDescription);
+    }
 
     /**
      * Returns the string representation of this task object or its subtype.

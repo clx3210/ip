@@ -60,10 +60,7 @@ public class DeadlineCommand extends Command {
             tasks.addTask(deadline);
             storage.save(tasks);
             return new CommandResult(
-                    String.format(
-                            RESPONSE_SUCCESS,
-                            deadline,
-                            tasks.getTaskSize()));
+                    String.format(RESPONSE_SUCCESS, deadline, tasks.getTaskSize()));
         } catch (StorageSaveException e) {
             throw new CommandExecutionException(Responses.RESPONSE_SAVE_FILE_FAILED);
         }

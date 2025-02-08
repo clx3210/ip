@@ -6,9 +6,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import olivero.commands.DeadlineCommand;
+import olivero.common.DateUtils;
 import olivero.common.Responses;
 import olivero.exceptions.CommandParseException;
-import olivero.parsers.DateParser;
 import olivero.tasks.Deadline;
 
 /**
@@ -24,7 +24,7 @@ public class DeadlineCommandParser extends CommandParser<DeadlineCommand> {
 
         LocalDateTime endDate;
         try {
-            endDate = DateParser.parseInputDate(endDateString);
+            endDate = DateUtils.parseInputDate(endDateString);
         } catch (DateTimeParseException e) {
             throw new CommandParseException(Responses.RESPONSE_INVALID_DATE_FORMAT);
         }

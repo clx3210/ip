@@ -99,13 +99,13 @@ public class TaskListTest {
         for (int i = 1; i <= numDeadlines; i++) {
             taskList.addTask(new Deadline("Deadline " + i, start, i % 2 == 0));
         }
-        assertEquals(expected, taskList.asFormattedString());
+        assertEquals(expected, taskList.serialiseTasks());
     }
 
     @Test
     public void asFormattedString_emptyTaskListReturnsEmptyFormattedString_success() {
         TaskList taskList = new TaskList();
-        assertEquals("", taskList.asFormattedString());
+        assertEquals("", taskList.serialiseTasks());
     }
 
     @Test
@@ -119,7 +119,7 @@ public class TaskListTest {
 
         taskList.addTask(new Event("Event 1", start, end, true));
 
-        assertEquals(expected, taskList.asFormattedString());
+        assertEquals(expected, taskList.serialiseTasks());
     }
 
     @Test
