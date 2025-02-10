@@ -10,7 +10,14 @@ import java.util.regex.Pattern;
 import olivero.common.Responses;
 import olivero.exceptions.CommandParseException;
 
+/**
+ * Represents a parser for parsing mass operations commands,
+ * to be a part of a CommandParser class in a composition association.
+ */
 public class MassOpsParser {
+    /** Specifies the maximum range of tasks can be affected in any consecutive maxOps operation */
+    public static final int MAX_OPERATIONS_RANGE = 100;
+    public static final String MESSAGE_TASK_RANGE_TOO_LARGE = "Task range is too large!";
     private static final Pattern MASS_OPS_COMMAND_FORMAT = Pattern.compile(
             " -m (?<taskNumbers>\\d+(?:\\s+\\d+)*)");
 
@@ -18,13 +25,18 @@ public class MassOpsParser {
             " -m (?<startTaskNumber>\\d+)-(?<endTaskNumber>\\d+)"
     );
 
-    /** Specifies the maximum range of tasks can be affected in any consecutive maxOps operation */
-    public static final int MAX_OPERATIONS_RANGE = 100;
-    public static final String MESSAGE_TASK_RANGE_TOO_LARGE = "Task range is too large!";
+
 
     private final String invalidMassOpsParseMessage;
     private final String usageMessage;
 
+    /**
+     * Constructs a MassOpsParser object with the specified
+     * invalid parse message and usage message.
+     *
+     * @param invalidParseMessage The invalid parse message to be shown when parsing fails initially.
+     * @param usageMessage The usage message for a given command.
+     */
     public MassOpsParser(String invalidParseMessage, String usageMessage) {
         this.invalidMassOpsParseMessage = invalidParseMessage;
         this.usageMessage = usageMessage;
@@ -74,7 +86,14 @@ public class MassOpsParser {
     }
 
 
-    public Set<Integer> lazyParse(String arguments) throws CommandParseException {
+    /**
+     * Parses the arguments for mass operations commands.
+     *
+     * @param arguments The arguments to be parsed.
+     * @return A set of task numbers to be affected by the mass operations.
+     * @throws CommandParseException If parsing fails.
+     */
+    public Set<Integer> parse(String arguments) throws CommandParseException {
         final Matcher massMatcher = MASS_OPS_COMMAND_FORMAT.matcher(arguments);
         final Matcher massConsecutiveMatcher = MASS_OPS_CONSECUTIVE_COMMAND_FORMAT.matcher(arguments);
         final boolean isMassMatch = massMatcher.matches();
@@ -97,6 +116,12 @@ public class MassOpsParser {
     }
 
 
+    /**
+     * Returns true if arguments matches mass operations command format.
+     *
+     * @param arguments The argument to be matched.
+     * @return True if arguments match mass operations command format; false otherwise.
+     */
     public boolean isMassOpsMatch(String arguments) {
         final Matcher massMatcher = MASS_OPS_COMMAND_FORMAT.matcher(arguments);
         final Matcher massConsecutiveMatcher = MASS_OPS_CONSECUTIVE_COMMAND_FORMAT.matcher(arguments);

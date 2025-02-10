@@ -15,6 +15,9 @@ public class DeleteCommandParser extends CommandParser<DeleteCommand> {
 
     private final MassOpsParser massOpsParser;
 
+    /**
+     * Constructs a DeleteCommandParser object for parsing delete commands.
+     */
     public DeleteCommandParser() {
         this.massOpsParser = new MassOpsParser(
                 DeleteCommand.MESSAGE_INVALID_FORMAT,
@@ -28,7 +31,7 @@ public class DeleteCommandParser extends CommandParser<DeleteCommand> {
     }
 
     private DeleteCommand setupMassDelete(String arguments) throws CommandParseException {
-        return new DeleteCommand(massOpsParser.lazyParse(arguments));
+        return new DeleteCommand(massOpsParser.parse(arguments));
     }
 
     @Override

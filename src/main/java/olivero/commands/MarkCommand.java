@@ -42,6 +42,11 @@ public class MarkCommand extends Command {
         taskNumbers.add(taskNumber);
     }
 
+    /**
+     * Constructs an executable command to mark tasks at the given task numbers.
+     *
+     * @param taskNumbers The set of task numbers associated with the tasks to be marked.
+     */
     public MarkCommand(Set<Integer> taskNumbers) {
         this.taskNumbers = taskNumbers;
     }
@@ -67,8 +72,8 @@ public class MarkCommand extends Command {
                 tasks.markTaskAt(taskNumber);
             }
 
-            TaskList affectedTasks = tasks.filter(
-                    (taskNumber, task) -> taskNumbers.contains(taskNumber));
+            TaskList affectedTasks = tasks.filter((taskNumber, task) ->
+                    taskNumbers.contains(taskNumber));
             storage.save(tasks);
 
             return new CommandResult(

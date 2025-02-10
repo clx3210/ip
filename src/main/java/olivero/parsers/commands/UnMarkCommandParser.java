@@ -15,6 +15,9 @@ public class UnMarkCommandParser extends CommandParser<UnMarkCommand> {
 
     private final MassOpsParser massOpsParser;
 
+    /**
+     * Constructs a UnMarkCommandParser object for parsing unmark commands.
+     */
     public UnMarkCommandParser() {
         this.massOpsParser = new MassOpsParser(
                 UnMarkCommand.MESSAGE_INVALID_FORMAT,
@@ -28,7 +31,7 @@ public class UnMarkCommandParser extends CommandParser<UnMarkCommand> {
     }
 
     private UnMarkCommand setupMassUnmark(String arguments) throws CommandParseException {
-        return new UnMarkCommand(massOpsParser.lazyParse(arguments));
+        return new UnMarkCommand(massOpsParser.parse(arguments));
     }
     @Override
     public UnMarkCommand parse(String arguments) throws CommandParseException {

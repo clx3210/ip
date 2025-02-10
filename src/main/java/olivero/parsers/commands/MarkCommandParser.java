@@ -15,6 +15,9 @@ public class MarkCommandParser extends CommandParser<MarkCommand> {
 
     private final MassOpsParser massOpsParser;
 
+    /**
+     * Constructs a MarkCommandParser object for parsing mark commands.
+     */
     public MarkCommandParser() {
         this.massOpsParser = new MassOpsParser(
                 MarkCommand.MESSAGE_INVALID_FORMAT,
@@ -42,7 +45,7 @@ public class MarkCommandParser extends CommandParser<MarkCommand> {
         if (isSingleMark) {
             return setupMark(matcher);
         } else {
-            return new MarkCommand(massOpsParser.lazyParse(arguments));
+            return new MarkCommand(massOpsParser.parse(arguments));
         }
     }
 }

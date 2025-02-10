@@ -2,7 +2,6 @@ package olivero.parsers.commands;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Pattern;
 
 import olivero.common.Responses;
 import olivero.exceptions.CommandParseException;
@@ -11,8 +10,6 @@ import olivero.exceptions.CommandParseException;
  * Provides utility methods when parsing raw command user inputs.
  */
 public class CommandParseUtils {
-
-
 
     /**
      * Parses a string into an integer.
@@ -32,6 +29,13 @@ public class CommandParseUtils {
         }
     }
 
+    /**
+     * Parses a list of strings into a list of integers.
+     *
+     * @param rawInts The list of strings to be parsed into integers.
+     * @return List of integers if parsing is successful.
+     * @throws CommandParseException If parsing fails.
+     */
     public static List<Integer> parseIntegers(List<String> rawInts) throws CommandParseException {
         List<Integer> parsedIntegers = new ArrayList<>();
         for (String rawInt : rawInts) {
