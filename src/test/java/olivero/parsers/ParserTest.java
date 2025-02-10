@@ -26,6 +26,35 @@ public class ParserTest {
     private static final String MESSAGE_EXPECTED_INVALID_INTEGER = "Did you pass "
             + "in a valid integer? Your input: %s";
 
+    private static final String MESSAGE_DELETE_INVALID = "Your delete command format is invalid..."
+            + System.lineSeparator()
+            + "Usages:"
+            + System.lineSeparator()
+            + "1. delete <taskNumber>"
+            + System.lineSeparator()
+            + "2. delete -m <taskNo 1> <taskNo 2> ... <taskNo K>"
+            + System.lineSeparator()
+            + "3. delete -m <startTaskNo>-<endTaskNo>";
+
+    private static final String MESSAGE_UNMARK_INVALID = "Your unmark command format is invalid..."
+            + System.lineSeparator()
+            + "Usages:"
+            + System.lineSeparator()
+            + "1. unmark <task number>"
+            + System.lineSeparator()
+            + "2. unmark -m <taskNo 1> <taskNo 2> ... <taskNo K>"
+            + System.lineSeparator()
+            + "3. unmark -m <startTaskNo>-<endTaskNo>";
+
+    private static final String MESSAGE_MARK_INVALID = "Your mark command format is invalid..."
+            + System.lineSeparator()
+            + "Usages:"
+            + System.lineSeparator()
+            + "1. mark <task number>"
+            + System.lineSeparator()
+            + "2. mark -m <taskNo 1> <taskNo 2> ... <taskNo K>"
+            + System.lineSeparator()
+            + "3. mark -m <startTaskNo>-<endTaskNo>";
     @Test
     public void parseCommand_unsupportedCommand_exceptionThrown() {
         String expected = "W-WHAT?! "
@@ -113,32 +142,39 @@ public class ParserTest {
             assertInstanceOf(
                     MarkCommand.class,
                     new Parser().parseCommand("mark 1"));
+
+            assertInstanceOf(
+                    MarkCommand.class,
+                    new Parser().parseCommand("mark -m 1-5"));
+
+            assertInstanceOf(
+                    MarkCommand.class,
+                    new Parser().parseCommand("mark -m 1 5 3 4"));
         } catch (CommandParseException e) {
             fail();
         }
     }
 
     @Test
-    public void parseCommand_emptyMarkArgument_exceptionThrown() {
-        String[] invalidArgs = {" ", "   ", ""};
-        String markInvalid = "Your mark command format is invalid..."
-                + System.lineSeparator()
-                + "Usage: mark <task number>";
+    public void parseCommand_invalidMarkArgument_exceptionThrown() {
+        String[] invalidArgs = {" ", "   ", "", " a", " ^b", "  -", " 1rhi1c", " @|||@!", " abb |"};
+
         for (String arg : invalidArgs) {
-            String expected = String.format(markInvalid, arg);
             CommandParseException exception = assertThrows(
-                    CommandParseException.class, () -> new Parser().parseCommand(String.format("mark%s", arg)));
-            assertEquals(expected, exception.getMessage());
+                    CommandParseException.class, () ->
+                            new Parser().parseCommand(String.format("mark%s", arg)));
+            assertEquals(MESSAGE_MARK_INVALID, exception.getMessage());
         }
     }
 
     @Test
-    public void parseCommand_invalidMarkTaskNumber_exceptionThrown() {
-        String[] invalidArgs = {"a", "^b", "-", "1rhi1c", "@|||@!", "abb |"};
+    public void parseCommand_outOfRangeMarkTaskNumber_exceptionThrown() {
+        String[] invalidArgs = {"99999999999999999999", "1231333082902"};
         for (String arg : invalidArgs) {
             String expected = String.format(MESSAGE_EXPECTED_INVALID_INTEGER, arg);
             CommandParseException exception = assertThrows(
-                    CommandParseException.class, () -> new Parser().parseCommand(String.format("mark %s", arg)));
+                    CommandParseException.class, () ->
+                            new Parser().parseCommand(String.format("mark %s", arg)));
             assertEquals(expected, exception.getMessage());
         }
     }
@@ -149,30 +185,35 @@ public class ParserTest {
             assertInstanceOf(
                     UnMarkCommand.class,
                     new Parser().parseCommand("unmark 1"));
+
+            assertInstanceOf(
+                    UnMarkCommand.class,
+                    new Parser().parseCommand("unmark -m 1-10"));
+
+            assertInstanceOf(
+                    UnMarkCommand.class,
+                    new Parser().parseCommand("unmark -m 1 2 3 9 0"));
         } catch (CommandParseException e) {
             fail();
         }
     }
 
     @Test
-    public void parseCommand_emptyUnMarkArgument_exceptionThrown() {
-        String[] invalidArgs = {" ", "   ", ""};
-        String unmarkInvalid = "Your unmark command format is invalid..."
-                + System.lineSeparator()
-                + "Usage: unmark <taskNumber>";
+    public void parseCommand_invalidUnMarkArgument_exceptionThrown() {
+        String[] invalidArgs = {" ", "   ", "", " asdsasd", " ^b", " -", " 1rhi1c", " @|||@!", " a"};
+
         for (String arg : invalidArgs) {
-            String expected = String.format(unmarkInvalid, arg);
             CommandParseException exception = assertThrows(
                     CommandParseException.class, () ->
                             new Parser().parseCommand(String.format("unmark%s", arg)));
-            assertEquals(expected, exception.getMessage());
+            assertEquals(MESSAGE_UNMARK_INVALID, exception.getMessage());
         }
     }
 
 
     @Test
-    public void parseCommand_invalidUnMarkTaskNumber_exceptionThrown() {
-        String[] invalidArgs = {"99999999999999999999", "asdsasd", "^b", "-", "1rhi1c", "@|||@!", "a"};
+    public void parseCommand_outOfRangeUnMarkTaskNumber_exceptionThrown() {
+        String[] invalidArgs = {"99999999999999999999", "1231333082902"};
         for (String arg : invalidArgs) {
             String expected = String.format(MESSAGE_EXPECTED_INVALID_INTEGER, arg);
             CommandParseException exception = assertThrows(
@@ -194,28 +235,52 @@ public class ParserTest {
     }
     @Test
     public void parseCommand_emptyDeleteArgument_exceptionThrown() {
-        String[] invalidArgs = {" ", "   ", ""};
-        String deleteInvalid = "Your delete command format is invalid..."
-                + System.lineSeparator()
-                + "Usage: delete <taskNumber>";
+        String[] invalidArgs = {" ", "   ", "", " asd", " b", " -", " 1rhi1c", " @|||@!"};
+
         for (String arg : invalidArgs) {
-            String expected = String.format(deleteInvalid, arg);
             CommandParseException exception = assertThrows(
                     CommandParseException.class, () ->
                             new Parser().parseCommand(String.format("delete%s", arg)));
-            assertEquals(expected, exception.getMessage());
+            assertEquals(MESSAGE_DELETE_INVALID, exception.getMessage());
         }
     }
 
     @Test
-    public void parseCommand_invalidDeleteTaskNumber_exceptionThrown() {
-        String[] invalidArgs = {"asd", "b", "-", "1rhi1c", "@|||@!"};
+    public void parseCommand_outOfRangeDeleteTaskNumber_exceptionThrown() {
+        String[] invalidArgs = {"99999999999999999999", "1231333082902"};
         for (String arg : invalidArgs) {
             String expected = String.format(MESSAGE_EXPECTED_INVALID_INTEGER, arg);
             CommandParseException exception = assertThrows(
                     CommandParseException.class, () ->
                             new Parser().parseCommand(String.format("delete %s", arg)));
             assertEquals(expected, exception.getMessage());
+        }
+    }
+
+    @Test
+    public void parseCommand_massOpsExceedsMaxTasks_exceptionThrown() {
+        String[] invalidArgs = {"-m 1-101", "-m 101-123123", "-m 0-1230"};
+        String expected = "Task range is too large!";
+        for (String arg : invalidArgs) {
+
+            // unmark
+            CommandParseException unmarkException = assertThrows(
+                    CommandParseException.class, () ->
+                            new Parser().parseCommand(String.format("unmark %s", arg)));
+            assertEquals(expected, unmarkException.getMessage());
+
+            // mark
+            CommandParseException markException = assertThrows(
+                    CommandParseException.class, () ->
+                            new Parser().parseCommand(String.format("mark %s", arg)));
+            assertEquals(expected, markException.getMessage());
+
+            // delete
+            CommandParseException deleteException = assertThrows(
+                    CommandParseException.class, () ->
+                            new Parser().parseCommand(String.format("delete %s", arg)));
+
+            assertEquals(expected, deleteException.getMessage());
         }
     }
 

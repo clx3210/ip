@@ -36,8 +36,9 @@ public class FindCommand extends Command {
         assert storage != null;
         assert keyword != null;
         String filteredList = tasks
-                .filter(task -> task.getDescription().contains(keyword))
+                .filter((index, task)-> task.getDescription().contains(keyword))
                 .toString();
         return new CommandResult(String.format(RESPONSE_SUCCESS, filteredList));
     }
+
 }

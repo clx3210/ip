@@ -1,5 +1,7 @@
 package olivero.commands;
 
+import java.util.Collection;
+
 import olivero.common.Responses;
 import olivero.exceptions.CommandExecutionException;
 
@@ -20,6 +22,20 @@ public final class CommandUtils {
                     String.format(
                             Responses.RESPONSE_INVALID_TASK_NUMBER,
                             taskNumber));
+        }
+    }
+
+    /**
+     * Validates that the task numbers are within the valid range between 1 and taskListSize.
+     *
+     * @param taskNumbers The task numbers to be validated.
+     * @param taskListSize The task list size to check the task numbers with.
+     * @throws CommandExecutionException If any of the task numbers are out of range.
+     */
+    public static void validateTaskNumbers(Collection<Integer> taskNumbers, int taskListSize)
+            throws CommandExecutionException {
+        for (int taskNumber : taskNumbers) {
+            validateTaskNumberRange(taskNumber, taskListSize);
         }
     }
 }

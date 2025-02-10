@@ -1,5 +1,8 @@
 package olivero.commands;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import olivero.common.Responses;
 import olivero.exceptions.CommandExecutionException;
 import olivero.exceptions.StorageSaveException;
@@ -11,13 +14,18 @@ import olivero.tasks.TaskList;
  */
 public class UnMarkCommand extends Command {
 
-    public static final String RESPONSE_SUCCESS = "Alright, I've un-marked this task: "
+    public static final String RESPONSE_SUCCESS = "Alright, I've un-marked the following task(s):"
             + System.lineSeparator()
-            + " %s";
+            + "%s";
 
     public static final String MESSAGE_INVALID_FORMAT = "Your unmark command format is invalid...";
-    public static final String MESSAGE_USAGE = "Usage: unmark <taskNumber>";
-    private final int taskNumber;
+    public static final String MESSAGE_USAGE = "Usages:" + System.lineSeparator()
+            + "1. unmark <task number>"
+            + System.lineSeparator()
+            + "2. unmark -m <taskNo 1> <taskNo 2> ... <taskNo K>"
+            + System.lineSeparator()
+            + "3. unmark -m <startTaskNo>-<endTaskNo>";
+    private final Set<Integer> taskNumbers;
 
 
     /**
@@ -27,7 +35,12 @@ public class UnMarkCommand extends Command {
      * @param taskNumber the task number for a task in the task list.
      */
     public UnMarkCommand(int taskNumber) {
-        this.taskNumber = taskNumber;
+        this.taskNumbers = new HashSet<>();
+        taskNumbers.add(taskNumber);
+    }
+
+    public UnMarkCommand(Set<Integer> taskNumberProducer) {
+        this.taskNumbers = taskNumberProducer;
     }
 
     /**
@@ -46,15 +59,18 @@ public class UnMarkCommand extends Command {
         assert storage != null;
         try {
             int taskSize = tasks.getTaskSize();
-            CommandUtils.validateTaskNumberRange(taskNumber, taskSize);
+            CommandUtils.validateTaskNumbers(taskNumbers, taskSize);
 
-            tasks.unmarkTaskAt(taskNumber);
+            for (int taskNumber : taskNumbers) {
+                tasks.unmarkTaskAt(taskNumber);
+            }
+            TaskList affectedTasks = tasks.filter((taskNumber, task) ->
+                    taskNumbers.contains(taskNumber));
+
             storage.save(tasks);
-            return new CommandResult(
-                    String.format(RESPONSE_SUCCESS, tasks.getTaskDescription(taskNumber)));
+            return new CommandResult(String.format(RESPONSE_SUCCESS, affectedTasks));
         } catch (StorageSaveException e) {
             throw new CommandExecutionException(Responses.RESPONSE_SAVE_FILE_FAILED);
         }
-
     }
 }
