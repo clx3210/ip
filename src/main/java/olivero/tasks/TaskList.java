@@ -2,14 +2,15 @@ package olivero.tasks;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
+import java.util.Set;
+import java.util.function.BiPredicate;
 import java.util.stream.Collectors;
 
 /**
  * Represents a list of tasks.
  */
 public class TaskList {
-    private final List<Task> tasks;
+    private List<Task> tasks;
 
     /**
      * Constructs an empty list of {@code Task} objects.
@@ -32,6 +33,13 @@ public class TaskList {
         this.tasks = new ArrayList<>(tasks);
     }
 
+
+    private void validateTaskNumber(int taskNumber) throws IllegalArgumentException {
+        if (taskNumber <= 0 || taskNumber > tasks.size()) {
+            throw new IllegalArgumentException();
+        }
+    }
+
     /**
      * Adds a new task into the task list.
      *
@@ -49,9 +57,7 @@ public class TaskList {
      * @throws IllegalArgumentException If no tasks in the list have that task number.
      */
     public String getTaskDescription(int taskNumber) throws IllegalArgumentException {
-        if (taskNumber <= 0 || taskNumber > tasks.size()) {
-            throw new IllegalArgumentException();
-        }
+        validateTaskNumber(taskNumber);
         return tasks.get(taskNumber - 1).toString();
     }
 
@@ -64,10 +70,33 @@ public class TaskList {
      * @throws IllegalArgumentException If no tasks in the list have that task number.
      */
     public Task removeTaskAt(int taskNumber) throws IllegalArgumentException {
-        if (taskNumber <= 0 || taskNumber > tasks.size()) {
-            throw new IllegalArgumentException();
-        }
+        validateTaskNumber(taskNumber);
         return tasks.remove(taskNumber - 1);
+    }
+
+    /**
+     * Removes all tasks whose task numbers are in the given set.
+     *
+     * @param taskNumbers The Set of unique task numbers of tasks to be removed from the list.
+     * @return List of deleted tasks.
+     * @throws IllegalArgumentException If given task numbers are out of range.
+     */
+    public TaskList removeTasksAt(Set<Integer> taskNumbers) throws IllegalArgumentException {
+        for (int taskNumber : taskNumbers) {
+            validateTaskNumber(taskNumber);
+        }
+        List<Task> removedTasks = new ArrayList<>();
+        List<Task> remainingTasks = new ArrayList<>();
+
+        for (int i = 0; i < tasks.size(); i++) {
+            if (taskNumbers.contains(i + 1)) {
+                removedTasks.add(tasks.get(i));
+            } else {
+                remainingTasks.add(tasks.get(i));
+            }
+        }
+        this.tasks = remainingTasks;
+        return new TaskList(removedTasks);
     }
 
     /**
@@ -77,9 +106,7 @@ public class TaskList {
      * @throws IllegalArgumentException If no tasks in the list have that task number.
      */
     public void markTaskAt(int taskNumber) throws IllegalArgumentException {
-        if (taskNumber <= 0 || taskNumber > tasks.size()) {
-            throw new IllegalArgumentException();
-        }
+        validateTaskNumber(taskNumber);
         tasks.get(taskNumber - 1).setDone(true);
     }
 
@@ -90,9 +117,7 @@ public class TaskList {
      * @throws IllegalArgumentException If no tasks in the list have that task number.
      */
     public void unmarkTaskAt(int taskNumber) throws IllegalArgumentException {
-        if (taskNumber <= 0 || taskNumber > tasks.size()) {
-            throw new IllegalArgumentException();
-        }
+        validateTaskNumber(taskNumber);
         tasks.get(taskNumber - 1).setDone(false);
     }
 
@@ -142,14 +167,14 @@ public class TaskList {
     /**
      * Returns a task list of elements filtered to satisfy the given predicate.
      *
-     * @param predicate The filter predicate.
+     * @param predicate The filter bi predicate with parameter (taskNumber, task).
      * @return A {@code TaskList} object.
      */
-    public TaskList filter(Predicate<? super Task> predicate) {
+    public TaskList filter(BiPredicate<Integer, ? super Task> predicate) {
         // Use streams to simplify the filtering process for any predicate
         List<Task> filtered = tasks
                 .stream()
-                .filter(predicate)
+                .filter(task -> predicate.test(tasks.indexOf(task) + 1, task))
                 .collect(Collectors.toCollection(ArrayList::new));
         return new TaskList(filtered);
     }

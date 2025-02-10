@@ -37,4 +37,6 @@ public final class Responses {
             + "task number %d exists..";
 
 
+    public static final String MESSAGE_DUPLICATE_TASK_NUMBER = "Duplicate task numbers are not allowed!";
+    public static final String MESSAGE_INVALID_TASK_RANGE = "Invalid task number range specified!";
 }

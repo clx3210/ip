@@ -11,20 +11,44 @@ import olivero.exceptions.CommandParseException;
  */
 public class DeleteCommandParser extends CommandParser<DeleteCommand> {
 
-    private static final Pattern DELETE_COMMAND_FORMAT = Pattern.compile(" (?<taskNumber>.*)");
+    private static final Pattern DELETE_COMMAND_FORMAT = Pattern.compile(" (?<taskNumber>\\d*)");
+
+    private final MassOpsParser massOpsParser;
+
+    public DeleteCommandParser() {
+        this.massOpsParser = new MassOpsParser(
+                DeleteCommand.MESSAGE_INVALID_FORMAT,
+                DeleteCommand.MESSAGE_USAGE);
+    }
+
+    private DeleteCommand setupSingleDelete(Matcher matcher) throws CommandParseException {
+        String taskNumberString = matcher.group("taskNumber").trim();
+        int taskNumber = CommandParseUtils.parseInteger(taskNumberString);
+        return new DeleteCommand(taskNumber);
+    }
+
+    private DeleteCommand setupMassDelete(String arguments) throws CommandParseException {
+        return new DeleteCommand(massOpsParser.lazyParse(arguments));
+    }
+
     @Override
     public DeleteCommand parse(String arguments) throws CommandParseException {
         final Matcher matcher = DELETE_COMMAND_FORMAT.matcher(arguments);
-        if (!matcher.matches()) {
+
+        final boolean isSingleDelete = matcher.matches();
+        final boolean isMassOpsDelete = massOpsParser.isMassOpsMatch(arguments);
+
+        if (!isSingleDelete && !isMassOpsDelete) {
             throw new CommandParseException(
                     DeleteCommand.MESSAGE_INVALID_FORMAT,
                     DeleteCommand.MESSAGE_USAGE
             );
         }
-        assert matcher.groupCount() == 1;
 
-        String taskNumberString = matcher.group("taskNumber").trim();
-        int taskNumber = CommandParseUtils.parseInteger(taskNumberString);
-        return new DeleteCommand(taskNumber);
+        if (isSingleDelete) {
+            return setupSingleDelete(matcher);
+        } else {
+            return setupMassDelete(arguments);
+        }
     }
 }
