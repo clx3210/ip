@@ -46,6 +46,7 @@ public class Olivero {
 
     /**
      * Returns a greeting message to the user.
+     *
      * @return Greeting message.
      */
     public String getGreetingMessage() {
@@ -54,6 +55,7 @@ public class Olivero {
 
     /**
      * Returns the execution result of running a raw user command.
+     *
      * @param rawCommand The raw command string input by the user.
      * @return The result of running the command.
      * @throws CommandExecutionException If an error occurs during command execution.
