@@ -36,15 +36,15 @@ public class UnMarkCommandParser extends CommandParser<UnMarkCommand> {
     @Override
     public UnMarkCommand parse(String arguments) throws CommandParseException {
         final Matcher matcher = UNMARK_COMMAND_FORMAT.matcher(arguments);
-        final boolean isSingleMark = matcher.matches();
-        final boolean isMassOpsMark = massOpsParser.isMassOpsMatch(arguments);
+        final boolean isSingleUnmark = matcher.matches();
+        final boolean isMassOpsUnmark = massOpsParser.isMassOpsMatch(arguments);
 
-        if (!isMassOpsMark && !isSingleMark) {
+        if (!isMassOpsUnmark && !isSingleUnmark) {
             throw new CommandParseException(
                     UnMarkCommand.MESSAGE_INVALID_FORMAT,
                     UnMarkCommand.MESSAGE_USAGE);
         }
-        if (isSingleMark) {
+        if (isSingleUnmark) {
             return setupSingleUnmark(matcher);
         } else {
             return setupMassUnmark(arguments);
