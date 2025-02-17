@@ -31,7 +31,7 @@ public class DeadlineParser extends TaskParser<Deadline> {
         }
         try {
             final String isDoneString = matcher.group("isDone");
-            final String description = TaskParseUtils.unescapeDescription(matcher.group("description"));
+            final String description = matcher.group("description");
             final String byDateString = matcher.group("byDate");
 
             assert isDoneString.equals(TASK_NOT_DONE) || isDoneString.equals(TASK_DONE)

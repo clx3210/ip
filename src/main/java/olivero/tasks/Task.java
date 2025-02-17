@@ -55,8 +55,7 @@ public abstract class Task {
      */
     public String toFormattedString() {
         String doneStatus = TaskParseUtils.prepareDoneStatus(isDone);
-        String formattedDescription = TaskParseUtils.escapeDescription(description);
-        return TaskParseUtils.formatTask(doneStatus, formattedDescription);
+        return TaskParseUtils.formatTask(doneStatus, description);
     }
 
     /**

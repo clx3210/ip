@@ -40,7 +40,6 @@ public class DeadlineCommandParser extends CommandParser<DeadlineCommand> {
                     DeadlineCommand.MESSAGE_INVALID_FORMAT,
                     DeadlineCommand.MESSAGE_USAGE);
         }
-        assert matcher.groupCount() == 2;
 
         final String description = matcher.group("description");
         final String endDate = matcher.group("endDate");

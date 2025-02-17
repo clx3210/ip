@@ -14,7 +14,9 @@ public final class Responses {
 
     /** Display message when a save file cannot be found. */
     public static final String RESPONSE_SAVE_FILE_NOT_FOUND = "Hey there! Can't seem to "
-            + "find a previous save file.";
+            + "find a previous save file... "
+            + System.lineSeparator()
+            + "I'll try saving one the next time you add/modify a task!";
 
     /** Display message when a save file is corrupted. */
     public static final String RESPONSE_SAVE_FILE_CORRUPT = "Hey there! Your "

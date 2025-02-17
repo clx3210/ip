@@ -21,7 +21,6 @@ public class FindCommandParser extends CommandParser<FindCommand> {
                     FindCommand.MESSAGE_INVALID_FORMAT,
                     FindCommand.MESSAGE_USAGE);
         }
-        assert matcher.groupCount() == 1;
 
         final String keyword = matcher.group("keyword");
         return new FindCommand(keyword.trim());

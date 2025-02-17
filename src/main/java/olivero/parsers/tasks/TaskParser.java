@@ -10,14 +10,10 @@ import olivero.tasks.Task;
  */
 public abstract class TaskParser<T extends Task> {
 
-    /** Regexes for padding to unexpected ' | ' occurrences during parsing. */
-    protected static final String ESCAPED_REGEX = "\\*\\|";
-    protected static final String UNESCAPED_REGEX = "\\|";
+    /** Regexes for ' | ' during parsing. */
     protected static final String SEPARATOR_REGEX = "\\s\\|\\s";
 
     /** Tokens used in parsing tasks. */
-    static final String ESCAPED_TOKEN = "*|";
-    static final String UNESCAPED_TOKEN = "|";
     static final String SEPARATOR_TOKEN = " | ";
 
     /** String representations of task done status. */

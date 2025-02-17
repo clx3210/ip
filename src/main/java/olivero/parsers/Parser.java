@@ -63,8 +63,6 @@ public class Parser {
             throw new CommandParseException(Responses.RESPONSE_UNKNOWN_COMMAND);
         }
 
-        assert matcher.groupCount() == 2;
-
         try {
 
             String command = matcher.group("command");

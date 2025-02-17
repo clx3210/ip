@@ -24,7 +24,7 @@ public class TodoParser extends TaskParser<ToDo> {
             throw new TaskParseException(MESSAGE_INVALID_ARGUMENT_FORMAT);
         }
         String isDoneString = matcher.group("isDone");
-        String description = TaskParseUtils.unescapeDescription(matcher.group("description"));
+        String description = matcher.group("description");
 
         assert isDoneString.equals(TASK_NOT_DONE)
                 || isDoneString.equals(TASK_DONE)

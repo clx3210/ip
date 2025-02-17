@@ -42,7 +42,7 @@ public class EventParser extends TaskParser<Event> {
             String isDoneString = matcher.group("isDone");
             String startDateString = matcher.group("startDate");
             String endDateString = matcher.group("endDate");
-            String description = TaskParseUtils.unescapeDescription(matcher.group("description"));
+            String description = matcher.group("description");
 
             assert isDoneString.equals(TASK_DONE) || isDoneString.equals(TASK_NOT_DONE)
                     : "isDoneString should be 0 or 1";
