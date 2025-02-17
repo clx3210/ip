@@ -177,7 +177,7 @@ Expected Output:
 
 ```
 OK, I've removed the following task(s):
-1. [D][] finalize CS2103T iP (by: Feb 21 2025 2359)
+2. [D][] finalize CS2103T iP (by: Feb 21 2025 2359)
 Now you have 4 task(s) in the list.
 ```
 
@@ -299,7 +299,7 @@ Expected Output:
 
 ```
 Alright! I've un-marked the following task(s):
-1. [D][] finalize CS2103T iP (by: Feb 21 2025 2359)
+2. [D][] finalize CS2103T iP (by: Feb 21 2025 2359)
 ```
 
 Input (multiple unmark):
@@ -311,8 +311,8 @@ Expected Output:
 ```
 Alright! I've un-marked the following task(s):
 1. [T][] read book
-2. [E][] CS2103T lecture (from: Jan 01 2025 1400 to: Jan 01 2025 1600)
-3. [T][] stream on twitch
+3. [E][] CS2103T lecture (from: Jan 01 2025 1400 to: Jan 01 2025 1600)
+5. [T][] stream on twitch
 ```
 
 Input (range unmark):
@@ -368,8 +368,8 @@ Expected Output:
 
 ```
 Here are the matching tasks in your list:
-1. [D][X] finalize CS2103T iP (by: Feb 21 2025 2359)
-2. [E][X] CS2103T lecture (from: Jan 01 2025 1400 to: Jan 01 2025 1600)
+2. [D][X] finalize CS2103T iP (by: Feb 21 2025 2359)
+3. [E][X] CS2103T lecture (from: Jan 01 2025 1400 to: Jan 01 2025 1600)
 ```
 
 ## Exiting the program `bye`
