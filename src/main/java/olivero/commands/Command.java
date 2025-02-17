@@ -5,7 +5,7 @@ import olivero.storage.Storage;
 import olivero.tasks.TaskList;
 
 /**
- * The base representation for executable commands to be extended from.
+ * Represents the base class for executable commands to be extended from.
  */
 public abstract class Command {
 

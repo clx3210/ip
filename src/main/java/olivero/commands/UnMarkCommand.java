@@ -10,7 +10,7 @@ import olivero.storage.Storage;
 import olivero.tasks.TaskList;
 
 /**
- * Un marks a given task.
+ * Unmarks a given or range of task(s).
  */
 public class UnMarkCommand extends Command {
 

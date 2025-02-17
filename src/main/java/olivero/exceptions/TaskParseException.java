@@ -5,9 +5,6 @@ package olivero.exceptions;
  */
 public class TaskParseException extends Exception {
 
-    /**
-     * {@inheritDoc}
-     */
     public TaskParseException(String message) {
         super(message);
     }

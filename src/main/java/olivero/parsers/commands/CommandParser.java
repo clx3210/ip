@@ -4,7 +4,7 @@ import olivero.commands.Command;
 import olivero.exceptions.CommandParseException;
 
 /**
- * Base Parser for parsing raw command arguments into a subclass of {@code Command} object.
+ * Represents the base parser class for parsing raw command arguments into a subclass of {@code Command} object.
  */
 public abstract class CommandParser<T extends Command> {
 

@@ -42,17 +42,14 @@ public class EventParser extends TaskParser<Event> {
             String isDoneString = matcher.group("isDone");
             String startDateString = matcher.group("startDate");
             String endDateString = matcher.group("endDate");
-            String description = TaskParseUtils
-                    .unescapeDescription(matcher.group("description"));
+            String description = TaskParseUtils.unescapeDescription(matcher.group("description"));
 
-            assert isDoneString.equals(TASK_DONE)
-                    || isDoneString.equals(TASK_NOT_DONE)
+            assert isDoneString.equals(TASK_DONE) || isDoneString.equals(TASK_NOT_DONE)
                     : "isDoneString should be 0 or 1";
 
             boolean isDone = isDoneString.equals(TASK_DONE);
             LocalDateTime startDate = DateUtils.parseInputDate(startDateString);
             LocalDateTime endDate = DateUtils.parseInputDate(endDateString);
-
 
             if (startDate.isAfter(endDate)) {
                 throw new TaskParseException(ERROR_INVALID_DATE_ORDER);

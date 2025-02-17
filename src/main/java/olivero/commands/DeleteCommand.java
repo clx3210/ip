@@ -10,7 +10,7 @@ import olivero.storage.Storage;
 import olivero.tasks.TaskList;
 
 /**
- * Deletes a specified task.
+ * Deletes a single or specified range of task(s).
  */
 public class DeleteCommand extends Command {
     public static final String RESPONSE_SUCCESS = "OK, I've removed the following task(s):"

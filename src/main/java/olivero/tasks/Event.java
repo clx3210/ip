@@ -27,9 +27,6 @@ public class Event extends Task {
         this.endDate = endDate;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String toString() {
         String endDateString = DateUtils.formatForDisplay(endDate);
@@ -39,9 +36,6 @@ public class Event extends Task {
                 + " to: " + endDateString + ")";
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String toFormattedString() {
         String startDateString = DateUtils.formatForInput(startDate);

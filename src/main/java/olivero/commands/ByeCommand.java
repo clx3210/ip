@@ -8,12 +8,9 @@ import olivero.tasks.TaskList;
  * Ends the program execution.
  */
 public class ByeCommand extends Command {
-
-
-    public static final String EXIT_MESSAGE = "Bye-bye. See you soon!";
-
     public static final String MESSAGE_INVALID_FORMAT = "Your bye command format is invalid...";
     public static final String MESSAGE_USAGE = "Usage: bye";
+    private static final String MESSAGE_EMPTY = "";
 
     /**
      * Displays an exit message to the provided ui when called.
@@ -23,6 +20,6 @@ public class ByeCommand extends Command {
      */
     @Override
     public CommandResult execute(TaskList tasks, Storage storage) throws CommandExecutionException {
-        return new CommandResult(EXIT_MESSAGE, true);
+        return new CommandResult(MESSAGE_EMPTY, true);
     }
 }

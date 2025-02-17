@@ -50,18 +50,6 @@ public class TaskList {
     }
 
     /**
-     * Returns the description of the task at the given task number.
-     *
-     * @param taskNumber The task number associated with some task in the list.
-     * @return Task description.
-     * @throws IllegalArgumentException If no tasks in the list have that task number.
-     */
-    public String getTaskDescription(int taskNumber) throws IllegalArgumentException {
-        validateTaskNumber(taskNumber);
-        return tasks.get(taskNumber - 1).toString();
-    }
-
-    /**
      * Removes the task with the given task number from the task list and
      * returns it.
      *
@@ -77,7 +65,7 @@ public class TaskList {
     /**
      * Removes all tasks whose task numbers are in the given set.
      *
-     * @param taskNumbers The Set of unique task numbers of tasks to be removed from the list.
+     * @param taskNumbers The set of unique task numbers of tasks to be removed from the list.
      * @return List of deleted tasks.
      * @throws IllegalArgumentException If given task numbers are out of range.
      */
@@ -167,7 +155,7 @@ public class TaskList {
     /**
      * Returns a task list of elements filtered to satisfy the given predicate.
      *
-     * @param predicate The filter bi predicate with parameter (taskNumber, task).
+     * @param predicate The filter bi-predicate with parameter (taskNumber, task).
      * @return A {@code TaskList} object.
      */
     public TaskList filter(BiPredicate<Integer, ? super Task> predicate) {

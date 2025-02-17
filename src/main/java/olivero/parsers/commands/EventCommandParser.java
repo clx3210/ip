@@ -17,28 +17,23 @@ import olivero.tasks.Event;
 public class EventCommandParser extends CommandParser<EventCommand> {
     public static final Pattern EVENT_COMMAND_FORMAT = Pattern.compile(
             " (?<description>.*) /from (?<fromDate>.*) /to (?<toDate>.*)");
-    private EventCommand setupEvent(
-            String description,
-            String fromDateString,
-            String toDateString) throws CommandParseException {
+    private EventCommand setupEvent(String description, String fromDateString,
+                                    String toDateString) throws CommandParseException {
         if (description.isBlank()) {
-            throw new CommandParseException(
-                    EventCommand.MESSAGE_EMPTY_DESCRIPTION);
+            throw new CommandParseException(EventCommand.MESSAGE_EMPTY_DESCRIPTION);
         }
-        LocalDateTime fromDate;
-        LocalDateTime toDate;
         try {
-            fromDate = DateUtils.parseInputDate(fromDateString);
-            toDate = DateUtils.parseInputDate(toDateString);
+            LocalDateTime fromDate = DateUtils.parseInputDate(fromDateString);
+            LocalDateTime toDate = DateUtils.parseInputDate(toDateString);
+
+            if (fromDate.isAfter(toDate)) {
+                throw new CommandParseException(Responses.RESPONSE_INVALID_DATE_ORDER);
+            }
+
+            return new EventCommand(new Event(description, fromDate, toDate, false));
         } catch (DateTimeParseException e) {
             throw new CommandParseException(Responses.RESPONSE_INVALID_DATE_FORMAT);
         }
-
-        if (fromDate.isAfter(toDate)) {
-            throw new CommandParseException(Responses.RESPONSE_INVALID_DATE_ORDER);
-        }
-
-        return new EventCommand(new Event(description, fromDate, toDate, false));
     }
 
     @Override

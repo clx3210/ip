@@ -19,8 +19,8 @@ public enum TaskType {
     /**
      * Parses the task type from a string.
      *
-     * @param taskType
-     * @return
+     * @param taskType The task type in string form.
+     * @return The task type.
      */
     public static TaskType parseString(String taskType) throws UnsupportedTaskException {
         return switch (taskType) {

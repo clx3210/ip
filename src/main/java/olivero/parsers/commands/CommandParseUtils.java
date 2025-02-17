@@ -32,13 +32,13 @@ public class CommandParseUtils {
     /**
      * Parses a list of strings into a list of integers.
      *
-     * @param rawInts The list of strings to be parsed into integers.
+     * @param integerStrings The list of strings to be parsed into integers.
      * @return List of integers if parsing is successful.
      * @throws CommandParseException If parsing fails.
      */
-    public static List<Integer> parseIntegers(List<String> rawInts) throws CommandParseException {
+    public static List<Integer> parseIntegers(List<String> integerStrings) throws CommandParseException {
         List<Integer> parsedIntegers = new ArrayList<>();
-        for (String rawInt : rawInts) {
+        for (String rawInt : integerStrings) {
             parsedIntegers.add(parseInteger(rawInt));
         }
         return parsedIntegers;

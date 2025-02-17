@@ -25,9 +25,6 @@ public class Deadline extends Task {
         this.endDate = endDate;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String toFormattedString() {
         String dateString = DateUtils.formatForInput(endDate);
@@ -38,9 +35,6 @@ public class Deadline extends Task {
                 dateString);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String toString() {
         String dateString = DateUtils.formatForDisplay(endDate);

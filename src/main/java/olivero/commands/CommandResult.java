@@ -10,6 +10,7 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} object representing
      * the output of a command execution.
+     *
      * @param message The message to be shown to the user.
      * @param isExit True if the command is to exit the program, false otherwise.
      */
@@ -29,6 +30,7 @@ public class CommandResult {
 
     /**
      * Gets the message stored in the command result.
+     *
      * @return command execution result.
      */
     public String getMessage() {

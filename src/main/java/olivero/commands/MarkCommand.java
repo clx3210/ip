@@ -10,7 +10,7 @@ import olivero.storage.Storage;
 import olivero.tasks.TaskList;
 
 /**
- * Marks a task as done.
+ * Marks a single or range of task(s) as done.
  */
 public class MarkCommand extends Command {
 

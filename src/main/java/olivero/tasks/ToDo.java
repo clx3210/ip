@@ -9,6 +9,7 @@ public class ToDo extends Task {
 
     /**
      * Constructs a ToDo task object containing the task description and completion status.
+     *
      * @param description The task description of the {@code ToDo} task.
      * @param isDone The completion status of the {@code ToDo} task.
      */
@@ -16,9 +17,6 @@ public class ToDo extends Task {
         super(description, isDone);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String toFormattedString() {
         return TaskParseUtils.formatTask(
@@ -26,9 +24,6 @@ public class ToDo extends Task {
                 super.toFormattedString());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String toString() {
         return "[" + TaskType.TODO.getValue() + "]" + super.toString();

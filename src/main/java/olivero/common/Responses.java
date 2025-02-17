@@ -1,13 +1,24 @@
 package olivero.common;
 
 /**
- * Common display responses that will be shown to the user.
+ * Provides common display responses shown to the user.
  */
 public final class Responses {
 
     /** Welcome message when the program starts. */
     public static final String GREETING_MESSAGE = "Howdy-do! I'm Olivero, "
             + "What can I do for you?";
+
+    /** Display message when loading a save file has unknown error. */
+    public static final String RESPONSE_SAVE_FILE_ERROR = "Unknown error when loading the save file..";
+
+    /** Display message when a save file cannot be found. */
+    public static final String RESPONSE_SAVE_FILE_NOT_FOUND = "Hey there! Can't seem to "
+            + "find a previous save file.";
+
+    /** Display message when a save file is corrupted. */
+    public static final String RESPONSE_SAVE_FILE_CORRUPT = "Hey there! Your "
+            + "previous save file may have been corrupted.. ";
 
     /** Display message when saving to disk failed. */
     public static final String RESPONSE_SAVE_FILE_FAILED = "Oh no.. "
@@ -35,7 +46,6 @@ public final class Responses {
     /** Display message when using a non-existent task number of the task list */
     public static final String RESPONSE_INVALID_TASK_NUMBER = "No task with "
             + "task number %d exists..";
-
 
     public static final String MESSAGE_DUPLICATE_TASK_NUMBER = "Duplicate task numbers are not allowed!";
     public static final String MESSAGE_INVALID_TASK_RANGE = "Invalid task number range specified!";
