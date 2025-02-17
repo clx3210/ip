@@ -8,6 +8,8 @@ import olivero.exceptions.CommandParseException;
 
 /**
  * Represents the parser for parsing command arguments into a {@link DeleteCommand} object.
+ * Solution inspired by DeleteCommandParser.java in
+ * <a href="https://github.com/se-edu/addressbook-level4/tree/master/src">AB4</a>.
  */
 public class DeleteCommandParser extends CommandParser<DeleteCommand> {
 

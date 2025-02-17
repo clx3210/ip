@@ -8,6 +8,8 @@ import olivero.exceptions.CommandParseException;
 
 /**
  * Represents the parser for parsing command arguments into a {@link FindCommand} object.
+ * Solution inspired by FindCommandParser.java in
+ * <a href="https://github.com/se-edu/addressbook-level4/tree/master/src">AB4</a>.
  */
 public class FindCommandParser extends CommandParser<FindCommand> {
 
