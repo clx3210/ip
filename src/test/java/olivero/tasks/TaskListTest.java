@@ -58,12 +58,11 @@ public class TaskListTest {
         for (int i = 0; i < taskCount; i++) {
             taskList.addTask(new ToDo("Test todo " + i, true));
         }
-        assertEquals(taskList.getTaskSize(), taskCount);
+        assertEquals(taskCount, taskList.getTaskSize());
     }
 
-    @Test
-    public void asFormattedString_threeTodosFiveEventsTwoDeadlinesAdded_success() {
-        String expected = String.join(System.lineSeparator(),
+    private String getExpectedFormattedString() {
+        return String.join(System.lineSeparator(),
                 "T | 0 | Todo 1",
                 "T | 1 | Todo 2",
                 "T | 0 | Todo 3",
@@ -74,7 +73,11 @@ public class TaskListTest {
                 "E | 0 | Event 5 | 2028-1-25 2323 | 2028-2-25 2323",
                 "D | 0 | Deadline 1 | 2028-1-25 2323",
                 "D | 1 | Deadline 2 | 2028-1-25 2323");
+    }
 
+    @Test
+    public void asFormattedString_threeTodosFiveEventsTwoDeadlinesAdded_success() {
+        String expected = getExpectedFormattedString();
         TaskList taskList = new TaskList();
 
         int numTodos = 3;
@@ -89,11 +92,7 @@ public class TaskListTest {
         }
 
         for (int i = 1; i <= numEvents; i++) {
-            taskList.addTask(
-                    new Event("Event " + i,
-                            start,
-                            end,
-                            i % 2 == 0));
+            taskList.addTask(new Event("Event " + i, start, end, i % 2 == 0));
         }
 
         for (int i = 1; i <= numDeadlines; i++) {
@@ -122,9 +121,8 @@ public class TaskListTest {
         assertEquals(expected, taskList.serialiseTasks());
     }
 
-    @Test
-    public void toString_taskListWithMultipleTasksCorrectString_success() {
-        String expected = String.join(System.lineSeparator(),
+    private String getExpectedTaskListString() {
+        return String.join(System.lineSeparator(),
                 "1. [T][X] Todo 1",
                 "2. [T][ ] Todo 2",
                 "3. [T][X] Todo 3",
@@ -139,7 +137,11 @@ public class TaskListTest {
                 "12. [D][X] Deadline 4 (by: Jan 25 2028 2323)",
                 "13. [D][ ] Deadline 5 (by: Jan 25 2028 2323)",
                 "14. [D][X] Deadline 6 (by: Jan 25 2028 2323)");
+    }
 
+    @Test
+    public void toString_taskListWithMultipleTasksCorrectString_success() {
+        String expected = getExpectedTaskListString();
         TaskList taskList = new TaskList();
 
         int numTodos = 3;
@@ -154,17 +156,29 @@ public class TaskListTest {
         }
 
         for (int i = 1; i <= numEvents; i++) {
-            taskList.addTask(
-                    new Event("Event " + i,
-                            start,
-                            end,
-                            i % 2 == 1));
+            taskList.addTask(new Event("Event " + i, start, end, i % 2 == 1));
         }
 
         for (int i = 1; i <= numDeadlines; i++) {
             taskList.addTask(new Deadline("Deadline " + i, start, i % 2 == 0));
         }
         assertEquals(expected, taskList.toString());
+    }
+
+    @Test
+    public void filter_tasksWithBookKeyword_success() {
+        TaskList taskList = new TaskList();
+        taskList.addTask(new ToDo("Test Book 1", true));
+        taskList.addTask(new ToDo("Test todo 2", false));
+        taskList.addTask(new Deadline("Test deadline 1",
+                LocalDateTime.of(2025, 12, 1, 1, 1), false));
+        taskList.addTask(new Event("Test Book 1",
+                LocalDateTime.of(2025, 12, 1, 1, 1),
+                LocalDateTime.of(2025, 12, 1, 1, 1), true));
+
+        TaskList filteredTaskList = taskList.filter((taskNumber, task) ->
+                task.getDescription().contains("Book"));
+        assertEquals(2, filteredTaskList.getTaskSize());
     }
 
 }
