@@ -1,9 +1,6 @@
 package olivero.ui;
 
 import java.util.Objects;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -22,7 +19,8 @@ import olivero.exceptions.CommandExecutionException;
  */
 public class MainWindow extends AnchorPane {
 
-    private static final int EXIT_DELAY_SECONDS = 1;
+    private static final String USER_IMAGE_PATH = "/images/pingu.png";
+    private static final String OLIVERO_IMAGE_PATH = "/images/pingu_angry.png";
 
     @FXML
     private ScrollPane scrollPane;
@@ -34,54 +32,42 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Olivero olivero;
+
     private final Image userImage = new Image(
-            Objects.requireNonNull(this.getClass().getResourceAsStream("/images/pingu.png")));
+            Objects.requireNonNull(this.getClass().getResourceAsStream(USER_IMAGE_PATH)));
     private final Image oliveroImage = new Image(
-            Objects.requireNonNull(this.getClass().getResourceAsStream("/images/pingu_angry.png")));
-
-    /** true if the current window is exiting, false otherwise */
-    private boolean isExiting = false;
-
-
+            Objects.requireNonNull(this.getClass().getResourceAsStream(OLIVERO_IMAGE_PATH)));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setOlivero(Olivero olivero) {
+    public void setupOlivero(Olivero olivero) {
         this.olivero = olivero;
-        greet();
+        setupAndGreet();
     }
 
-
-
-    private void greet() {
+    private void setupAndGreet() {
+        String initialMessage = this.olivero.setupResources();
         dialogContainer
                 .getChildren()
-                .add(DialogBox.getOliveroDialog(this.olivero.getGreetingMessage(), oliveroImage));
+                .add(DialogBox.getOliveroDialog(initialMessage, oliveroImage));
     }
+
     @FXML
     private void handleUserInput() {
-        // skip if exit is in progress
-        if (this.isExiting) {
-            return;
-        }
-
         String input = userInput.getText();
+        userInput.clear();
         String response;
         try {
             CommandResult result = olivero.runCommand(input);
             response = result.getMessage();
+
+            // close the platform if the command exits
             if (result.isExit()) {
-                // code to exit application
-                this.isExiting = true;
-
-                ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-                scheduler.schedule(() -> Platform.runLater(Platform::exit),
-                        EXIT_DELAY_SECONDS, TimeUnit.SECONDS);
-                scheduler.shutdown();
-
+                Platform.exit();
+                return;
             }
         } catch (CommandExecutionException e) {
             response = e.getMessage();
@@ -90,8 +76,6 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getOliveroDialog(response, oliveroImage)
         );
-        userInput.clear();
     }
-
 
 }

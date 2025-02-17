@@ -1,5 +1,6 @@
 package olivero;
 
+
 import olivero.commands.Command;
 import olivero.commands.CommandResult;
 import olivero.common.Responses;
@@ -22,34 +23,44 @@ public class Olivero {
     /**
      * Constructs an {@code Olivero} object with the provide file path
      * for saving data.
-     * Setups the necessary resources for the bot.
      *
      * @param storagePath The path to save data files to.
      */
     public Olivero(String storagePath) {
         this.storage = new Storage(storagePath);
         this.commandParser = new Parser();
-        loadTaskList();
+    }
+
+    private TaskList loadTaskList() throws StorageLoadException {
+        return new TaskList(storage.load());
     }
 
     /**
-     * Tries to load previously saved tasks from disk if present,
-     * otherwise a new task list is used.
+     * Attempts to set up resources used by Olivero.
+     * If the file is not found or is corrupted, a relevant string response
+     * is returned.
+     * Otherwise, the default greeting response is returned.
+     *
+     * @return A displayable message response after setting up.
      */
-    private void loadTaskList() {
+    public String setupResources() {
         try {
-            this.taskList = new TaskList(storage.load());
+            this.taskList = loadTaskList();
         } catch (StorageLoadException e) {
             this.taskList = new TaskList();
-        }
-    }
 
-    /**
-     * Returns a greeting message to the user.
-     *
-     * @return Greeting message.
-     */
-    public String getGreetingMessage() {
+            switch (e.getReason()) {
+            case DATA_CORRUPT -> {
+                return Responses.RESPONSE_SAVE_FILE_CORRUPT;
+            }
+            case DATA_MISSING -> {
+                return Responses.RESPONSE_SAVE_FILE_NOT_FOUND;
+            }
+            default -> {
+                return Responses.RESPONSE_SAVE_FILE_ERROR;
+            }
+            }
+        }
         return Responses.GREETING_MESSAGE;
     }
 
