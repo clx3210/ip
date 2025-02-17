@@ -330,7 +330,7 @@ Alright! I've un-marked the following task(s):
 5. [T][] stream on twitch
 ```
 
-# Finding tasks `find`
+## Finding tasks `find`
 
 Finds tasks in the task list that contain the given keyword (cannot be blank).
 
