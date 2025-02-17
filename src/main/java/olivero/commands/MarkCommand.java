@@ -1,13 +1,17 @@
 package olivero.commands;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import javafx.util.Pair;
 import olivero.common.Responses;
 import olivero.exceptions.CommandExecutionException;
 import olivero.exceptions.StorageSaveException;
 import olivero.storage.Storage;
+import olivero.tasks.Task;
 import olivero.tasks.TaskList;
+import olivero.tasks.TaskUtils;
 
 /**
  * Marks a single or range of task(s) as done.
@@ -72,12 +76,12 @@ public class MarkCommand extends Command {
                 tasks.markTaskAt(taskNumber);
             }
 
-            TaskList affectedTasks = tasks.filter((taskNumber, task) ->
+            List<Pair<Integer, Task>> affectedTasks = tasks.filter((taskNumber, task) ->
                     taskNumbers.contains(taskNumber));
             storage.save(tasks);
 
             return new CommandResult(
-                    String.format(RESPONSE_SUCCESS, affectedTasks));
+                    String.format(RESPONSE_SUCCESS, TaskUtils.toDisplayString(affectedTasks)));
         } catch (StorageSaveException e) {
             throw new CommandExecutionException(Responses.RESPONSE_SAVE_FILE_FAILED);
         }

@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -176,9 +177,9 @@ public class TaskListTest {
                 LocalDateTime.of(2025, 12, 1, 1, 1),
                 LocalDateTime.of(2025, 12, 1, 1, 1), true));
 
-        TaskList filteredTaskList = taskList.filter((taskNumber, task) ->
+        List<?> filteredTaskList = taskList.filter((taskNumber, task) ->
                 task.getDescription().contains("Book"));
-        assertEquals(2, filteredTaskList.getTaskSize());
+        assertEquals(2, filteredTaskList.size());
     }
 
 }

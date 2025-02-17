@@ -1,13 +1,17 @@
 package olivero.commands;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import javafx.util.Pair;
 import olivero.common.Responses;
 import olivero.exceptions.CommandExecutionException;
 import olivero.exceptions.StorageSaveException;
 import olivero.storage.Storage;
+import olivero.tasks.Task;
 import olivero.tasks.TaskList;
+import olivero.tasks.TaskUtils;
 
 /**
  * Deletes a single or specified range of task(s).
@@ -63,11 +67,11 @@ public class DeleteCommand extends Command {
         try {
             int taskSize = tasks.getTaskSize();
             CommandUtils.validateTaskNumbers(taskNumbers, taskSize);
-            TaskList removedTasks = tasks.removeTasksAt(taskNumbers);
+            List<Pair<Integer, Task>> removedTasks = tasks.removeTasksAt(taskNumbers);
 
             storage.save(tasks);
             return new CommandResult(
-                    String.format(RESPONSE_SUCCESS, removedTasks, tasks.getTaskSize()));
+                    String.format(RESPONSE_SUCCESS, TaskUtils.toDisplayString(removedTasks), tasks.getTaskSize()));
         } catch (StorageSaveException e) {
             throw new CommandExecutionException(Responses.RESPONSE_SAVE_FILE_FAILED);
         }

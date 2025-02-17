@@ -6,6 +6,8 @@ import java.util.Set;
 import java.util.function.BiPredicate;
 import java.util.stream.Collectors;
 
+import javafx.util.Pair;
+
 /**
  * Represents a list of tasks.
  */
@@ -66,25 +68,25 @@ public class TaskList {
      * Removes all tasks whose task numbers are in the given set.
      *
      * @param taskNumbers The set of unique task numbers of tasks to be removed from the list.
-     * @return List of deleted tasks.
+     * @return List of deleted tasks paired with their original task number.
      * @throws IllegalArgumentException If given task numbers are out of range.
      */
-    public TaskList removeTasksAt(Set<Integer> taskNumbers) throws IllegalArgumentException {
+    public List<Pair<Integer, Task>> removeTasksAt(Set<Integer> taskNumbers) throws IllegalArgumentException {
         for (int taskNumber : taskNumbers) {
             validateTaskNumber(taskNumber);
         }
-        List<Task> removedTasks = new ArrayList<>();
+        List<Pair<Integer, Task>> removedTasks = new ArrayList<>();
         List<Task> remainingTasks = new ArrayList<>();
 
         for (int i = 0; i < tasks.size(); i++) {
             if (taskNumbers.contains(i + 1)) {
-                removedTasks.add(tasks.get(i));
+                removedTasks.add(new Pair<>(i + 1, tasks.get(i)));
             } else {
                 remainingTasks.add(tasks.get(i));
             }
         }
         this.tasks = remainingTasks;
-        return new TaskList(removedTasks);
+        return removedTasks;
     }
 
     /**
@@ -142,29 +144,25 @@ public class TaskList {
      */
     @Override
     public String toString() {
-        StringBuilder message = new StringBuilder();
-        for (int i = 1; i <= tasks.size(); i++) {
-            message.append(i)
-                    .append(". ")
-                    .append(tasks.get(i - 1))
-                    .append(System.lineSeparator());
-        }
-        return message.toString().strip();
+        return TaskUtils.toDisplayString(
+                tasks.stream()
+                        .map(task -> new Pair<>(tasks.indexOf(task) + 1, task))
+                        .collect(Collectors.toCollection(ArrayList::new)));
     }
 
     /**
-     * Returns a task list of elements filtered to satisfy the given predicate.
+     * Returns a list of tasks that satisfy the given predicate.
      *
      * @param predicate The filter bi-predicate with parameter (taskNumber, task).
-     * @return A {@code TaskList} object.
+     * @return {@code List} of pairs of task numbers and the corresponding tasks that satisfy the predicate.
      */
-    public TaskList filter(BiPredicate<Integer, ? super Task> predicate) {
+    public List<Pair<Integer, Task>> filter(BiPredicate<Integer, ? super Task> predicate) {
         // Use streams to simplify the filtering process for any predicate
-        List<Task> filtered = tasks
+        return tasks
                 .stream()
-                .filter(task -> predicate.test(tasks.indexOf(task) + 1, task))
+                .map(task -> new Pair<>(tasks.indexOf(task) + 1, task))
+                .filter(pair -> predicate.test(pair.getKey(), pair.getValue()))
                 .collect(Collectors.toCollection(ArrayList::new));
-        return new TaskList(filtered);
     }
 
 }
