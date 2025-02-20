@@ -9,6 +9,7 @@ import javafx.util.Pair;
  */
 public final class TaskUtil {
 
+    private static final String NUMBER_TASK_SEPARATOR = ". ";
     /**
      * Returns the list of tasks in their string representations
      * delimited with {@link System#lineSeparator()}.
@@ -21,7 +22,7 @@ public final class TaskUtil {
         for (int i = 1; i <= tasks.size(); i++) {
             Pair<Integer, Task> taskPair = tasks.get(i - 1);
             message.append(taskPair.getKey())
-                    .append(". ")
+                    .append(NUMBER_TASK_SEPARATOR)
                     .append(taskPair.getValue())
                     .append(System.lineSeparator());
         }

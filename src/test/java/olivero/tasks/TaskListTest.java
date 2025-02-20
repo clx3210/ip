@@ -25,7 +25,7 @@ public class TaskListTest {
         TaskList taskList = new TaskList();
         int taskCount = 20;
         for (int i = 0; i < taskCount; i++) {
-            taskList.addTask(new ToDo("Test todo item " + i, false));
+            taskList.addTask(new Todo("Test todo item " + i, false));
         }
 
         assertThrows(IllegalArgumentException.class, () -> taskList.removeTaskAt(21));
@@ -35,7 +35,7 @@ public class TaskListTest {
 
     @Test
     public void removeTaskAt_validTaskNumberRemoved_success() {
-        Task[] tasks = new Task[] { new ToDo("Todo 1", false), new ToDo("Todo 2", false), new Deadline("Todo 3",
+        Task[] tasks = new Task[] { new Todo("Todo 1", false), new Todo("Todo 2", false), new Deadline("Todo 3",
                 LocalDateTime.of(2025, 12, 1, 1, 1), false)
         };
         TaskList taskList = new TaskList();
@@ -64,7 +64,7 @@ public class TaskListTest {
         LocalDateTime end = LocalDateTime.of(2028, 2, 25, 23, 23);
 
         for (int i = 1; i <= numTodos; i++) {
-            taskList.addTask(new ToDo("Todo " + i, i % 2 == 0));
+            taskList.addTask(new Todo("Todo " + i, i % 2 == 0));
         }
 
         for (int i = 1; i <= numEvents; i++) {
@@ -96,7 +96,7 @@ public class TaskListTest {
         LocalDateTime end = LocalDateTime.of(2028, 2, 25, 23, 23);
 
         for (int i = 1; i <= numTodos; i++) {
-            taskList.addTask(new ToDo("Todo " + i, i % 2 == 1));
+            taskList.addTask(new Todo("Todo " + i, i % 2 == 1));
         }
 
         for (int i = 1; i <= numEvents; i++) {
@@ -112,8 +112,8 @@ public class TaskListTest {
     @Test
     public void filter_tasksWithBookKeyword_success() {
         TaskList taskList = new TaskList();
-        taskList.addTask(new ToDo("Test Book 1", true));
-        taskList.addTask(new ToDo("Test todo 2", false));
+        taskList.addTask(new Todo("Test Book 1", true));
+        taskList.addTask(new Todo("Test todo 2", false));
         taskList.addTask(new Deadline("Test deadline 1",
                 LocalDateTime.of(2025, 12, 1, 1, 1), false));
         taskList.addTask(new Event("Test Book 1",

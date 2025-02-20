@@ -17,7 +17,7 @@ import olivero.commands.DeleteCommand;
 import olivero.commands.EventCommand;
 import olivero.commands.ListCommand;
 import olivero.commands.MarkCommand;
-import olivero.commands.ToDoCommand;
+import olivero.commands.TodoCommand;
 import olivero.commands.UnMarkCommand;
 import olivero.exceptions.CommandParseException;
 
@@ -91,7 +91,7 @@ public class ParserTest {
     public void parseCommand_validTodoFormat_success() {
         try {
             assertInstanceOf(
-                    ToDoCommand.class,
+                    TodoCommand.class,
                     new Parser().parseCommand("todo read book"));
         } catch (CommandParseException e) {
             fail();

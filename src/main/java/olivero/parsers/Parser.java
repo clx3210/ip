@@ -17,7 +17,7 @@ import olivero.parsers.commands.EventCommandParser;
 import olivero.parsers.commands.FindCommandParser;
 import olivero.parsers.commands.ListCommandParser;
 import olivero.parsers.commands.MarkCommandParser;
-import olivero.parsers.commands.ToDoCommandParser;
+import olivero.parsers.commands.TodoCommandParser;
 import olivero.parsers.commands.UnMarkCommandParser;
 
 /**
@@ -42,7 +42,7 @@ public class Parser {
         commandParsers.put(CommandType.FIND, new FindCommandParser());
         commandParsers.put(CommandType.LIST, new ListCommandParser());
         commandParsers.put(CommandType.MARK, new MarkCommandParser());
-        commandParsers.put(CommandType.TODO, new ToDoCommandParser());
+        commandParsers.put(CommandType.TODO, new TodoCommandParser());
         commandParsers.put(CommandType.UNMARK, new UnMarkCommandParser());
 
         // super important to ensure each command has a corresponding parser.

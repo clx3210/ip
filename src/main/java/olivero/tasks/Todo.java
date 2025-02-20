@@ -5,15 +5,15 @@ import olivero.parsers.tasks.TaskParseUtil;
 /**
  * Represents a Todo task.
  */
-public class ToDo extends Task {
+public class Todo extends Task {
 
     /**
-     * Constructs a ToDo task object containing the task description and completion status.
+     * Constructs a Todo task object containing the task description and completion status.
      *
-     * @param description The task description of the {@code ToDo} task.
-     * @param isDone The completion status of the {@code ToDo} task.
+     * @param description The task description of the {@code Todo} task.
+     * @param isDone The completion status of the {@code Todo} task.
      */
-    public ToDo(String description, boolean isDone) {
+    public Todo(String description, boolean isDone) {
         super(description, isDone);
     }
 
