@@ -1,6 +1,6 @@
 package olivero.tasks;
 
-import olivero.parsers.tasks.TaskParseUtils;
+import olivero.parsers.tasks.TaskParseUtil;
 
 /**
  * Represents a Todo task.
@@ -19,7 +19,7 @@ public class ToDo extends Task {
 
     @Override
     public String toFormattedString() {
-        return TaskParseUtils.formatTask(
+        return TaskParseUtil.formatTask(
                 TaskType.TODO.getValue(),
                 super.toFormattedString());
     }

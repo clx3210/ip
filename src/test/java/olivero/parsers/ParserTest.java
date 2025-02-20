@@ -1,5 +1,9 @@
 package olivero.parsers;
 
+import static olivero.parsers.ParserTestUtil.MESSAGE_DELETE_INVALID;
+import static olivero.parsers.ParserTestUtil.MESSAGE_EXPECTED_INVALID_INTEGER;
+import static olivero.parsers.ParserTestUtil.MESSAGE_MARK_INVALID;
+import static olivero.parsers.ParserTestUtil.MESSAGE_UNMARK_INVALID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -23,38 +27,7 @@ import olivero.exceptions.CommandParseException;
  */
 public class ParserTest {
 
-    private static final String MESSAGE_EXPECTED_INVALID_INTEGER = "Did you pass "
-            + "in a valid integer? Your input: %s";
 
-    private static final String MESSAGE_DELETE_INVALID = "Your delete command format is invalid..."
-            + System.lineSeparator()
-            + "Usages:"
-            + System.lineSeparator()
-            + "1. delete <taskNumber>"
-            + System.lineSeparator()
-            + "2. delete -m <taskNo 1> <taskNo 2> ... <taskNo K>"
-            + System.lineSeparator()
-            + "3. delete -m <startTaskNo>-<endTaskNo>";
-
-    private static final String MESSAGE_UNMARK_INVALID = "Your unmark command format is invalid..."
-            + System.lineSeparator()
-            + "Usages:"
-            + System.lineSeparator()
-            + "1. unmark <task number>"
-            + System.lineSeparator()
-            + "2. unmark -m <taskNo 1> <taskNo 2> ... <taskNo K>"
-            + System.lineSeparator()
-            + "3. unmark -m <startTaskNo>-<endTaskNo>";
-
-    private static final String MESSAGE_MARK_INVALID = "Your mark command format is invalid..."
-            + System.lineSeparator()
-            + "Usages:"
-            + System.lineSeparator()
-            + "1. mark <task number>"
-            + System.lineSeparator()
-            + "2. mark -m <taskNo 1> <taskNo 2> ... <taskNo K>"
-            + System.lineSeparator()
-            + "3. mark -m <startTaskNo>-<endTaskNo>";
     @Test
     public void parseCommand_unsupportedCommand_exceptionThrown() {
         String expected = "W-WHAT?! "

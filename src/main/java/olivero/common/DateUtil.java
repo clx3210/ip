@@ -11,7 +11,7 @@ import java.time.format.DateTimeParseException;
  * Provides utility members for datetime parsing, along with fixed formats
  * for datetime processing and displaying.
  */
-public final class DateUtils {
+public final class DateUtil {
 
 
 
@@ -23,7 +23,7 @@ public final class DateUtils {
     public static final DateTimeFormatter DISPLAY_DATE_FORMATTER = DateTimeFormatter
             .ofPattern("MMM dd yyyy HHmm");
 
-    private DateUtils() {
+    private DateUtil() {
     }
 
     /**

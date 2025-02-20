@@ -13,7 +13,7 @@ import olivero.tasks.ToDo;
 public class ToDoCommandParser extends CommandParser<ToDoCommand> {
 
     public static final Pattern TODO_COMMAND_FORMAT = Pattern.compile(" (?<description>.+)");
-    private ToDoCommand setupToDo(String description) throws CommandParseException {
+    private ToDoCommand setUpTodo(String description) throws CommandParseException {
         if (description.isBlank()) {
             throw new CommandParseException(
                     ToDoCommand.MESSAGE_EMPTY_DESCRIPTION,
@@ -32,6 +32,6 @@ public class ToDoCommandParser extends CommandParser<ToDoCommand> {
         }
 
         final String description = matcher.group("description");
-        return setupToDo(description);
+        return setUpTodo(description);
     }
 }

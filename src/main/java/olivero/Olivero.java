@@ -43,7 +43,7 @@ public class Olivero {
      *
      * @return A displayable message response after setting up.
      */
-    public String setupResources() {
+    public String setUpResources() {
         try {
             this.taskList = loadTaskList();
         } catch (StorageLoadException e) {

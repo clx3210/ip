@@ -6,7 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import olivero.commands.EventCommand;
-import olivero.common.DateUtils;
+import olivero.common.DateUtil;
 import olivero.common.Responses;
 import olivero.exceptions.CommandParseException;
 import olivero.tasks.Event;
@@ -17,14 +17,14 @@ import olivero.tasks.Event;
 public class EventCommandParser extends CommandParser<EventCommand> {
     public static final Pattern EVENT_COMMAND_FORMAT = Pattern.compile(
             " (?<description>.*) /from (?<fromDate>.*) /to (?<toDate>.*)");
-    private EventCommand setupEvent(String description, String fromDateString,
+    private EventCommand setUpEvent(String description, String fromDateString,
                                     String toDateString) throws CommandParseException {
         if (description.isBlank()) {
             throw new CommandParseException(EventCommand.MESSAGE_EMPTY_DESCRIPTION);
         }
         try {
-            LocalDateTime fromDate = DateUtils.parseInputDate(fromDateString);
-            LocalDateTime toDate = DateUtils.parseInputDate(toDateString);
+            LocalDateTime fromDate = DateUtil.parseInputDate(fromDateString);
+            LocalDateTime toDate = DateUtil.parseInputDate(toDateString);
 
             if (fromDate.isAfter(toDate)) {
                 throw new CommandParseException(Responses.RESPONSE_INVALID_DATE_ORDER);
@@ -48,6 +48,6 @@ public class EventCommandParser extends CommandParser<EventCommand> {
         final String description = matcher.group("description");
         final String fromDate = matcher.group("fromDate");
         final String toDate = matcher.group("toDate");
-        return setupEvent(description, fromDate, toDate);
+        return setUpEvent(description, fromDate, toDate);
     }
 }

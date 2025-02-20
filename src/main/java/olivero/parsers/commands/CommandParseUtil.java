@@ -9,7 +9,7 @@ import olivero.exceptions.CommandParseException;
 /**
  * Provides utility methods when parsing raw command user inputs.
  */
-public class CommandParseUtils {
+public class CommandParseUtil {
 
     /**
      * Parses a string into an integer.

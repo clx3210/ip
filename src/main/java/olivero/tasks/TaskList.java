@@ -144,7 +144,7 @@ public class TaskList {
      */
     @Override
     public String toString() {
-        return TaskUtils.toDisplayString(
+        return TaskUtil.toDisplayString(
                 tasks.stream()
                         .map(task -> new Pair<>(tasks.indexOf(task) + 1, task))
                         .collect(Collectors.toCollection(ArrayList::new)));

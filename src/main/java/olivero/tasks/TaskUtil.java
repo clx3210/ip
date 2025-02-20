@@ -7,7 +7,7 @@ import javafx.util.Pair;
 /**
  * Provides utility methods for tasks.
  */
-public final class TaskUtils {
+public final class TaskUtil {
 
     /**
      * Returns the list of tasks in their string representations

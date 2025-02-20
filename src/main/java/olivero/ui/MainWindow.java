@@ -43,13 +43,13 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setupOlivero(Olivero olivero) {
+    public void setUpOlivero(Olivero olivero) {
         this.olivero = olivero;
-        setupAndGreet();
+        setUpAndGreet();
     }
 
-    private void setupAndGreet() {
-        String initialMessage = this.olivero.setupResources();
+    private void setUpAndGreet() {
+        String initialMessage = this.olivero.setUpResources();
         dialogContainer
                 .getChildren()
                 .add(DialogBox.getOliveroDialog(initialMessage, oliveroImage));

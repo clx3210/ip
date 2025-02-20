@@ -1,5 +1,7 @@
 package olivero.tasks;
 
+import static olivero.tasks.TaskTestUtil.getExpectedFormattedString;
+import static olivero.tasks.TaskTestUtil.getExpectedTaskListString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -15,10 +17,7 @@ public class TaskListTest {
 
     @Test
     public void removeTaskAt_negativeTaskNumber_exceptionThrown() {
-        for (int i = -12; i < 0; i++) {
-            assertThrows(
-                    IllegalArgumentException.class, () -> new TaskList().removeTaskAt(-1));
-        }
+        assertThrows(IllegalArgumentException.class, () -> new TaskList().removeTaskAt(-1));
     }
 
     @Test
@@ -53,31 +52,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void addTask_fiveTasksAdded_success() {
-        TaskList taskList = new TaskList();
-        int taskCount = 5;
-        for (int i = 0; i < taskCount; i++) {
-            taskList.addTask(new ToDo("Test todo " + i, true));
-        }
-        assertEquals(taskCount, taskList.getTaskSize());
-    }
-
-    private String getExpectedFormattedString() {
-        return String.join(System.lineSeparator(),
-                "T | 0 | Todo 1",
-                "T | 1 | Todo 2",
-                "T | 0 | Todo 3",
-                "E | 0 | Event 1 | 2028-1-25 2323 | 2028-2-25 2323",
-                "E | 1 | Event 2 | 2028-1-25 2323 | 2028-2-25 2323",
-                "E | 0 | Event 3 | 2028-1-25 2323 | 2028-2-25 2323",
-                "E | 1 | Event 4 | 2028-1-25 2323 | 2028-2-25 2323",
-                "E | 0 | Event 5 | 2028-1-25 2323 | 2028-2-25 2323",
-                "D | 0 | Deadline 1 | 2028-1-25 2323",
-                "D | 1 | Deadline 2 | 2028-1-25 2323");
-    }
-
-    @Test
-    public void asFormattedString_threeTodosFiveEventsTwoDeadlinesAdded_success() {
+    public void serialiseTasks_addTodoEventDeadlineTasks_success() {
         String expected = getExpectedFormattedString();
         TaskList taskList = new TaskList();
 
@@ -103,45 +78,13 @@ public class TaskListTest {
     }
 
     @Test
-    public void asFormattedString_emptyTaskListReturnsEmptyFormattedString_success() {
+    public void serialiseTasks_emptyTaskList_success() {
         TaskList taskList = new TaskList();
         assertEquals("", taskList.serialiseTasks());
     }
 
     @Test
-    public void asFormattedString_taskListWithOneTaskCorrectFormat_success() {
-        String expected = "E | 1 | Event 1 | 2028-1-25 2323 | 2028-2-25 2323";
-
-        TaskList taskList = new TaskList();
-
-        LocalDateTime start = LocalDateTime.of(2028, 1, 25, 23, 23);
-        LocalDateTime end = LocalDateTime.of(2028, 2, 25, 23, 23);
-
-        taskList.addTask(new Event("Event 1", start, end, true));
-
-        assertEquals(expected, taskList.serialiseTasks());
-    }
-
-    private String getExpectedTaskListString() {
-        return String.join(System.lineSeparator(),
-                "1. [T][X] Todo 1",
-                "2. [T][ ] Todo 2",
-                "3. [T][X] Todo 3",
-                "4. [E][X] Event 1 (from: Jan 25 2028 2323 to: Feb 25 2028 2323)",
-                "5. [E][ ] Event 2 (from: Jan 25 2028 2323 to: Feb 25 2028 2323)",
-                "6. [E][X] Event 3 (from: Jan 25 2028 2323 to: Feb 25 2028 2323)",
-                "7. [E][ ] Event 4 (from: Jan 25 2028 2323 to: Feb 25 2028 2323)",
-                "8. [E][X] Event 5 (from: Jan 25 2028 2323 to: Feb 25 2028 2323)",
-                "9. [D][ ] Deadline 1 (by: Jan 25 2028 2323)",
-                "10. [D][X] Deadline 2 (by: Jan 25 2028 2323)",
-                "11. [D][ ] Deadline 3 (by: Jan 25 2028 2323)",
-                "12. [D][X] Deadline 4 (by: Jan 25 2028 2323)",
-                "13. [D][ ] Deadline 5 (by: Jan 25 2028 2323)",
-                "14. [D][X] Deadline 6 (by: Jan 25 2028 2323)");
-    }
-
-    @Test
-    public void toString_taskListWithMultipleTasksCorrectString_success() {
+    public void toString_multipleTasksInTaskList_success() {
         String expected = getExpectedTaskListString();
         TaskList taskList = new TaskList();
 

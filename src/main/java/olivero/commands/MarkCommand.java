@@ -11,7 +11,7 @@ import olivero.exceptions.StorageSaveException;
 import olivero.storage.Storage;
 import olivero.tasks.Task;
 import olivero.tasks.TaskList;
-import olivero.tasks.TaskUtils;
+import olivero.tasks.TaskUtil;
 
 /**
  * Marks a single or range of task(s) as done.
@@ -70,7 +70,7 @@ public class MarkCommand extends Command {
         assert storage != null;
         try {
             int taskSize = tasks.getTaskSize();
-            CommandUtils.validateTaskNumbers(taskNumbers, taskSize);
+            CommandUtil.validateTaskNumbers(taskNumbers, taskSize);
 
             for (int taskNumber : taskNumbers) {
                 tasks.markTaskAt(taskNumber);
@@ -81,7 +81,7 @@ public class MarkCommand extends Command {
             storage.save(tasks);
 
             return new CommandResult(
-                    String.format(RESPONSE_SUCCESS, TaskUtils.toDisplayString(affectedTasks)));
+                    String.format(RESPONSE_SUCCESS, TaskUtil.toDisplayString(affectedTasks)));
         } catch (StorageSaveException e) {
             throw new CommandExecutionException(Responses.RESPONSE_SAVE_FILE_FAILED);
         }

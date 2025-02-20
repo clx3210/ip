@@ -24,9 +24,9 @@ public class MarkCommandParser extends CommandParser<MarkCommand> {
                 MarkCommand.MESSAGE_USAGE);
     }
 
-    private MarkCommand setupMark(Matcher matcher) throws CommandParseException {
+    private MarkCommand setUpMark(Matcher matcher) throws CommandParseException {
         final String taskNumberString = matcher.group("taskNumber").strip();
-        int taskNumber = CommandParseUtils.parseInteger(taskNumberString);
+        int taskNumber = CommandParseUtil.parseInteger(taskNumberString);
 
         return new MarkCommand(taskNumber);
     }
@@ -43,7 +43,7 @@ public class MarkCommandParser extends CommandParser<MarkCommand> {
                     MarkCommand.MESSAGE_USAGE);
         }
         if (isSingleMark) {
-            return setupMark(matcher);
+            return setUpMark(matcher);
         } else {
             return new MarkCommand(massOpsParser.parse(arguments));
         }
