@@ -7,7 +7,7 @@ import olivero.exceptions.UnsupportedCommandException;
  */
 public enum CommandType {
 
-    /** ToDo command type. */
+    /** Todo command type. */
     TODO("todo"),
 
     /** Deadline command type. */

@@ -5,7 +5,7 @@ import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import olivero.common.DateUtils;
+import olivero.common.DateUtil;
 import olivero.exceptions.TaskParseException;
 import olivero.tasks.Event;
 
@@ -48,8 +48,8 @@ public class EventParser extends TaskParser<Event> {
                     : "isDoneString should be 0 or 1";
 
             boolean isDone = isDoneString.equals(TASK_DONE);
-            LocalDateTime startDate = DateUtils.parseInputDate(startDateString);
-            LocalDateTime endDate = DateUtils.parseInputDate(endDateString);
+            LocalDateTime startDate = DateUtil.parseInputDate(startDateString);
+            LocalDateTime endDate = DateUtil.parseInputDate(endDateString);
 
             if (startDate.isAfter(endDate)) {
                 throw new TaskParseException(ERROR_INVALID_DATE_ORDER);

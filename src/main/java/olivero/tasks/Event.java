@@ -2,8 +2,8 @@ package olivero.tasks;
 
 import java.time.LocalDateTime;
 
-import olivero.common.DateUtils;
-import olivero.parsers.tasks.TaskParseUtils;
+import olivero.common.DateUtil;
+import olivero.parsers.tasks.TaskParseUtil;
 
 /**
  * Represents an Event task.
@@ -29,8 +29,8 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        String endDateString = DateUtils.formatForDisplay(endDate);
-        String startDateString = DateUtils.formatForDisplay(startDate);
+        String endDateString = DateUtil.formatForDisplay(endDate);
+        String startDateString = DateUtil.formatForDisplay(startDate);
 
         return "[" + TaskType.EVENT.getValue() + "]" + super.toString() + " (from: " + startDateString
                 + " to: " + endDateString + ")";
@@ -38,10 +38,10 @@ public class Event extends Task {
 
     @Override
     public String toFormattedString() {
-        String startDateString = DateUtils.formatForInput(startDate);
-        String endDateString = DateUtils.formatForInput(endDate);
+        String startDateString = DateUtil.formatForInput(startDate);
+        String endDateString = DateUtil.formatForInput(endDate);
 
-        return TaskParseUtils.formatTask(
+        return TaskParseUtil.formatTask(
                 TaskType.EVENT.getValue(),
                 super.toFormattedString(),
                 startDateString,

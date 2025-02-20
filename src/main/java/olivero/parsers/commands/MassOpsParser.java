@@ -46,8 +46,8 @@ public class MassOpsParser {
         String startTaskNumberString = matcher.group("startTaskNumber").trim();
         String endTaskNumberString = matcher.group("endTaskNumber").trim();
 
-        int startTaskNumber = CommandParseUtils.parseInteger(startTaskNumberString);
-        int endTaskNumber = CommandParseUtils.parseInteger(endTaskNumberString);
+        int startTaskNumber = CommandParseUtil.parseInteger(startTaskNumberString);
+        int endTaskNumber = CommandParseUtil.parseInteger(endTaskNumberString);
 
         // Start task number cannot be greater than end task number.
         if (startTaskNumber > endTaskNumber) {
@@ -70,7 +70,7 @@ public class MassOpsParser {
 
     private Set<Integer> parseMassTaskNumbers(Matcher matcher) throws CommandParseException {
         String taskNumbersString = matcher.group("taskNumbers").trim();
-        List<Integer> taskNumberList = CommandParseUtils.parseIntegers(
+        List<Integer> taskNumberList = CommandParseUtil.parseIntegers(
                 Arrays.asList(taskNumbersString.split("\\s+")));
         Set<Integer> taskNumbers = new HashSet<>(taskNumberList);
 

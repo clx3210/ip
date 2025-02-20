@@ -6,7 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import olivero.commands.DeadlineCommand;
-import olivero.common.DateUtils;
+import olivero.common.DateUtil;
 import olivero.common.Responses;
 import olivero.exceptions.CommandParseException;
 import olivero.tasks.Deadline;
@@ -17,14 +17,14 @@ import olivero.tasks.Deadline;
 public class DeadlineCommandParser extends CommandParser<DeadlineCommand> {
     public static final Pattern DEADLINE_ARGUMENT_FORMAT = Pattern.compile(
             " (?<description>.*) /by (?<endDate>.*)");
-    private DeadlineCommand setupDeadline(String description, String endDateString) throws CommandParseException {
+    private DeadlineCommand setUpDeadline(String description, String endDateString) throws CommandParseException {
         if (description.isBlank()) {
             throw new CommandParseException(DeadlineCommand.MESSAGE_EMPTY_DESCRIPTION);
         }
 
         LocalDateTime endDate;
         try {
-            endDate = DateUtils.parseInputDate(endDateString);
+            endDate = DateUtil.parseInputDate(endDateString);
         } catch (DateTimeParseException e) {
             throw new CommandParseException(Responses.RESPONSE_INVALID_DATE_FORMAT);
         }
@@ -44,6 +44,6 @@ public class DeadlineCommandParser extends CommandParser<DeadlineCommand> {
         final String description = matcher.group("description");
         final String endDate = matcher.group("endDate");
 
-        return setupDeadline(description, endDate);
+        return setUpDeadline(description, endDate);
     }
 }

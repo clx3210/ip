@@ -8,7 +8,7 @@ import olivero.exceptions.CommandExecutionException;
 /**
  * Provides utility methods executing commands.
  */
-public final class CommandUtils {
+public final class CommandUtil {
     /**
      * Validates that the task number is within the valid range between 0 and taskListSize - 1.
      *

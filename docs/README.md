@@ -8,11 +8,12 @@ If you can type fast, Olivero can get your task management done faster than trad
 ## Quick start
 
 Prerequisites: Java 17 installed in your Computer.<br>
-**Mac users:** Ensure you have the precise JDK version specified in the CS2103T website.
+**Mac users:** Ensure you have the precise JDK version specified [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
 1. Download the latest `olivero.jar` from [here](https://github.com/clx3210/ip/releases)
-2. Open your terminal and navigate to the directory where `olivero.jar` is located.
-3. Run the command `java -jar olivero.jar` to start the application.
+2. Copy the `olivero.jar` file to the folder you want to use as the *home folder* for your chatbot.
+3. Open your terminal and navigate (`cd`) to the directory where `olivero.jar` is located.
+4. Run the command `java -jar olivero.jar` to start the application.
 
 
 ## Adding todos `todo`
@@ -149,8 +150,9 @@ Here are the tasks in your list:
 
 ## Deleting tasks `delete`
 
-Gets Olivero to delete task(s) from the task list.
-Up to 100 tasks can be deleted in 1 such command.
+Gets Olivero to delete task(s) from the task list. <br>
+- Up to 100 tasks can be deleted in 1 such command.
+- The task numbers **must be positive integers** 1, 2, 3, ...
 
 ### Formats:
 
@@ -210,8 +212,9 @@ Now you have 0 task(s) in the list.
 ## Marking tasks as done `mark`
 
 Gets olivero to mark task(s) on the task list as done.
-Up to 100 tasks can be marked in 1 such command.
-Marking an already marked task has no effect on that task.
+- Up to 100 tasks can be marked in 1 such command.
+- Marking an already marked task has no effect on that task.
+- The task numbers **must be positive integers** 1, 2, 3, ...
 
 ### Formats:
 
@@ -272,8 +275,9 @@ Cool! I've marked the following task(s) as done:
 ## Marking tasks as undone/incomplete `unmark`
 
 Marks task(s) on the task list as undone/incomplete.
-Up to 100 tasks can be unmarked in 1 such command.
-Unmarking an already unmarked task has no effect.
+- Up to 100 tasks can be unmarked in 1 such command.
+- Unmarking an already unmarked task has no effect.
+- The task numbers **must be positive integers** 1, 2, 3, ...
 
 ### Formats:
 1. Single unmark: `unmark <TASK_NUMBER>`
@@ -304,7 +308,7 @@ Alright! I've un-marked the following task(s):
 
 Input (multiple unmark):
 
-`unmark 1 3 5`
+`unmark -m 1 3 5`
 
 Expected Output:
 
@@ -317,7 +321,7 @@ Alright! I've un-marked the following task(s):
 
 Input (range unmark):
 
-`unmark 1-5`
+`unmark -m 1-5`
 
 Expected Output:
 
@@ -374,21 +378,11 @@ Here are the matching tasks in your list:
 
 ## Exiting the program `bye`
 
-Closes Olivero.
+Closes Olivero and exits.
 
 ### Format:
 
 `bye`
-
-### Examples:
-
-Input:
-
-`bye`
-
-Expected:
-
-Application closes, no output shown to user.
 
 ## Saving data
 
@@ -396,3 +390,5 @@ Olivero will attempt to save all task list data in the hard disk
 automatically after any command which modifies the data.
 Manual saving is not required.
 
+## Some Notes
+1. The special character "|" should not be used inside task descriptions.

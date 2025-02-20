@@ -6,7 +6,7 @@ import static olivero.parsers.tasks.TaskParser.SEPARATOR_TOKEN;
 /**
  * Provides utility methods for encoding and decoding tasks.
  */
-public final class TaskParseUtils {
+public final class TaskParseUtil {
 
     /**
      * Returns the String representation of the done status of a task.

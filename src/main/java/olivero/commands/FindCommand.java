@@ -6,7 +6,7 @@ import javafx.util.Pair;
 import olivero.storage.Storage;
 import olivero.tasks.Task;
 import olivero.tasks.TaskList;
-import olivero.tasks.TaskUtils;
+import olivero.tasks.TaskUtil;
 
 /**
  * Finds all tasks with description containing the specified keyword.
@@ -42,7 +42,7 @@ public class FindCommand extends Command {
         assert keyword != null;
         List<Pair<Integer, Task>> filteredList = tasks
                 .filter((index, task)-> task.getDescription().contains(keyword));
-        return new CommandResult(String.format(RESPONSE_SUCCESS, TaskUtils.toDisplayString(filteredList)));
+        return new CommandResult(String.format(RESPONSE_SUCCESS, TaskUtil.toDisplayString(filteredList)));
     }
 
 }

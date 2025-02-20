@@ -26,13 +26,13 @@ public class DeleteCommandParser extends CommandParser<DeleteCommand> {
                 DeleteCommand.MESSAGE_USAGE);
     }
 
-    private DeleteCommand setupSingleDelete(Matcher matcher) throws CommandParseException {
+    private DeleteCommand setUpSingleDelete(Matcher matcher) throws CommandParseException {
         String taskNumberString = matcher.group("taskNumber").trim();
-        int taskNumber = CommandParseUtils.parseInteger(taskNumberString);
+        int taskNumber = CommandParseUtil.parseInteger(taskNumberString);
         return new DeleteCommand(taskNumber);
     }
 
-    private DeleteCommand setupMassDelete(String arguments) throws CommandParseException {
+    private DeleteCommand setUpMassDelete(String arguments) throws CommandParseException {
         return new DeleteCommand(massOpsParser.parse(arguments));
     }
 
@@ -51,9 +51,9 @@ public class DeleteCommandParser extends CommandParser<DeleteCommand> {
         }
 
         if (isSingleDelete) {
-            return setupSingleDelete(matcher);
+            return setUpSingleDelete(matcher);
         } else {
-            return setupMassDelete(arguments);
+            return setUpMassDelete(arguments);
         }
     }
 }

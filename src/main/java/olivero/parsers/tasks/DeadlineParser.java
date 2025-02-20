@@ -5,7 +5,7 @@ import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import olivero.common.DateUtils;
+import olivero.common.DateUtil;
 import olivero.exceptions.TaskParseException;
 import olivero.tasks.Deadline;
 
@@ -38,7 +38,7 @@ public class DeadlineParser extends TaskParser<Deadline> {
                     : "isDoneString should be 0 or 1";
 
             boolean isDone = isDoneString.equals(TASK_DONE);
-            LocalDateTime endDate = DateUtils.parseInputDate(byDateString);
+            LocalDateTime endDate = DateUtil.parseInputDate(byDateString);
             return new Deadline(description, endDate, isDone);
         } catch (DateTimeParseException e) {
             throw new TaskParseException(MESSAGE_INVALID_DATE_FORMAT);

@@ -24,13 +24,13 @@ public class UnMarkCommandParser extends CommandParser<UnMarkCommand> {
                 UnMarkCommand.MESSAGE_USAGE);
     }
 
-    private UnMarkCommand setupSingleUnmark(Matcher matcher) throws CommandParseException {
+    private UnMarkCommand setUpSingleUnmark(Matcher matcher) throws CommandParseException {
         final String taskNumberString = matcher.group("taskNumber");
-        int taskNumber = CommandParseUtils.parseInteger(taskNumberString);
+        int taskNumber = CommandParseUtil.parseInteger(taskNumberString);
         return new UnMarkCommand(taskNumber);
     }
 
-    private UnMarkCommand setupMassUnmark(String arguments) throws CommandParseException {
+    private UnMarkCommand setUpMassUnmark(String arguments) throws CommandParseException {
         return new UnMarkCommand(massOpsParser.parse(arguments));
     }
     @Override
@@ -45,9 +45,9 @@ public class UnMarkCommandParser extends CommandParser<UnMarkCommand> {
                     UnMarkCommand.MESSAGE_USAGE);
         }
         if (isSingleUnmark) {
-            return setupSingleUnmark(matcher);
+            return setUpSingleUnmark(matcher);
         } else {
-            return setupMassUnmark(arguments);
+            return setUpMassUnmark(arguments);
         }
     }
 }
