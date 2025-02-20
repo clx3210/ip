@@ -14,7 +14,7 @@ public class DeadlineCommand extends Command {
 
     /** Usage information for the deadline command. */
     public static final String MESSAGE_USAGE = "Example usage: "
-            + "deadline <description> /by <start date>";
+            + "deadline <non-empty-description> /by <start date>";
 
     public static final String MESSAGE_INVALID_FORMAT = "Your "
             + "deadline command format is invalid...";

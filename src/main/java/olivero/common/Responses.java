@@ -49,6 +49,9 @@ public final class Responses {
     public static final String RESPONSE_INVALID_TASK_NUMBER = "No task with "
             + "task number %d exists..";
 
+    public static final String RESPONSE_ILLEGAL_TASK_DESCRIPTION = "Task description should not contain "
+            + "the following characters: %s";
+
     public static final String MESSAGE_DUPLICATE_TASK_NUMBER = "Duplicate task numbers are not allowed!";
     public static final String MESSAGE_INVALID_TASK_RANGE = "Invalid task number range specified!";
 }

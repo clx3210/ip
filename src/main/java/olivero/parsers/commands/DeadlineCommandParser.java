@@ -18,9 +18,7 @@ public class DeadlineCommandParser extends CommandParser<DeadlineCommand> {
     public static final Pattern DEADLINE_ARGUMENT_FORMAT = Pattern.compile(
             " (?<description>.*) /by (?<endDate>.*)");
     private DeadlineCommand setUpDeadline(String description, String endDateString) throws CommandParseException {
-        if (description.isBlank()) {
-            throw new CommandParseException(DeadlineCommand.MESSAGE_EMPTY_DESCRIPTION);
-        }
+        CommandParseUtil.validateTaskDescription(description, DeadlineCommand.MESSAGE_EMPTY_DESCRIPTION);
 
         LocalDateTime endDate;
         try {

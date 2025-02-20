@@ -58,7 +58,7 @@ public class Parser {
      * @throws CommandParseException If the user input is invalid and cannot be parsed.
      */
     public Command parseCommand(String rawInput) throws CommandParseException {
-        final Matcher matcher = COMMAND_FORMAT.matcher(rawInput.trim());
+        final Matcher matcher = COMMAND_FORMAT.matcher(rawInput);
         if (!matcher.matches()) {
             throw new CommandParseException(Responses.RESPONSE_UNKNOWN_COMMAND);
         }

@@ -18,7 +18,7 @@ import olivero.tasks.TaskUtil;
  */
 public class UnMarkCommand extends Command {
 
-    public static final String RESPONSE_SUCCESS = "Alright, I've un-marked the following task(s):"
+    public static final String RESPONSE_SUCCESS = "Alright! I've un-marked the following task(s):"
             + System.lineSeparator()
             + "%s";
 

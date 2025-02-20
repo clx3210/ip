@@ -5,6 +5,7 @@ import java.util.List;
 
 import olivero.common.Responses;
 import olivero.exceptions.CommandParseException;
+import olivero.parsers.tasks.TaskParser;
 
 /**
  * Provides utility methods when parsing raw command user inputs.
@@ -42,6 +43,26 @@ public class CommandParseUtil {
             parsedIntegers.add(parseInteger(rawInt));
         }
         return parsedIntegers;
+    }
+
+    /**
+     * Validates a task description.
+     *
+     * @param description The task description to be validated.
+     * @param emptyDescriptionResponse The response to show in the exception if the description is empty.
+     * @throws CommandParseException If the task description is empty or contains reserved characters.
+     */
+    public static void validateTaskDescription(
+            String description,
+            String emptyDescriptionResponse) throws CommandParseException {
+        if (description.isBlank()) {
+            throw new CommandParseException(emptyDescriptionResponse);
+        }
+        if (description.contains(TaskParser.RESERVED_TOKEN)) {
+            throw new CommandParseException(
+                    String.format(Responses.RESPONSE_ILLEGAL_TASK_DESCRIPTION,
+                            TaskParser.RESERVED_TOKEN));
+        }
     }
 
 }

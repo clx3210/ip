@@ -14,7 +14,7 @@ public class EventCommand extends Command {
 
 
     /** Usage information for the event command. */
-    public static final String MESSAGE_USAGE = "Example usage: event <description> "
+    public static final String MESSAGE_USAGE = "Example usage: event <non-empty-description> "
             + "/from <start date: YYYY-M-d Hmm> /to <end date: YYYY-M-d Hmm>";
 
     /** Display message for an empty event description. */

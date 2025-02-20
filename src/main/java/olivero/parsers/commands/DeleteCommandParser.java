@@ -13,7 +13,7 @@ import olivero.exceptions.CommandParseException;
  */
 public class DeleteCommandParser extends CommandParser<DeleteCommand> {
 
-    private static final Pattern DELETE_COMMAND_FORMAT = Pattern.compile(" (?<taskNumber>\\d*)");
+    private static final Pattern DELETE_COMMAND_FORMAT = Pattern.compile("^\\s(?!-m)(?<taskNumber>.*)");
 
     private final MassOpsParser massOpsParser;
 

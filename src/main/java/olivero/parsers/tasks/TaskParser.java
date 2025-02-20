@@ -10,6 +10,8 @@ import olivero.tasks.Task;
  */
 public abstract class TaskParser<T extends Task> {
 
+    public static final String RESERVED_TOKEN = "|";
+
     /** Regexes for ' | ' during parsing. */
     protected static final String SEPARATOR_REGEX = "\\s\\|\\s";
 

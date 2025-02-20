@@ -11,7 +11,7 @@ import olivero.exceptions.CommandParseException;
  */
 public class MarkCommandParser extends CommandParser<MarkCommand> {
 
-    public static final Pattern MARK_COMMAND_FORMAT = Pattern.compile(" (?<taskNumber>\\d*)");
+    public static final Pattern MARK_COMMAND_FORMAT = Pattern.compile("^\\s(?!-m)(?<taskNumber>.*)");
 
     private final MassOpsParser massOpsParser;
 
@@ -25,7 +25,7 @@ public class MarkCommandParser extends CommandParser<MarkCommand> {
     }
 
     private MarkCommand setUpMark(Matcher matcher) throws CommandParseException {
-        final String taskNumberString = matcher.group("taskNumber").strip();
+        final String taskNumberString = matcher.group("taskNumber").trim();
         int taskNumber = CommandParseUtil.parseInteger(taskNumberString);
 
         return new MarkCommand(taskNumber);

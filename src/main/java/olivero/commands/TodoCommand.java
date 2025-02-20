@@ -14,7 +14,7 @@ public class TodoCommand extends Command {
 
 
     /** Usage information for the todo command. */
-    public static final String MESSAGE_USAGE = "Usage: todo <description>";
+    public static final String MESSAGE_USAGE = "Usage: todo <non-empty-description>";
 
     public static final String MESSAGE_INVALID_FORMAT = "Your todo command format is invalid...";
 

@@ -11,7 +11,7 @@ import olivero.exceptions.CommandParseException;
  */
 public class UnMarkCommandParser extends CommandParser<UnMarkCommand> {
 
-    public static final Pattern UNMARK_COMMAND_FORMAT = Pattern.compile(" (?<taskNumber>\\d*)");
+    public static final Pattern UNMARK_COMMAND_FORMAT = Pattern.compile("^\\s(?!-m)(?<taskNumber>.*)");
 
     private final MassOpsParser massOpsParser;
 
@@ -25,7 +25,7 @@ public class UnMarkCommandParser extends CommandParser<UnMarkCommand> {
     }
 
     private UnMarkCommand setUpSingleUnmark(Matcher matcher) throws CommandParseException {
-        final String taskNumberString = matcher.group("taskNumber");
+        final String taskNumberString = matcher.group("taskNumber").trim();
         int taskNumber = CommandParseUtil.parseInteger(taskNumberString);
         return new UnMarkCommand(taskNumber);
     }

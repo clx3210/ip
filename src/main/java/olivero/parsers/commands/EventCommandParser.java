@@ -19,9 +19,7 @@ public class EventCommandParser extends CommandParser<EventCommand> {
             " (?<description>.*) /from (?<fromDate>.*) /to (?<toDate>.*)");
     private EventCommand setUpEvent(String description, String fromDateString,
                                     String toDateString) throws CommandParseException {
-        if (description.isBlank()) {
-            throw new CommandParseException(EventCommand.MESSAGE_EMPTY_DESCRIPTION);
-        }
+        CommandParseUtil.validateTaskDescription(description, EventCommand.MESSAGE_EMPTY_DESCRIPTION);
         try {
             LocalDateTime fromDate = DateUtil.parseInputDate(fromDateString);
             LocalDateTime toDate = DateUtil.parseInputDate(toDateString);
