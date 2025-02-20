@@ -23,6 +23,7 @@ Gets Olivero to add a todo task to your task list.
 ### Format:
 
 `todo <TASK_DESCRIPTION>`
+- Task descriptions should be non-empty.
 
 ### Examples:
 
@@ -57,6 +58,7 @@ Gets Olivero to add a deadline task to your task list.
 ### Format:
 
 `deadline <TASK_DESCRIPTION> /by <yyyy-mm-dd HHmm>`
+- Task descriptions should be non-empty.
 
 ### Examples:
 
@@ -89,6 +91,7 @@ Gets Olivero to add an event task to your task list.
 ### Format:
 
 `event <TASK_DESCRIPTION> /from <yyyy-mm-dd HHmm> /to <yyyy-mm-dd HHmm>`
+- Task descriptions should be non-empty.
 
 ### Examples:
 
@@ -391,4 +394,6 @@ automatically after any command which modifies the data.
 Manual saving is not required.
 
 ## Some Notes
-1. The special character "|" should not be used inside task descriptions.
+1. The special character <code>&#124;</code> should not be used inside task descriptions, otherwise file saving may be corrupted.
+2. Task descriptions should not be blank or empty.
+3. 1-character space separators should be followed when typing the commands. 
