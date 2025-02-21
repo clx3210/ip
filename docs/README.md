@@ -1,6 +1,6 @@
 # Olivero User Guide
 
-![Product Screenshot](https://github.com/clx3210/ip/blob/master/docs/Ui.png)
+![Product Screenshot](Ui.png)
 
 **Olivero** is an *angry-penguin-inspired* chatbot that helps you keep track of your tasks. 
 If you can type fast, Olivero can get your task management done faster than traditional GUI apps!!!!
