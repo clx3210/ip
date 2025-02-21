@@ -57,8 +57,9 @@ Gets Olivero to add a deadline task to your task list.
 
 ### Format:
 
-`deadline <TASK_DESCRIPTION> /by <yyyy-mm-dd HHmm>`
+`deadline <TASK_DESCRIPTION> /by <DATE>`
 - Task descriptions should be non-empty.
+- <DATE> has the format: yyyy-mm-dd HHmm
 
 ### Examples:
 
@@ -90,8 +91,9 @@ Gets Olivero to add an event task to your task list.
 
 ### Format:
 
-`event <TASK_DESCRIPTION> /from <yyyy-mm-dd HHmm> /to <yyyy-mm-dd HHmm>`
+`event <TASK_DESCRIPTION> /from <START_DATE> /to <END_DATE>`
 - Task descriptions should be non-empty.
+- <START_DATE> and <END_DATE> have the format: yyyy-mm-dd HHmm
 
 ### Examples:
 
