@@ -400,4 +400,4 @@ Manual saving is not required.
 1. The special character <code>&#124;</code> is reserved and should not be used inside task descriptions
 2. Task descriptions should not be blank or empty
 3. 1-character space separators should be followed when typing the commands
-4. For consecutive range operations (e.g. `mark -m <start>-<end>`), the `<start>` integer should be **at most** `<end>`.
+4. For consecutive range operations (e.g. `mark -m <start>-<end>`), the `<start>` integer should be **at most** `<end>`
